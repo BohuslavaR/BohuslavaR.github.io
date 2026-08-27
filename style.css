@@ -276,17 +276,10 @@ nav a:hover::after, nav a.active::after{width:100%;}
 
 /* ============================================================
    10. GALÉRIE (Photography aj Graphic Design) + Lightbox
-   ------------------------------------------------------------
-   DÔLEŽITÉ: Photography aj Graphic Design používajú TIE ISTÉ
-   CSS triedy aj ten istý JS mechanizmus (pozri script.js →
-   initCategoryGallery). Obe sekcie preto vyzerajú a fungujú
-   technicky úplne rovnako: výber kategórie -> veľká fotka
-   s popisom -> malé fotky -> lightbox s posúvaním.
    ============================================================ */
 .gallery-section h2{font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:0.5rem;}
 .gallery-section > p.lead{font-weight:300; color:var(--muted); max-width:58ch; margin-bottom:2rem;}
 
-/* --- Krok 1: výber kategórie (4 klikateľné karty) --- */
 .cat-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:1.1rem;}
 .cat-card{
   aspect-ratio:4/3; border-radius:8px; border:1px solid var(--line);
@@ -301,17 +294,7 @@ nav a:hover::after, nav a.active::after{width:100%;}
 .cat-card-img{width:112px; height:88px; border-radius:8px;}
 .cat-card-title{font-weight:600; font-size:0.95rem;}
 
-/* ------------------------------------------------------------
-   OBRÁZKOVÉ PLACEHOLDERY ("img-slot") — univerzálna náhrada za
-   emoji ikonky všade na stránke OKREM sekcie About (tá si svoje
-   emoji ikonky ponecháva zámerne, na želanie klientky).
-   Ako to funguje: <img> má za src textový placeholder (napr.
-   "PASTE_IMAGE_URL_HERE_1"), ktorý nie je platná URL adresa —
-   prehliadač preto vyhodí "error" a onerror atribút v HTML/JS
-   schová <img> a zobrazí susedný .img-fallback (bodkovaný rámik
-   s nápisom "IMG"). Keď sa src nahradí reálnou URL adresou
-   obrázka, fotka sa jednoducho zobrazí a fallback zmizne sám.
-   ------------------------------------------------------------ */
+
 .img-slot{
   display:inline-flex; align-items:center; justify-content:center;
   overflow:hidden; flex-shrink:0; background:rgba(255,255,255,0.05);
@@ -324,14 +307,15 @@ nav a:hover::after, nav a.active::after{width:100%;}
   color:var(--muted); background:rgba(255,255,255,0.04); padding:2px; line-height:1.15;
 }
 
-/* --- Krok 2: detail kategórie — veľká fotka + popis + malé fotky --- */
 .category-detail{margin-top:0.4rem;}
 .back-link{
   display:inline-flex; align-items:center; gap:0.4rem;
-  font-family:var(--font-main); font-weight:500; font-size:0.85rem;
-  color:var(--muted); background:none; border:none; cursor:pointer; margin-bottom:1.5rem; padding:0;
+  font-family:var(--font-main); font-weight:600; font-size:0.85rem;
+  color:var(--text); background:rgba(255,255,255,0.05);
+  border:1px solid var(--line); border-radius:20px; cursor:pointer;
+  margin-bottom:1.5rem; padding:8px 16px; transition:border-color .2s, background .2s, color .2s;
 }
-.back-link:hover{color:var(--accent);}
+.back-link:hover{color:var(--accent); border-color:var(--accent); background:rgba(255,255,255,0.09);}
 .cat-hero{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:2rem; align-items:center; margin-bottom:2rem; }
 .cat-hero-image{aspect-ratio:4/3; margin:0;}
 .cat-hero-copy h3{font-size:1.5rem; margin-bottom:0.6rem;}
