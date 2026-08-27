@@ -1,0 +1,576 @@
+/* ==================================================================
+   STYLE.CSS — Bohuslava Rozsypalová — Portfolio & CV
+   ------------------------------------------------------------------
+   Obsah :
+     1  Premenné — farebná paleta a písmo
+     2  Scroll kontajner (efekt "slide" cez scroll-snap)
+     3  Farby jednotlivých sekcií (striedanie tmavá/svetlá téma)
+     4  Pipeline — vertikálna značka vľavo
+     5  Hlavička a navigácia
+     6  Home (hero)
+     7  Scroll tlačidlo + "späť hore"
+     8  About
+     9  Motto (scratch-to-reveal)
+     10 Galérie (Photography aj Graphic Design — rovnaký mechanizmus)
+     11 Type & Color specimen
+     12 Pexeso (memory game)
+     13 CV
+     14 Kontakt
+     15 Všeobecné (animácie, focus)
+     16 Responzivita
+   ================================================================== */
+
+/* ============================================================
+   1. ZÁKLADNÉ PREMENNÉ — farebná paleta "Dusk Horizon" 
+   ============================================================ */
+:root{
+  /* --- Farebná paleta "Dusk Horizon" --- */
+  --ink:#050511;       
+  --plum:#311B2F;       
+  --mauve:#6B354C;      
+  --terracotta:#933A3C; 
+  --coral:#D26661;       
+  --mist:#F5E3F3;       
+  --peach:#F2D1D0;     
+
+  /* --- Písmo: Montserrat + zálohy Roboto / Helvetica / Arial --- */
+  --font-main: 'Montserrat', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* --- Predvolená (fallback) téma sekcie  --- */
+  --bg: var(--ink);
+  --text: var(--mist);
+  --muted: var(--coral);
+  --accent: var(--coral);
+  --btn-text: var(--ink);
+  --line: rgba(245,227,243,0.16);
+  --radius: 4px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-main);
+  font-weight:400; /* Regular  */
+  background:var(--ink);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+/* Nadpisy — Montserrat Bold/ExtraBold*/
+h1,h2,h3{font-family:var(--font-main); letter-spacing:-0.01em;}
+h1{font-weight:800;} /* ExtraBold — hero nadpis */
+h2{font-weight:700;} /* Bold — nadpisy sekcií */
+h3{font-weight:600;} /* SemiBold — menšie nadpisy (napr. v CV) */
+a{color:inherit;text-decoration:none;}
+img{max-width:100%; display:block;}
+::selection{background:var(--terracotta); color:var(--mist);}
+
+/* ============================================================
+   2. SCROLL KONTAJNER — slide efekt
+   ============================================================ */
+.scroller{ height:100vh; height:100dvh; overflow-y:scroll; scroll-snap-type:y proximity; }
+section{
+  min-height:100vh; min-height:100dvh;
+  scroll-snap-align:start;
+  position:relative;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:6rem 8vw 7rem; /* väčší spodný priestor — scroll tlačidlo sa nikdy nebije s obsahom */
+  background:var(--bg);
+  color:var(--text);
+  transition:background .3s;
+}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} .scroller{scroll-snap-type:none;} }
+
+.theme-a{ --bg:var(--ink);        --text:var(--mist); --muted:var(--coral); --accent:var(--coral);      --btn-text:var(--ink);  --line:rgba(245,227,243,0.16); }
+.theme-b{ --bg:var(--mist);       --text:var(--ink);  --muted:var(--mauve); --accent:var(--terracotta); --btn-text:var(--mist); --line:rgba(5,5,17,0.14); }
+.theme-c{ --bg:var(--plum);       --text:var(--mist); --muted:var(--coral); --accent:var(--coral);      --btn-text:var(--plum); --line:rgba(245,227,243,0.16); }
+.theme-d{ --bg:var(--peach);      --text:var(--ink);  --muted:var(--mauve); --accent:var(--terracotta); --btn-text:var(--peach);--line:rgba(5,5,17,0.12); }
+.theme-e{ --bg:var(--mauve);      --text:var(--mist); --muted:var(--peach); --accent:var(--peach);      --btn-text:var(--ink); --line:rgba(245,227,243,0.2); }
+.theme-f{ --bg:var(--coral);      --text:var(--ink);  --muted:var(--plum);  --accent:var(--ink);        --btn-text:var(--mist);--line:rgba(5,5,17,0.16); }
+
+/* ============================================================
+   4. "PIPELINE" 
+   ============================================================ */
+.pipeline{ position:fixed; left:32px; top:0; bottom:0; width:2px; z-index:40; display:none; }
+@media (min-width:1050px){ .pipeline{display:block;} }
+.pipeline-track{ position:absolute; left:0; top:8vh; bottom:8vh; width:1px; background:rgba(245,227,243,0.2); }
+.pipeline-node{
+  position:absolute; left:-5px; width:11px; height:11px; border-radius:50%;
+  background:var(--ink); border:2px solid var(--coral);
+  transition:border-color .3s, background .3s, transform .3s; cursor:pointer;
+}
+.pipeline-node.active{ border-color:var(--mist); background:var(--terracotta); transform:scale(1.15); }
+.pipeline-node::after{
+  content:attr(data-label); position:absolute; left:22px; top:50%; transform:translateY(-50%);
+  font-family:var(--font-main); font-weight:500; font-size:0.64rem; color:var(--mist);
+  background:rgba(5,5,17,0.8); padding:2px 7px; border-radius:3px;
+  white-space:nowrap; opacity:0; transition:opacity .2s; pointer-events:none;
+}
+.pipeline-node:hover::after{opacity:1;}
+
+/* ============================================================
+   5. HLAVIČKA A NAVIGÁCIA 
+   ============================================================ */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 8vw;
+  background:rgba(5,5,17,0.72); /* tmavý poloпriehľadný pás — funguje nad každou témou */
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(245,227,243,0.08);
+}
+.logo{ font-family:var(--font-main); font-weight:700; font-size:1.1rem; color:var(--coral); letter-spacing:0.02em; }
+nav ul{ list-style:none; display:flex; gap:2.1rem; }
+nav a{ font-family:var(--font-main); font-weight:500; font-size:0.88rem; color:var(--mist); position:relative; padding:4px 0; }
+nav a::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:1.5px; background:var(--coral); transition:width .25s; }
+nav a:hover::after, nav a.active::after{width:100%;}
+.nav-toggle{ display:none; background:none; border:none; color:var(--mist); font-size:1.6rem; cursor:pointer; z-index:60; }
+@media (max-width:860px){
+  nav ul{
+    position:fixed; top:0; right:0; height:100vh; height:100dvh; width:min(80vw,320px);
+    background:var(--ink); flex-direction:column; justify-content:center;
+    gap:1.7rem; padding:0 2.4rem; transform:translateX(100%); transition:transform .3s;
+    box-shadow:-8px 0 30px rgba(0,0,0,0.35);
+  }
+  nav ul.open{transform:translateX(0);}
+  .nav-toggle{display:block;}
+}
+
+/* Malý "eyebrow" label nad nadpismi (napr. "// about me") */
+.eyebrow{
+  font-family:var(--font-main); font-weight:600; /* SemiBold */
+  text-transform:uppercase; letter-spacing:0.1em;
+  color:var(--accent); font-size:0.78rem;
+  margin-bottom:0.9rem; display:flex; align-items:center; gap:0.6rem;
+}
+.eyebrow::before{content:"//"; color:var(--muted); opacity:0.7; text-transform:none; letter-spacing:0;}
+
+/* ============================================================
+   6. HOME (HERO) — meno, titulok, tlačidlá, fotka na pozadí
+   ============================================================ */
+#home{
+  display:flex; flex-direction:column; justify-content:center;
+  background-image:var(--hero-img);
+  background-repeat:no-repeat;
+  background-position:75% center;
+  background-size:cover;
+  background-color:var(--ink);
+}
+.home-copy{max-width:56ch; position:relative; z-index:2;}
+.home-copy h1{ font-size:clamp(2.2rem, 5vw, 3.5rem); line-height:1.08; margin-bottom:1.1rem; } /* ExtraBold 800 (dedí z h1) */
+.home-copy .role{color:var(--accent); font-weight:600;}
+.home-copy p{ font-weight:400; color:var(--muted); max-width:46ch; margin-bottom:2rem; font-size:1.02rem; }
+.btn-row{display:flex; gap:1rem; flex-wrap:wrap;}
+.btn{
+  display:inline-block; padding:0.85rem 1.7rem; border-radius:var(--radius);
+  font-family:var(--font-main); font-weight:600; /* SemiBold — tlačidlá */
+  font-size:0.95rem; transition:transform .2s, background .2s, border-color .2s, opacity .2s;
+  cursor:pointer; border:none;
+}
+.btn-primary{background:var(--accent); color:var(--btn-text);}
+.btn-primary:hover{transform:translateY(-2px); opacity:0.9;}
+.btn-ghost{border:1.5px solid var(--line); color:var(--text); background:transparent;}
+.btn-ghost:hover{border-color:var(--accent); transform:translateY(-2px);}
+.btn[disabled]{opacity:0.5; cursor:not-allowed; transform:none;}
+
+/* ============================================================
+   7. SCROLL TLAČIDLO 
+   ============================================================ */
+.scroll-cue{
+  position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  background:none; border:none; cursor:pointer; color:var(--text);
+}
+.scroll-circle{
+  width:56px; height:56px; border-radius:50%;
+  border:1.5px solid var(--line);
+  background:rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .2s, border-color .2s, background .2s;
+}
+.scroll-cue:hover .scroll-circle{ border-color:var(--accent); background:rgba(255,255,255,0.16); transform:translateY(3px); }
+.scroll-circle svg{width:26px; height:26px; animation:bob 1.8s ease-in-out infinite;}
+.scroll-label{
+  font-family:var(--font-main); font-weight:500; font-size:0.72rem;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);
+}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+@media (prefers-reduced-motion: reduce){.scroll-circle svg{animation:none;}}
+
+/* "Späť hore"  */
+.back-to-top{
+  position:fixed; right:24px; bottom:24px; z-index:45;
+  width:48px; height:48px; border-radius:50%;
+  background:rgba(5,5,17,0.75); border:1.5px solid rgba(245,227,243,0.25);
+  color:var(--mist); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; pointer-events:none;
+  transition:opacity .25s, transform .25s, border-color .25s;
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+}
+.back-to-top.visible{opacity:1; pointer-events:auto;}
+.back-to-top:hover{transform:translateY(-3px); border-color:var(--coral);}
+@media (max-width:600px){ .back-to-top{right:16px; bottom:16px; width:42px; height:42px;} }
+
+/* ============================================================
+   8. ABOUT — štatistiky + text o mne 
+   ============================================================ */
+.about-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:3.5rem; align-items:start; }
+.about-stats{display:flex; flex-direction:column; gap:1rem;}
+.stat{
+  display:flex; align-items:center; gap:1rem;
+  border:1px solid var(--line); border-radius:10px;
+  padding:1rem 1.2rem; background:rgba(255,255,255,0.04);
+  transition:transform .2s, border-color .2s, background .2s, color .2s;
+  cursor:default;
+}
+/* Hover = "rozsvietenie": pozadie sa zmení na accent farbu témy,
+   text (číslo, popisok aj ikonka) prejde na kontrastnú --btn-text farbu */
+.stat:hover{transform:translateX(4px); border-color:var(--accent); background:var(--accent);}
+.stat strong{display:block; font-family:var(--font-main); font-weight:800; font-size:1.5rem; transition:color .2s;} /* ExtraBold — čísla */
+.stat span{color:var(--muted); font-weight:400; font-size:0.85rem; transition:color .2s;}
+.stat .stat-icon{font-size:1.8rem; color:var(--text); font-weight:400; transition:color .2s;}
+/* Obrázkový placeholder namiesto emoji ikonky pri štatistike (fixná veľkosť!) */
+.stat .stat-icon-slot{width:80px; height:70px; border-radius:50%; flex-shrink:0;}
+.stat:hover strong, .stat:hover span, .stat:hover .stat-icon{color:var(--btn-text);}
+
+.about-text h2{font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:1.2rem;}
+.about-text p{font-weight:400; color:var(--muted); margin-bottom:1rem; max-width:60ch;}
+.chips{display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:1.6rem;}
+.chip{
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-family:var(--font-main); font-weight:500; font-size:0.76rem; padding:6px 13px;
+  border:1px solid var(--line); border-radius:20px; color:var(--text);
+  background:rgba(255,255,255,0.04); transition:border-color .2s, transform .2s, background .2s, color .2s;
+  cursor:default;
+}
+/* Hover = "rozsvietenie", rovnaký princíp ako pri .stat vyššie */
+.chip:hover{border-color:var(--accent); background:var(--accent); color:var(--btn-text); transform:translateY(-2px);}
+.chip-icon{font-size:0.9rem;}
+/* Obrázkový placeholder namiesto emoji ikonky v chipe (fixná veľkosť!) */
+.chip .chip-icon-slot{width:16px; height:16px; border-radius:50%; flex-shrink:0;}
+
+/* ============================================================
+   9. MOTTO — (scratch-to-reveal)
+   ============================================================ */
+#motto{align-items:center; text-align:center;}
+.motto-wrap{max-width:720px; margin:0 auto;}
+.motto-wrap .eyebrow{justify-content:center;}
+.motto-wrap h2{font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:0.4rem;}
+.motto-hint{font-weight:300; color:var(--muted); font-size:0.9rem; margin-bottom:2rem;} /* Light — jemná poznámka */
+.scratch-box{
+  position:relative; width:100%; max-width:640px; aspect-ratio:16/7; margin:0 auto;
+  border-radius:8px; overflow:hidden; border:1px solid var(--line); background:var(--ink);
+  touch-action:none;
+}
+.scratch-message{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  padding:1.5rem; font-family:var(--font-main); font-weight:700; font-size:clamp(1.05rem, 2.4vw, 1.6rem);
+  color:var(--coral); text-align:center; background:var(--plum);
+}
+.scratch-canvas{position:absolute; inset:0; width:100%; height:100%; cursor:grab;}
+.scratch-reset{
+  margin-top:1.6rem; font-family:var(--font-main); font-weight:500; font-size:0.78rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:20px; padding:8px 16px; cursor:pointer;
+}
+.scratch-reset:hover{border-color:var(--accent); color:var(--text);}
+
+/* ============================================================
+   10. GALÉRIE (Photography aj Graphic Design) + Lightbox
+   ------------------------------------------------------------
+   DÔLEŽITÉ: Photography aj Graphic Design používajú TIE ISTÉ
+   CSS triedy aj ten istý JS mechanizmus (pozri script.js →
+   initCategoryGallery). Obe sekcie preto vyzerajú a fungujú
+   technicky úplne rovnako: výber kategórie -> veľká fotka
+   s popisom -> malé fotky -> lightbox s posúvaním.
+   ============================================================ */
+.gallery-section h2{font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:0.5rem;}
+.gallery-section > p.lead{font-weight:300; color:var(--muted); max-width:58ch; margin-bottom:2rem;}
+
+/* --- Krok 1: výber kategórie (4 klikateľné karty) --- */
+.cat-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:1.1rem;}
+.cat-card{
+  aspect-ratio:4/3; border-radius:8px; border:1px solid var(--line);
+  background:rgba(255,255,255,0.04); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:0.7rem; cursor:pointer;
+  transition:transform .2s, border-color .2s, background .2s;
+  font-family:var(--font-main); color:var(--text);
+}
+.cat-card:hover{transform:translateY(-3px); border-color:var(--accent); background:rgba(255,255,255,0.08);}
+/* Obrázok v kartičke kategórie — štvorcový (nie kruhový), aby fotky
+   nemuseli byť orezané do kruhu a lepšie "sedeli" v štvorcovej ploche */
+.cat-card-img{width:112px; height:88px; border-radius:8px;}
+.cat-card-title{font-weight:600; font-size:0.95rem;}
+
+/* ------------------------------------------------------------
+   OBRÁZKOVÉ PLACEHOLDERY ("img-slot") — univerzálna náhrada za
+   emoji ikonky všade na stránke OKREM sekcie About (tá si svoje
+   emoji ikonky ponecháva zámerne, na želanie klientky).
+   Ako to funguje: <img> má za src textový placeholder (napr.
+   "PASTE_IMAGE_URL_HERE_1"), ktorý nie je platná URL adresa —
+   prehliadač preto vyhodí "error" a onerror atribút v HTML/JS
+   schová <img> a zobrazí susedný .img-fallback (bodkovaný rámik
+   s nápisom "IMG"). Keď sa src nahradí reálnou URL adresou
+   obrázka, fotka sa jednoducho zobrazí a fallback zmizne sám.
+   ------------------------------------------------------------ */
+.img-slot{
+  display:inline-flex; align-items:center; justify-content:center;
+  overflow:hidden; flex-shrink:0; background:rgba(255,255,255,0.05);
+}
+.img-slot img{width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit;}
+.img-fallback{
+  display:none; align-items:center; justify-content:center; text-align:center;
+  width:100%; height:100%; border:1px dashed var(--line); border-radius:inherit;
+  font-family:var(--font-main); font-weight:600; font-size:0.6rem; letter-spacing:0.04em;
+  color:var(--muted); background:rgba(255,255,255,0.04); padding:2px; line-height:1.15;
+}
+
+/* --- Krok 2: detail kategórie — veľká fotka + popis + malé fotky --- */
+.category-detail{margin-top:0.4rem;}
+.back-link{
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-family:var(--font-main); font-weight:500; font-size:0.85rem;
+  color:var(--muted); background:none; border:none; cursor:pointer; margin-bottom:1.5rem; padding:0;
+}
+.back-link:hover{color:var(--accent);}
+.cat-hero{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:2rem; align-items:center; margin-bottom:2rem; }
+.cat-hero-image{aspect-ratio:4/3; margin:0;}
+.cat-hero-copy h3{font-size:1.5rem; margin-bottom:0.6rem;}
+.cat-hero-copy p{font-weight:400; color:var(--muted); margin-bottom:0; max-width:44ch;}
+
+.grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1.1rem; }
+
+/* Stránkovanie miniatúr pod galériou — vždy zobrazuje 4 fotky naraz,
+   šípky prepínajú na ďalšiu/predchádzajúcu štvoricu. Ak je fotiek
+   v kategórii 4 alebo menej, celý riadok sa skryje (rieši script.js). */
+.thumb-pagination{
+  display:flex; align-items:center; justify-content:center; gap:1rem;
+  margin-top:1.2rem;
+}
+/* DÔLEŽITÉ: bez tohto pravidla by atribút "hidden" nefungoval, lebo
+   .thumb-pagination{display:flex} má rovnakú "silu" ako prehliadačove
+   predvolené pravidlo pre [hidden] — týmto ho jednoznačne prebijeme. */
+.thumb-pagination[hidden]{display:none;}
+.thumb-nav{
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--line); background:rgba(255,255,255,0.05);
+  color:var(--text); font-size:1.3rem; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s, background .2s;
+}
+.thumb-nav:hover:not(:disabled){border-color:var(--accent); background:rgba(255,255,255,0.1);}
+.thumb-nav:disabled{opacity:0.3; cursor:not-allowed;}
+.thumb-page-indicator{
+  font-family:var(--font-main); font-weight:500; font-size:0.8rem; color:var(--muted); min-width:3.2em; text-align:center;
+}
+.tile{
+  aspect-ratio:4/3; border-radius:6px; border:1px solid var(--line);
+  display:flex; align-items:flex-end; padding:14px; position:relative; overflow:hidden;
+  background:rgba(255,255,255,0.04); cursor:pointer;
+}
+.tile img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.tile::before{content:""; position:absolute; inset:0; opacity:0.92;}
+.tile span{position:relative; font-family:var(--font-main); font-weight:500; font-size:0.74rem; color:#fff; z-index:1; text-shadow:0 1px 3px rgba(0,0,0,0.6);}
+.tile[data-has-img="true"]::before{display:none;}
+/* Farebné pozadia placeholder dlaždíc — striedanie kombinácií z novej palety */
+.tile:nth-child(6n+1)::before{background:linear-gradient(135deg,#6B354C,#311B2F);}
+.tile:nth-child(6n+2)::before{background:linear-gradient(135deg,#D26661,#6B354C);}
+.tile:nth-child(6n+3)::before{background:linear-gradient(135deg,#311B2F,#050511);}
+.tile:nth-child(6n+4)::before{background:linear-gradient(135deg,#F2D1D0,#D26661);}
+.tile:nth-child(6n+5)::before{background:linear-gradient(135deg,#6B354C,#050511);}
+.tile:nth-child(6n+6)::before{background:linear-gradient(135deg,#D26661,#311B2F);}
+.tile:hover{transform:translateY(-3px); transition:transform .2s;}
+
+/* Lightbox — zväčšenie fotky po kliknutí (s max. veľkosťou) + šípky ďalej/späť */
+.lightbox{ position:fixed; inset:0; z-index:100; background:rgba(5,5,17,0.92); display:none; align-items:center; justify-content:center; padding:4vh 4vw; }
+.lightbox.open{display:flex;}
+.lightbox-inner{ position:relative; max-width:min(90vw, 900px); max-height:85vh; }
+.lightbox-inner img, .lightbox-inner .lb-placeholder{ max-width:min(90vw, 900px); max-height:85vh; width:auto; height:auto; border-radius:6px; display:block; }
+.lb-placeholder{ width:min(90vw,700px); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--font-main); font-weight:500; font-size:0.95rem; background:#933A3C; }
+.lightbox-close{ position:absolute; top:-42px; right:0; background:none; border:none; color:#F5E3F3; font-size:1.8rem; cursor:pointer; line-height:1; }
+.lightbox-caption{ text-align:center; margin-top:0.8rem; color:#D26661; font-family:var(--font-main); font-weight:400; font-size:0.8rem; }
+.lightbox-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(5,5,17,0.6); border:1px solid rgba(245,227,243,0.3);
+  color:#F5E3F3; width:44px; height:44px; border-radius:50%;
+  font-size:1.7rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.lightbox-nav:hover{border-color:#D26661;}
+.lightbox-prev{left:-58px;}
+.lightbox-next{right:-58px;}
+@media (max-width:760px){
+  .lightbox-prev{left:6px;}
+  .lightbox-next{right:6px;}
+  .lightbox-nav{width:38px; height:38px; font-size:1.3rem;}
+}
+
+/* ============================================================
+   11. TYPE & COLOR SPECIMEN — ukážka písma a novej farebnej palety
+   ============================================================ */
+.specimen-grid{display:flex; flex-direction:column; gap:2.4rem; max-width:850px;}
+.spec-row{border-bottom:1px solid var(--line); padding-bottom:1.6rem;}
+.spec-label{font-family:var(--font-main); font-weight:600; font-size:0.78rem; color:var(--muted); margin-bottom:0.5rem;}
+.spec-h1{font-family:var(--font-main); font-weight:800; font-size:clamp(2rem,4vw,3rem); line-height:1.1;} /* ExtraBold */
+.spec-h2{font-family:var(--font-main); font-weight:700; font-size:1.7rem;} /* Bold */
+.spec-h3{font-family:var(--font-main); font-weight:600; font-size:1.2rem;} /* SemiBold */
+.spec-medium{font-family:var(--font-main); font-weight:500; font-size:1rem;} /* Medium */
+.spec-light{font-family:var(--font-main); font-weight:300; font-size:1rem;} /* Light */
+.spec-body{font-family:var(--font-main); font-weight:400; font-size:1rem; max-width:60ch; color:var(--muted);} /* Regular */
+.swatches{display:flex; flex-wrap:wrap; gap:0.9rem; margin-top:0.6rem;}
+.swatch{width:96px;}
+.swatch-color{height:56px; border-radius:5px; border:1px solid var(--line); margin-bottom:6px;}
+.swatch span{font-family:var(--font-main); font-weight:400; font-size:0.68rem; color:var(--muted); display:block;}
+
+/* ============================================================
+   12. PEXESO (MEMORY GAME) — 10 dvojíc / 20 kariet
+   ============================================================ */
+#game{align-items:center; padding-bottom:8rem;} /* extra priestor dole, aby sa scroll tlačidlo nebilo s textom */
+.game-wrap{max-width:640px; margin:0 auto; width:100%; text-align:center;}
+.game-wrap .eyebrow{justify-content:center;}
+.game-hud{display:flex; justify-content:center; gap:2rem; margin:1rem 0 1.6rem; font-family:var(--font-main); font-weight:500; font-size:0.85rem; color:var(--muted);}
+.memory-grid{
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:0.6rem; max-width:560px; margin:0 auto;
+}
+.mem-card{ aspect-ratio:1/1; perspective:600px; cursor:pointer; }
+.mem-card-inner{ position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; }
+.mem-card.flipped .mem-card-inner, .mem-card.matched .mem-card-inner{transform:rotateY(180deg);}
+.mem-face{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  border-radius:6px; backface-visibility:hidden; font-size:1.4rem;
+}
+/* Predná strana karty (tá, čo vidno PRED kliknutím) — namiesto farby
+   používa jeden spoločný "cover" obrázok pre všetky karty naraz.
+   URL sa nastavuje raz v script.js (premenná memCoverImage) a odtiaľ
+   sem príde cez CSS premennú --mem-cover-img. Kým URL nie je nastavená,
+   zostane vidieť len farba var(--plum) ako záloha. */
+.mem-front{
+  background: var(--plum) var(--mem-cover-img, none) center / cover no-repeat;
+  border:1px solid var(--line); color:var(--coral); font-family:var(--font-main); font-weight:700; font-size:0.9rem;
+}
+.mem-back{background:var(--coral); padding:4px; transform:rotateY(180deg);}
+.mem-card.matched .mem-back{background:var(--terracotta);}
+.mem-img-slot{width:100%; height:100%; border-radius:4px;}
+.mem-img-slot .img-fallback{font-size:0.62rem;}
+.game-note{font-weight:300; color:var(--muted); font-size:0.85rem; margin-top:1.6rem; max-width:56ch; margin-left:auto; margin-right:auto;}
+.game-reset{
+  margin-top:1.2rem; font-family:var(--font-main); font-weight:500; font-size:0.78rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:20px; padding:8px 16px; cursor:pointer;
+}
+.game-reset:hover{border-color:var(--accent); color:var(--text);}
+.game-win{font-family:var(--font-main); font-weight:700; color:var(--accent); font-size:1.1rem; margin-top:1rem; min-height:1.4em;}
+
+/* ============================================================
+   13. CV — časová os, zručnosti, certifikáty
+   ============================================================ */
+#cv h2{font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:0.6rem;}
+.cv-top{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:2rem;}
+/* Dvojstĺpcové rozloženie: vľavo ikonky "čo robím", vpravo timeline + zručnosti */
+.cv-layout{display:grid; grid-template-columns:190px 1fr; gap:2.4rem; align-items:start;}
+.cv-icons{display:flex; flex-direction:column; gap:1.1rem; position:sticky; top:6rem;}
+.cv-icon-item{
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:0.5rem;
+  padding:1rem 0.6rem; border:1px solid var(--line); border-radius:8px;
+  background:rgba(255,255,255,0.05);
+}
+.cv-icon-item .cv-icon-slot{width:68px; height:44px; border-radius:34%;}
+.cv-icon-item span:last-child{font-family:var(--font-main); font-weight:500; font-size:0.76rem; color:var(--muted);}
+.cv-scroll{max-height:56vh; overflow-y:auto; padding-right:0.6rem;}
+.cv-scroll::-webkit-scrollbar{width:6px;}
+.cv-scroll::-webkit-scrollbar-thumb{background:var(--muted); border-radius:3px;}
+.timeline{display:flex; flex-direction:column; gap:0; max-width:74ch;}
+.t-item{display:grid; grid-template-columns:130px 1fr; gap:1.6rem; padding:1.2rem 0; border-bottom:1px solid var(--line);}
+.t-item:first-child{padding-top:0;}
+.t-item .period{font-family:var(--font-main); font-weight:600; color:var(--accent); font-size:0.8rem;} /* SemiBold — dátumy */
+.t-item h3{font-size:1rem; margin-bottom:0.15rem;}
+.t-item .role{font-weight:500; font-size:0.88rem; color:var(--muted); margin-bottom:0.5rem; display:block;}
+.t-item ul{padding-left:1.1rem; color:var(--muted); font-weight:400; font-size:0.88rem;}
+.t-item ul li{margin-bottom:0.3rem;}
+.cv-skills{margin-top:2.4rem;}
+.cv-skills h3{font-size:1.1rem; margin-bottom:1rem;}
+.skill-cats{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.4rem;}
+.skill-cat span.cat-title{font-family:var(--font-main); font-weight:600; font-size:0.85rem; color:var(--accent); display:flex; align-items:center; gap:0.5rem; margin-bottom:0.6rem;}
+.skill-cat .skill-icon-slot{width:50px; height:45px; border-radius:50%;}
+.skill-tags{display:flex; flex-wrap:wrap; gap:0.4rem;}
+.skill-tag{
+  font-family:var(--font-main); font-weight:500; font-size:0.74rem;
+  padding:4px 11px; border:1px solid var(--line); border-radius:14px; color:var(--text);
+  background:rgba(255,255,255,0.06);
+}
+
+/* ============================================================
+   14. KONTAKT — formulár (FormSubmit, posiela iba na jeden email)
+   ============================================================ */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:start;}
+#contact h2{font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:1rem;}
+#contact .contact-grid > div:first-child p{font-weight:400; color:var(--muted); max-width:44ch; margin-bottom:1.6rem;}
+.contact-links{display:flex; flex-direction:column; gap:0.8rem;}
+.contact-links a, .contact-links span{
+  font-family:var(--font-main); font-weight:500; font-size:0.9rem; color:var(--text);
+  border-bottom:1px solid var(--line); padding-bottom:6px; width:fit-content;
+}
+.contact-links a:hover{color:var(--accent);}
+form{display:flex; flex-direction:column; gap:1rem;}
+label{font-family:var(--font-main); font-weight:500; font-size:0.8rem; color:var(--muted); margin-bottom:0.35rem; display:block;}
+input, textarea{
+  width:100%; background:rgba(255,255,255,0.05); border:1px solid var(--line); color:var(--text);
+  padding:0.75rem 0.9rem; border-radius:var(--radius); font-family:var(--font-main); font-weight:400; font-size:0.95rem;
+}
+input:focus, textarea:focus{outline:2px solid var(--accent); outline-offset:1px;}
+textarea{resize:vertical; min-height:110px;}
+.form-status{font-weight:500; font-size:0.85rem; color:var(--accent); min-height:1.2em;}
+footer{
+  padding:1.4rem 8vw; display:flex; justify-content:space-between;
+  font-family:var(--font-main); font-weight:400; font-size:0.74rem; color:var(--coral);
+  border-top:1px solid rgba(245,227,243,0.12); flex-wrap:wrap; gap:0.5rem;
+  background:var(--ink);
+}
+
+/* ============================================================
+   15. VŠEOBECNÉ — animácie pri scrollovaní, focus štýl
+   ============================================================ */
+[data-reveal]{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+[data-reveal].in{opacity:1; transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1; transform:none; transition:none;}}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+/* ============================================================
+   16. RESPONZIVITA — postupné zmenšovanie pre tablet/mobil
+   ============================================================ */
+@media (max-width:1080px){ section{padding:6rem 6vw 6.5rem;} }
+@media (max-width:900px){
+  /* Mobil: fotka sa priblíži (cover) a zameria na tvár, namiesto
+     zmenšenia celej fotky nad nadpis. Tmavý gradient navrchu
+     zabezpečuje čitateľnosť textu. */
+  #home{
+    background-image:
+      linear-gradient(180deg, rgba(5,5,17,0.35) 0%, rgba(5,5,17,0.85) 55%, var(--ink) 100%),
+      var(--hero-img);
+    background-size:cover, cover;
+    background-position:center, 74% 16%;
+    background-repeat:no-repeat, no-repeat;
+  }
+  .about-grid, .contact-grid{grid-template-columns:1fr;}
+  .cat-hero{grid-template-columns:1fr;}
+  .cv-top{flex-direction:column; align-items:flex-start;}
+  .cv-layout{grid-template-columns:1fr;}
+  .cv-icons{flex-direction:row; flex-wrap:wrap; position:static; justify-content:center;}
+  .cv-icon-item{flex:1 1 110px;}
+}
+@media (max-width:480px){
+  .memory-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media (max-width:600px){
+  section{padding:5.5rem 6vw 6rem;}
+  header{padding:16px 6vw;}
+  .t-item{grid-template-columns:1fr; gap:0.3rem;}
+  .btn-row{gap:0.7rem;}
+  .btn{padding:0.75rem 1.3rem; font-size:0.9rem;}
+  .grid{grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:0.8rem;}
+  footer{flex-direction:column; text-align:center;}
+  .swatches{gap:0.6rem;}
+  .swatch{width:78px;}
+  .scroll-circle{width:48px; height:48px;}
+  .scroll-circle svg{width:22px; height:22px;}
+}
+@media (max-width:420px){
+  .home-copy h1{font-size:1.9rem;}
+}

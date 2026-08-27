@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050511">
+<meta name="color-scheme" content="dark light">
+<title>Bohuslava Rozsypalová — Technical Consultant | Web &amp; Data Integrations</title>
+<meta name="description" content="Portfolio and CV of Bohuslava Rozsypalová, Technical Consultant specializing in web and data integrations.">
+
+<!-- Favicon — vlastná ikonka nahraná na Cloudinary -->
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
+
+<!-- ============================================================
+     - style.css  → všetky štýly (farby, rozloženia, responzivita)
+     - script.js  → všetka logika (galérie, pexeso, formulár...)
+     Skript má atribút "defer" — stiahne sa počas parsovania HTML
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ============================================================
+     PIPELINE —(len desktop)
+     ============================================================ -->
+<div class="pipeline" aria-hidden="true">
+  <div class="pipeline-track"></div>
+  <div class="pipeline-node" style="top:5vh"  data-label="home"></div>
+  <div class="pipeline-node" style="top:16.5vh" data-label="about"></div>
+  <div class="pipeline-node" style="top:28vh" data-label="motto"></div>
+  <div class="pipeline-node" style="top:39.5vh" data-label="photography"></div>
+  <div class="pipeline-node" style="top:51vh" data-label="graphic design"></div>
+  <div class="pipeline-node" style="top:62.5vh" data-label="style specimen"></div>
+  <div class="pipeline-node" style="top:74vh" data-label="memory game"></div>
+  <div class="pipeline-node" style="top:85.5vh" data-label="cv"></div>
+  <div class="pipeline-node" style="top:97vh" data-label="contact"></div>
+</div>
+
+<!-- ============================================================
+     HLAVIČKA / NAVIGÁCIA
+     ============================================================ -->
+<header>
+  <a href="#home" class="logo">BR.</a>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  <nav>
+    <ul id="nav-list">
+      <li><a href="#home" data-nav="home">Home</a></li>
+      <li><a href="#about" data-nav="about">About</a></li>
+      <li><a href="#photo" data-nav="photo">Photography</a></li>
+      <li><a href="#graphic" data-nav="graphic">Graphic Design</a></li>
+      <li><a href="#cv" data-nav="cv">CV</a></li>
+      <li><a href="#contact" data-nav="contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="scroller" id="scroller">
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- ============================================================
+       SEKCIA: HOME (hero) — meno, titulok, CTA tlačidlá, fotka
+       ============================================================ -->
+  <section id="home" class="theme-a">
+    <div class="home-copy" data-reveal>
+      <p class="eyebrow">hello</p>
+      <h1>I'm Bohuslava<br>Rozsypalová</h1>
+      <p><span class="role">Technical Consultant</span> — I help companies connect the web and their data into one working system. I design, integrate and fine-tune platforms so information actually makes sense to each other.</p>
+      <div class="btn-row">
+        <a href="https://drive.google.com/file/d/1mDI-Npxhh_29wGWXIf1plm1xeu3tBI2n/view?invite=COLs4tAK&ts=6a869ba3" target="_blank" rel="noopener" class="btn btn-primary">View CV</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" aria-label="Go to About section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: ABOUT — štatistiky + text o mne
+       ============================================================ -->
+   <section id="about" class="theme-b">
+    <div class="about-grid">
+      <div class="about-stats" data-reveal>
+        <div class="stat">
+          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <div><strong>5+</strong><span>years in web development</span></div>
+        </div>
+        <div class="stat">
+          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787831828/ChatGPT_Image_27._8._2026_13_56_57.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <div><strong>15+</strong><span>years in photography &amp; design</span></div>
+        </div>
+        <div class="stat">
+          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <div><strong>2</strong><span>languages, B2 level</span></div>
+        </div>
+      </div>
+      <div class="about-text" data-reveal>
+        <p class="eyebrow">about me</p>
+        <h2>Connecting technology to results that make sense</h2>
+        <p>Technical Consultant and Developer with experience delivering enterprise IT solutions across international projects in banking, telecommunications and pharmaceutical industries. Strong background in web development, database development, data-driven solutions, API and system integrations — combined with hands-on experience in Bloomreach Engagement and Salesforce Marketing Cloud.</p>
+        <p>Alongside my IT career, I continue to pursue photography, web and graphic design, bringing a strong visual and creative perspective to digital products, UI/UX and customer-facing solutions.</p>
+        <div class="chips">
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Web Development</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Data Integrations</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST APIs &amp; JSON</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806261/ChatGPT_Image_27._8._2026_06_48_27.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> SQL &amp; Oracle PL/SQL</span>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Go to Motto section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+  <!-- ============================================================
+       SEKCIA: MOTTO — (canvas scratch efekt)
+       ============================================================ -->
+  <section id="motto" class="theme-c">
+    <div class="motto-wrap" data-reveal>
+      <p class="eyebrow">interactive</p>
+      <h2>Wipe the screen clean</h2>
+      <p class="motto-hint">Click and drag (or swipe) across the panel below to reveal my motto.</p>
+      <div class="scratch-box">
+        <div class="scratch-message">"Great integrations are the ones nobody ever notices."</div>
+        <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
+      </div>
+      <button class="scratch-reset" id="scratch-reset">Reset</button>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('photo').scrollIntoView({behavior:'smooth'})" aria-label="Go to Photography section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: PHOTOGRAPHY 
+       ============================================================ -->
+  <section id="photo" class="gallery-section theme-d">
+    <p class="eyebrow">photography</p>
+    <h2 data-reveal>Photography</h2>
+    <p class="lead" data-reveal>Choose a category to see the full gallery.</p>
+
+    <div class="cat-grid" data-role="cat-grid" data-reveal>
+      <button class="cat-card" data-cat="portraits">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813464/IMG_8443-2.jpg" alt="Portraits" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Portraits</span>
+      </button>
+      <button class="cat-card" data-cat="various">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813451/BZK04091_copy.jpg" alt="Various" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Various</span>
+      </button>
+      <button class="cat-card" data-cat="products">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813473/IMG_3290.jpg" alt="Products" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Products</span>
+      </button>
+      <button class="cat-card" data-cat="shelters">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787814125/KAR01523.jpg" alt="Shelters" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Shelters</span>
+      </button>
+    </div>
+
+    <div class="category-detail" data-role="category-detail" data-reveal hidden>
+      <button class="back-link" data-role="back-link">← Back to categories</button>
+      <div class="cat-hero">
+        <div class="tile cat-hero-image" data-role="hero-tile"></div>
+        <div class="cat-hero-copy">
+          <p class="eyebrow" data-role="hero-eyebrow">portraits</p>
+          <h3 data-role="hero-title">Portrait Photography</h3>
+          <p data-role="hero-desc"></p>
+        </div>
+      </div>
+      <div class="grid" data-role="thumbs"></div>
+      <!-- Stránkovanie miniatúr — zobrazuje vždy 4 fotky naraz, šípky
+           prepínajú na ďalšiu/predchádzajúcu štvoricu. Ak kategória má
+           4 alebo menej fotiek, tento riadok sa automaticky skryje
+           (nastavuje sa v script.js cez initCategoryGallery). -->
+      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
+        <button class="thumb-nav" data-role="thumb-prev" aria-label="Previous photos">‹</button>
+        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
+        <button class="thumb-nav" data-role="thumb-next" aria-label="Next photos">›</button>
+      </div>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('graphic').scrollIntoView({behavior:'smooth'})" aria-label="Go to Graphic Design section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: GRAPHIC DESIGN —
+       ============================================================ -->
+  <section id="graphic" class="gallery-section theme-e">
+    <p class="eyebrow">graphic design</p>
+    <h2 data-reveal>Graphic Design</h2>
+    <p class="lead" data-reveal>Choose a category to see the full gallery.</p>
+
+    <div class="cat-grid" data-role="cat-grid" data-reveal>
+      <button class="cat-card" data-cat="branding">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787818666/fabia-combi-overview-slider-01.jpg" alt="Branding" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Branding</span>
+      </button>
+      <button class="cat-card" data-cat="ui">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787819014/Endermologia_muz_-_targety2_copy.jpg" alt="UI & Web" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">UI &amp; Web</span>
+      </button>
+      <button class="cat-card" data-cat="various">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787829710/Renesakideabook.png" alt="Various" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Various</span>
+      </button>
+     
+    </div>
+
+    <div class="category-detail" data-role="category-detail" data-reveal hidden>
+      <button class="back-link" data-role="back-link">← Back to categories</button>
+      <div class="cat-hero">
+        <div class="tile cat-hero-image" data-role="hero-tile"></div>
+        <div class="cat-hero-copy">
+          <p class="eyebrow" data-role="hero-eyebrow">branding</p>
+          <h3 data-role="hero-title">Brand Identity</h3>
+          <p data-role="hero-desc"></p>
+        </div>
+      </div>
+      <div class="grid" data-role="thumbs"></div>
+      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
+        <button class="thumb-nav" data-role="thumb-prev" aria-label="Previous photos">‹</button>
+        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
+        <button class="thumb-nav" data-role="thumb-next" aria-label="Next photos">›</button>
+      </div>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Go to Style Specimen section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: TYPE & COLOR SPECIMEN — Montserrat a "Dusk Horizon"
+       ============================================================ -->
+  <section id="specimen" class="theme-f">
+    <p class="eyebrow">specimen</p>
+    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Type &amp; Color System</h2>
+    <div class="specimen-grid" data-reveal>
+      <div class="spec-row">
+        <div class="spec-label">Typeface — Montserrat (fallback: Roboto → Helvetica Neue → Arial)</div>
+        <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
+        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
+        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
+        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / labels</div>
+        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / body text</div>
+        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / captions &amp; notes</div>
+      </div>
+      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
+        <div class="spec-label">Palette — Dusk Horizon</div>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})" aria-label="Go to Memory Game section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: MEMORY GAME (pexeso) — 10 dvojíc / 20 kariet
+       ============================================================ -->
+  <section id="game" class="theme-a">
+    <div class="game-wrap" data-reveal>
+      <p class="eyebrow">take a break</p>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:0.4rem;">Memory Game</h2>
+      <p class="motto-hint">Match all 10 pairs.:)</p>
+      <div class="game-hud">
+        <span id="game-moves">Moves: 0</span>
+        <span id="game-pairs">Pairs: 0 / 10</span>
+      </div>
+      <div class="memory-grid" id="memory-grid"></div>
+      <p class="game-win" id="game-win"></p>
+      <button class="game-reset" id="game-reset">Shuffle again</button>
+      <p class="game-note">Van Gogh Collection</p>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('cv').scrollIntoView({behavior:'smooth'})" aria-label="Go to CV section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: CV 
+       ============================================================ -->
+  <section id="cv" class="theme-b">
+    <div class="cv-top">
+      <div>
+        <p class="eyebrow">cv</p>
+        <h2>Experience &amp; Education</h2>
+      </div>
+      <a href="https://drive.google.com/file/d/1mDI-Npxhh_29wGWXIf1plm1xeu3tBI2n/view?invite=COLs4tAK&ts=6a869ba3" target="_blank" rel="noopener" class="btn btn-ghost">Download full CV (PDF)</a>
+    </div>
+    <div class="cv-layout">
+      <!-- Bočný panel s ikonkami — placeholder pre "čo robím", neskôr nahraditeľné vlastnou grafikou -->
+      <aside class="cv-icons" aria-label="Areas of work">
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="Web Development" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Web Development</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="APIs & Integrations" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>APIs &amp; Integrations</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Bloomreach Engagement" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Bloomreach Engagement</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="Salesforce Marketing Cloud" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="Design & Creative" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Design &amp; Creative</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="Languages" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Languages</span></div>
+      </aside>
+      <div class="cv-scroll" data-reveal>
+        <div class="timeline">
+          <div class="t-item">
+            <div class="period">Nov 2024 — Present</div>
+            <div>
+              <h3>Adastra s.r.o., Bratislava</h3>
+              <span class="role">Business Solution Consultant — Data, Development &amp; Integrations</span>
+              <ul>
+                <li>Design customer-facing solutions with JavaScript, HTML/CSS, REST APIs, JSON and Jinja, including interactive web layers and dynamic content.</li>
+                <li>Integrate websites and mobile apps with Bloomreach to support data-driven personalization and customer journeys.</li>
+                <li>Conduct as-is / gap analyses and lead technical workshops with client stakeholders.</li>
+                <li>Built omnichannel personalization for Orange Moldova, Yettel Bulgaria and A1 Croatia; SQL/PL-SQL reporting for a Serbian banking project; supported a Real-Time Decisioning rollout for O2 Slovakia.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">Aug 2021 — Oct 2024</div>
+            <div>
+              <h3>IBM Slovensko s.r.o., Košice</h3>
+              <span class="role">Salesforce Marketing Cloud Developer &amp; Consultant</span>
+              <ul>
+                <li>Implemented and automated multichannel campaigns for an international pharmaceutical client using Salesforce Marketing Cloud.</li>
+                <li>Built responsive email templates, landing pages and microsites with HTML5, CSS3 and JavaScript; reusable master templates in Figma.</li>
+                <li>Developed Data Extensions, audience segments and personalization logic with SQL, SOQL and AMPscript.</li>
+                <li>Integrated Google Analytics and OneTrust Cookie Consent across microsites; managed CRM Orbit access.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">Jul 2020 — Jul 2021</div>
+            <div>
+              <h3>M-Victory s.r.o., Košice</h3>
+              <span class="role">Web Designer — Website Design Creator</span>
+              <ul>
+                <li>Designed visual concepts and UI for websites — layouts, icons and graphics in Adobe Illustrator &amp; Photoshop.</li>
+                <li>Created responsive, brand-aligned designs with a focus on UI/UX and usability, collaborating with dev and QA teams.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">Dec 2016 — Jul 2020</div>
+            <div>
+              <h3>LafargeHolcim EBS s.r.o., Košice</h3>
+              <span class="role">Accounts Payable Coordinator (German &amp; English)</span>
+              <ul>
+                <li>Processed supplier invoices in SAP and coordinated an Accounts Payable team for the Southern Germany region.</li>
+                <li>Managed vendor communication and supported month-end closing and reporting.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">Aug 2014 — Sep 2016</div>
+            <div>
+              <h3>Otto WorkForce b.v., Netherlands</h3>
+              <span class="role">Warehouse Operator — G-Star RAW Designer Assistant</span>
+              <ul>
+                <li>Monitored stock levels, supported warehouse operations and maintained order records.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">2010 — 2014</div>
+            <div>
+              <h3>School of Arts, Košice</h3>
+              <span class="role">Photography and Graphic Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Certifications</h3>
+          <p style="font-weight:400; color:var(--muted); font-size:0.88rem; max-width:60ch;">Salesforce Certified Marketing Cloud Consultant, Developer, Administrator &amp; Engagement Specialist · Bloomreach Academy: Discovery &amp; Engagement (Jinja Unlocked, Jinja Jumpstart, Data Hub) · IBM Industry Certifications (Banking, Telecom, Healthcare)</p>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Technical Skills</h3>
+          <div class="skill-cats">
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Development &amp; Data</span>
+              <div class="skill-tags">
+                <span class="skill-tag">JavaScript</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+                <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">SQL</span><span class="skill-tag">Oracle PL/SQL</span>
+                <span class="skill-tag">SOQL</span><span class="skill-tag">AMPscript</span><span class="skill-tag">Jinja</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817486/17335208.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> APIs &amp; Integration</span>
+              <div class="skill-tags">
+                <span class="skill-tag">REST APIs</span><span class="skill-tag">JSON</span><span class="skill-tag">Web Services</span>
+                <span class="skill-tag">System Integration</span><span class="skill-tag">Postman</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Journey Orchestration</span><span class="skill-tag">Weblayers</span><span class="skill-tag">Dynamic Content</span>
+                <span class="skill-tag">Segmentation</span><span class="skill-tag">Funnels &amp; Reporting</span><span class="skill-tag">Metrics &amp; Aggregates</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Journey Builder</span><span class="skill-tag">Automation Studio</span><span class="skill-tag">Data Extensions</span>
+                <span class="skill-tag">Email &amp; Mobile Studio</span><span class="skill-tag">A/B Testing</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817398/adobe-creative-cloud-logo-free-png.webp" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Design &amp; Creative</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span>
+                <span class="skill-tag">XD</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817060/3898082.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Languages</span>
+              <div class="skill-tags">
+                <span class="skill-tag">English — B2</span><span class="skill-tag">German — B2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Go to Contact section">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: CONTACT 
+       ============================================================ -->
+  <section id="contact" class="theme-c">
+    <div class="contact-grid">
+      <div data-reveal>
+        <p class="eyebrow">contact</p>
+        <h2>Let's connect your project</h2>
+        <p>Have a website that needs to talk to other systems, or a project missing a technical consultant? Reach out — this form goes straight to my inbox.</p>
+        <div class="contact-links">
+          <a href="mailto:b.rozsypalova@gmail.com">b.rozsypalova@gmail.com</a>
+          <a href="tel:+421950238952">+421 950 238 952</a>
+          <a href="https://www.salesforce.com/trailblazer/bohuslavarozsypalova" target="_blank" rel="noopener">Salesforce Trailblazer profile</a>
+          <span>Košice / Bratislava, Slovakia</span>
+        </div>
+      </div>
+      <!-- Formulár posiela dáta cez FormSubmit priamo na b.rozsypalova@gmail.com.
+           Pri prvom odoslaní príde potvrdzujúci e-mail, ktorý treba raz potvrdiť. -->
+      <form id="contact-form" data-reveal aria-label="Contact form" action="https://formsubmit.co/b.rozsypalova@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from your portfolio site">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="contact-submit" style="align-self:flex-start;">Send message</button>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Bohuslava Rozsypalová</span>
+    <span>Made with care.</span>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     LIGHTBOX 
+     ============================================================ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">›</button>
+    <div id="lightbox-content"></div>
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+</div>
+
+</body>
+</html>
