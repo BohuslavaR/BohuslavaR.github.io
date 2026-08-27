@@ -195,8 +195,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
 });
 
-/* Pomocná funkcia — vykreslí obsah jednej dlaždice (buď skutočný
-   obrázok, alebo textový placeholder), používa ju galéria aj lightbox */
 function renderTileContent(tile, item) {
   tile.innerHTML = '';
   if (item.img) {
@@ -277,6 +275,15 @@ function initCategoryGallery(rootEl, categoriesData) {
     heroTile.onclick = () => openLightboxAt(cat.images, 0);
 
     renderThumbsPage();
+
+    /* Na mobile (šírka ≤ 900px) sa po otvorení kategórie automaticky
+       odscrolluje nadol na zobrazenú galériu — na malej obrazovke by
+       inak nebolo hneď vidieť, že sa kategórie skryli a galéria sa
+       otvorila. Na desktope to nie je potrebné, tam sa všetko zmestí
+       naraz na obrazovku, preto to robíme len pri malej šírke. */
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      categoryDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   prevBtn.addEventListener('click', () => { currentPage--; renderThumbsPage(); });
@@ -288,6 +295,10 @@ function initCategoryGallery(rootEl, categoriesData) {
   backBtn.addEventListener('click', () => {
     categoryDetail.hidden = true;
     catGrid.hidden = false;
+    /* Rovnaký princíp aj pri návrate na zoznam kategórií (len mobile) */
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      catGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 }
 
