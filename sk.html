@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050511">
+<meta name="color-scheme" content="dark light">
+<title>Bohuslava Rozsypalová — Business &amp; Technical Solution Consultant | CDP, CRM a dátové integrácie</title>
+<meta name="description" content="Portfólio a životopis Bohuslavy Rozsypalovej — Business &amp; Technical Solution Consultant so zameraním na Customer Data Platforms, CRM a dátové integrácie.">
+
+<!-- Jazykové verzie stránky -->
+<link rel="alternate" hreflang="en" href="https://bohuslavar.github.io/index.html">
+<link rel="alternate" hreflang="sk" href="https://bohuslavar.github.io/sk.html">
+<link rel="alternate" hreflang="de" href="https://bohuslavar.github.io/de.html">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-additions.css">
+<!-- Preklady textov, ktoré vytvára JavaScript (formulár, pexeso, galérie) -->
+<script>
+window.I18N = {
+  sending: 'Odosielam…',
+  sendBtn: 'Odoslať správu',
+  formOk: '✓ Správa odoslaná — ďakujem! Ozvem sa čo najskôr.',
+  formErr: 'Niečo sa pokazilo. Napíšte mi prosím priamo na b.rozsypalova@gmail.com.',
+  scratchHint: 'zotrite a odhaľte',
+  moves: 'Ťahy: ',
+  pairs: 'Dvojice: ',
+  solved: (n) => `🎉 Vyriešené na ${n} ťahov!`,
+  photoCats: {
+    portraits: { label: 'portréty', title: 'Portrétna fotografia', desc: 'Ateliérové portréty aj portréty v prirodzenom svetle so zameraním na charakter a náladu.' },
+    various:   { label: 'rôzne',    title: 'Rôzne',                desc: 'Mix každodenných momentov, pouličných scén a osobných projektov.' },
+    products:  { label: 'produkty', title: 'Produktová fotografia', desc: 'Čisté zábery s dôrazom na detail pre e-shopy a značky.' },
+    shelters:  { label: 'útulky',   title: 'Útulky',               desc: 'Fotografiou pomáham útulkom, ako sa len dá.' }
+  },
+  graphicCats: {
+    branding: { label: 'branding', title: 'Vizuálna identita', desc: 'Logá, farebné systémy a vizuálne identity pre značky a produkty.' },
+    ui:       { label: 'ui a web', title: 'UI a web dizajn',   desc: 'Rozhrania a rozloženia pre weby, aplikácie a digitálne produkty.' },
+    various:  { label: 'rôzne',    title: 'Rôzne',             desc: 'Plagáty, hrnčeky, brožúry a materiály pripravené do tlače.' }
+  }
+};
+</script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ============================================================
+     PIPELINE
+     ============================================================ -->
+<div class="pipeline" aria-hidden="true">
+  <div class="pipeline-track"></div>
+  <div class="pipeline-node" style="top:5vh"  data-label="domov"></div>
+  <div class="pipeline-node" style="top:16.5vh" data-label="o mne"></div>
+  <div class="pipeline-node" style="top:28vh" data-label="motto"></div>
+  <div class="pipeline-node" style="top:39.5vh" data-label="fotografia"></div>
+  <div class="pipeline-node" style="top:51vh" data-label="grafický dizajn"></div>
+  <div class="pipeline-node" style="top:62.5vh" data-label="štýl a farby"></div>
+  <div class="pipeline-node" style="top:74vh" data-label="pexeso"></div>
+  <div class="pipeline-node" style="top:85.5vh" data-label="životopis"></div>
+  <div class="pipeline-node" style="top:97vh" data-label="kontakt"></div>
+</div>
+
+<!-- ============================================================
+     HLAVIČKA / NAVIGÁCIA
+     ============================================================ -->
+<header>
+  <a href="#home" class="logo">BR.</a>
+  <div class="header-right">
+    <nav>
+      <ul id="nav-list">
+        <li><a href="#home" data-nav="home">Domov</a></li>
+        <li><a href="#about" data-nav="about">O mne</a></li>
+        <li><a href="#photo" data-nav="photo">Fotografia</a></li>
+        <li><a href="#graphic" data-nav="graphic">Grafický dizajn</a></li>
+        <li><a href="#cv" data-nav="cv">Životopis</a></li>
+        <li><a href="#contact" data-nav="contact">Kontakt</a></li>
+      </ul>
+    </nav>
+    <!-- Prepínač jazykových verzií -->
+    <div class="lang-switch" role="navigation" aria-label="Jazyk">
+      <a href="index.html" hreflang="en">EN</a>
+      <a href="sk.html" class="active" hreflang="sk" aria-current="page">SK</a>
+      <a href="de.html" hreflang="de">DE</a>
+    </div>
+    <button class="nav-toggle" aria-label="Otvoriť menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<div class="scroller" id="scroller">
+
+  <button class="back-to-top" id="back-to-top" aria-label="Späť hore">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- ============================================================
+       SEKCIA: HOME
+       ============================================================ -->
+  <section id="home" class="theme-a">
+    <div class="home-copy" data-reveal>
+      <p class="eyebrow">ahojte</p>
+      <h1>Bohuslava<br>Rozsypalová</h1>
+      <p><span class="role">Business &amp; Technical Solution Consultant</span> — Podieľam sa na realizácii projektov pre medzinárodných klientov, od prvotnej analýzy a návrhu riešenia až po implementáciu a spustenie.</p>
+      <div class="btn-row">
+        <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-primary">Zobraziť životopis</a>
+        <a href="#contact" class="btn btn-ghost">Kontaktujte ma</a>
+      </div>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu O mne">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: ABOUT
+       ============================================================ -->
+   <section id="about" class="theme-b">
+    <div class="about-grid">
+      <div class="about-stats" data-reveal>
+        <div class="stat">
+          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <div><strong>6+</strong><span>rokov v IT a podnikových technológiách</span></div>
+        </div>
+        <div class="stat">
+          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787831828/ChatGPT_Image_27._8._2026_13_56_57.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <div><strong>15+</strong><span>rokov vo fotografii a dizajne</span></div>
+        </div>
+        <div class="stat">
+          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <div><strong>3</strong><span>jazyky — SK rodný, EN a DE na úrovni B2</span></div>
+        </div>
+      </div>
+      <div class="about-text" data-reveal>
+        <p class="eyebrow">o mne</p>
+        <h2>Prepájam technológie s výsledkami, ktoré dávajú zmysel</h2>
+        <p>Business a technický solution konzultant s viac než 6 rokmi praktických skúseností v IT a podnikových technológiách na medzinárodných projektoch v bankovníctve, telekomunikáciách a farmácii. Prepájanie biznisových potrieb s technickou realizáciou – od analýzy a návrhu riešenia až po implementáciu, s AI ako prirodzenou súčasťou každodennej práce.</p>
+        <p>Popri IT kariére sa venujem aj profesionálnej práca v grafickom a webovom dizajne, ktorá prináša kreatívny a vizuálny rozmer do UI/UX časti IT projektov. Aktívne sa certifikujem vo viacerých oblastiach.</p>
+        <div class="chips">
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Customer Data Platforms</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST API a integrácie</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Dátové modelovanie a analýza</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806261/ChatGPT_Image_27._8._2026_06_48_27.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> SQL a Oracle PL/SQL</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Vývoj webu</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> UI/UX a grafický dizajn</span>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Motto">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: MOTTO
+       ============================================================ -->
+  <section id="motto" class="theme-c">
+    <div class="motto-wrap" data-reveal>
+      <p class="eyebrow">interaktívne</p>
+      <h2>Zotrite obrazovku</h2>
+      <p class="motto-hint">Kliknite a ťahajte (alebo potiahnite prstom) cez panel nižšie a odhaľte motto.</p>
+      <div class="scratch-box">
+        <div class="scratch-message">„Najlepšie integrácie sú tie, ktoré si nikto nevšimne.“</div>
+        <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
+      </div>
+      <button class="scratch-reset" id="scratch-reset">Znova</button>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('photo').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Fotografia">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: PHOTOGRAPHY
+       ============================================================ -->
+  <section id="photo" class="gallery-section theme-d">
+    <p class="eyebrow">fotografia</p>
+    <h2 data-reveal>Fotografia</h2>
+    <p class="lead" data-reveal>Vyberte kategóriu a pozrite si celú galériu.</p>
+
+    <div class="cat-grid" data-role="cat-grid" data-reveal>
+      <button class="cat-card" data-cat="portraits">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813464/IMG_8443-2.jpg" alt="Portréty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Portréty</span>
+      </button>
+      <button class="cat-card" data-cat="various">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813451/BZK04091_copy.jpg" alt="Rôzne" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Rôzne</span>
+      </button>
+      <button class="cat-card" data-cat="products">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813473/IMG_3290.jpg" alt="Produkty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Produkty</span>
+      </button>
+      <button class="cat-card" data-cat="shelters">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787814125/KAR01523.jpg" alt="Útulky" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Útulky</span>
+      </button>
+    </div>
+
+    <div class="category-detail" data-role="category-detail" data-reveal hidden>
+      <button class="back-link" data-role="back-link">← Späť na kategórie</button>
+      <div class="cat-hero">
+        <div class="tile cat-hero-image" data-role="hero-tile"></div>
+        <div class="cat-hero-copy">
+          <p class="eyebrow" data-role="hero-eyebrow">portréty</p>
+          <h3 data-role="hero-title">Portrétna fotografia</h3>
+          <p data-role="hero-desc"></p>
+        </div>
+      </div>
+      <div class="grid" data-role="thumbs"></div>
+      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
+        <button class="thumb-nav" data-role="thumb-prev" aria-label="Predchádzajúce fotky">‹</button>
+        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
+        <button class="thumb-nav" data-role="thumb-next" aria-label="Ďalšie fotky">›</button>
+      </div>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('graphic').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Grafický dizajn">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: GRAPHIC DESIGN
+       ============================================================ -->
+  <section id="graphic" class="gallery-section theme-e">
+    <p class="eyebrow">grafický dizajn</p>
+    <h2 data-reveal>Grafický dizajn</h2>
+    <p class="lead" data-reveal>Vyberte kategóriu a pozrite si celú galériu.</p>
+
+    <div class="cat-grid" data-role="cat-grid" data-reveal>
+      <button class="cat-card" data-cat="branding">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787818666/fabia-combi-overview-slider-01.jpg" alt="Branding" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Branding</span>
+      </button>
+      <button class="cat-card" data-cat="ui">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787819014/Endermologia_muz_-_targety2_copy.jpg" alt="UI a web" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">UI a web</span>
+      </button>
+      <button class="cat-card" data-cat="various">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787829710/Renesakideabook.png" alt="Rôzne" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Rôzne</span>
+      </button>
+
+    </div>
+
+    <div class="category-detail" data-role="category-detail" data-reveal hidden>
+      <button class="back-link" data-role="back-link">← Späť na kategórie</button>
+      <div class="cat-hero">
+        <div class="tile cat-hero-image" data-role="hero-tile"></div>
+        <div class="cat-hero-copy">
+          <p class="eyebrow" data-role="hero-eyebrow">branding</p>
+          <h3 data-role="hero-title">Vizuálna identita</h3>
+          <p data-role="hero-desc"></p>
+        </div>
+      </div>
+      <div class="grid" data-role="thumbs"></div>
+      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
+        <button class="thumb-nav" data-role="thumb-prev" aria-label="Predchádzajúce fotky">‹</button>
+        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
+        <button class="thumb-nav" data-role="thumb-next" aria-label="Ďalšie fotky">›</button>
+      </div>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Štýl a farby">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: TYPE & COLOR SPECIMEN
+       ============================================================ -->
+  <section id="specimen" class="theme-f">
+    <p class="eyebrow">ukážka</p>
+    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Písmo a farebný systém</h2>
+    <div class="specimen-grid" data-reveal>
+      <div class="spec-row">
+        <div class="spec-label">Písmo — Montserrat (záloha: Roboto → Helvetica Neue → Arial)</div>
+        <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
+        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
+        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
+        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / popisky</div>
+        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / bežný text</div>
+        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / poznámky</div>
+      </div>
+      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
+        <div class="spec-label">Paleta — Dusk Horizon</div>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Pexeso">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: MEMORY GAME (pexeso)
+       ============================================================ -->
+  <section id="game" class="theme-a">
+    <div class="game-wrap" data-reveal>
+      <p class="eyebrow">chvíľa oddychu</p>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:0.4rem;">Pexeso</h2>
+      <p class="motto-hint">Nájdite všetkých 10 dvojíc. :)</p>
+      <div class="game-hud">
+        <span id="game-moves">Ťahy: 0</span>
+        <span id="game-pairs">Dvojice: 0 / 10</span>
+      </div>
+      <div class="memory-grid" id="memory-grid"></div>
+      <p class="game-win" id="game-win"></p>
+      <button class="game-reset" id="game-reset">Zamiešať znova</button>
+      <p class="game-note">Kolekcia Van Gogh</p>
+    </div>
+    <button class="scroll-cue" onclick="document.getElementById('cv').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Životopis">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: CV
+       ============================================================ -->
+  <section id="cv" class="theme-b">
+    <div class="cv-top">
+      <div>
+        <p class="eyebrow">životopis</p>
+        <h2>Skúsenosti a vzdelanie</h2>
+      </div>
+      <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Stiahnuť životopis (PDF)</a>
+    </div>
+    <div class="cv-layout">
+      <aside class="cv-icons" aria-label="Oblasti práce">
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Customer Data Platforms" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Customer Data Platforms</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="API a integrácie" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>API a integrácie</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="Dáta a analýza" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Dáta a analýza</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="Salesforce Marketing Cloud" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="Dizajn a kreatíva" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Dizajn a kreatíva</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="Jazyky" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Jazyky</span></div>
+      </aside>
+      <div class="cv-scroll" data-reveal>
+        <div class="timeline">
+          <div class="t-item">
+            <div class="period">nov 2024 — súčasnosť</div>
+            <div>
+              <h3>Adastra s.r.o., Bratislava</h3>
+              <span class="role">Business Solution Consultant | Customer Data Platform Specialist</span>
+              <ul>
+                <li>Vedenie CDP projektov pre medzinárodných telekomunikačných klientov — Orange Moldova, Yettel Bulgaria a A1 Croatia — od prvotnej analýzy a návrhu riešenia až po implementáciu a spustenie, primárne v Bloomreach Engagement.</li>
+                <li>Vedenie workshopov s biznisom, marketingom a IT a prevod ich požiadaviek do cieľových dátových modelov, technických špecifikácií a plánov dodávky.</li>
+                <li>Napojenie webov, mobilných aplikácií a backendových systémov na CDP cez REST API, webhooky, Mobile SDK a Tag Manager pre zber dát v reálnom čase.</li>
+                <li>Tvorba omnichannel - e-maily, web, push a in-app — vrátane segmentácie, triggerov, tvorby obsahu, personalizovaných weblayerov a znovupoužiteľných responzívnych šablón, s dôrazom na UI/UX.</li>
+                <li>Analýza zákazníckych, kampaňových a behaviorálnych dát — as-is, gap a data-quality analýzy, funnely a výkonnosť segmentov — a využitie zistení na zlepšenie cielenia a personalizácie.</li>
+                <li>Dodanie enterprise platformy Real-Time Decisioning pre O2 Slovakia a Oracle PL/SQL riešení pre reporting, rekonciliáciu a validáciu migrácie pre srbského bankového klienta.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">aug 2021 — okt 2024</div>
+            <div>
+              <h3>IBM Slovensko s.r.o., Košice</h3>
+              <span class="role">Salesforce Marketing Cloud Consultant &amp; Developer</span>
+              <ul>
+                <li>Zodpovednosť za technickú dodávku marketingovej automatizácie a multikanálovej zákazníckej komunikácie v Salesforce Marketing Cloud pre enterprise klientov.</li>
+                <li>Tvorba a správa Data Extensions, cieľových skupín, personalizačných pravidiel a SQL logiky výberu dát za automatizovanými kampaňami.</li>
+                <li>Integrácia SFMC s CRM systémami a externými webovými službami cez REST a SOAP API, automatizácia dátových tokov a udržiavanie konzistencie dát.</li>
+                <li>Vývoj responzívnych e-mailových šablón, landing pages a microsite v AMPscript, HTML/CSS a JavaScripte vrátane znovupoužiteľných master šablón.</li>
+                <li>Riešenie produkčných incidentov cez Salesforce Inspector a SOQL; správa používateľov, rolí a prístupov k dátam v Orbit CRM; implementácia Google Analytics a OneTrust.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">júl 2020 — júl 2021</div>
+            <div>
+              <h3>M-Victory s.r.o., Košice</h3>
+              <span class="role">Web Designer | UI/UX &amp; Brand Design</span>
+              <ul>
+                <li>Zodpovednosť za vizuálnu identitu webstránky od začiatku do konca vrátane loga, brandových prvkov a pravidiel použitia, ktoré držali dizajn konzistentný.</li>
+                <li>Návrh vizuálneho konceptu, UI a rozložení stránok s dôrazom na UI/UX, intuitívnu navigáciu, typografiu, farebnosť a použiteľnosť.</li>
+                <li>Vedenie vývojového a QA tímu počas implementácie a testovania, kontrola dodaných komponentov voči pôvodným dizajnom.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">dec 2016 — júl 2020</div>
+            <div>
+              <h3>LafargeHolcim EBS s.r.o., Košice</h3>
+              <span class="role">Accounts Payable Specialist | Coordinator</span>
+              <ul>
+                <li>Koordinácia menšieho tímu Accounts Payable pre región južného Nemecka vrátane rozdelenia práce, priorít a riešenia problémov.</li>
+                <li>Spracovanie a kontrola dodávateľských faktúr v SAP (FI) a komunikácia s dodávateľmi v nemčine a angličtine.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">aug 2014 — sep 2016</div>
+            <div>
+              <h3>Otto WorkForce b.v., Holandsko</h3>
+              <span class="role">Warehouse Operator — G-Star RAW Designer Assistant</span>
+              <ul>
+                <li>Sledovanie stavu zásob, podpora skladových operácií a vedenie objednávkových záznamov.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="period">2010 — 2014</div>
+            <div>
+              <h3>Škola úžitkového výtvarníctva, Košice</h3>
+              <span class="role">Grafický dizajn a fotografia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Certifikáty</h3>
+          <p style="font-weight:400; color:var(--muted); font-size:0.88rem; max-width:60ch;">Salesforce Certified Marketing Cloud Consultant, Developer, Email Specialist a Administrator · Bloomreach Academy: Engagement a Discovery · Google Ads Search a Google Analytics Certified · IBM Industry Certifications (Banking, Telecom, Healthcare — Bronze a Silver) · Hubspot Digital Marketing · Hubspot Reporting</p>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Technické zručnosti</h3>
+          <div class="skill-cats">
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Development &amp; Data</span>
+              <div class="skill-tags">
+                <span class="skill-tag">JavaScript (ES6+)</span><span class="skill-tag">Node.js</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+                <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">SQL</span><span class="skill-tag">Oracle PL/SQL</span>
+                <span class="skill-tag">SOQL</span><span class="skill-tag">AMPscript</span><span class="skill-tag">Jinja2</span><span class="skill-tag">Git / GitHub</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817486/17335208.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> APIs &amp; Integration</span>
+              <div class="skill-tags">
+                <span class="skill-tag">REST APIs</span><span class="skill-tag">SOAP / Web Services</span><span class="skill-tag">Custom Webhooks</span>
+                <span class="skill-tag">JSON &amp; Payload Mapping</span><span class="skill-tag">API Authentication</span><span class="skill-tag">Mobile SDK</span><span class="skill-tag">Postman</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Customer Data Modeling</span><span class="skill-tag">Journey Orchestration</span><span class="skill-tag">Weblayers</span><span class="skill-tag">Dynamic Content</span>
+                <span class="skill-tag">Segmentation</span><span class="skill-tag">Funnels &amp; Reporting</span><span class="skill-tag">Metrics &amp; Aggregates</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Journey Builder</span><span class="skill-tag">Automation Studio</span><span class="skill-tag">Data Extensions</span>
+                <span class="skill-tag">Email &amp; Mobile Studio</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Salesforce Inspector</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Analýza a dodávka</span>
+              <div class="skill-tags">
+                <span class="skill-tag">As-Is &amp; Gap Analysis</span><span class="skill-tag">Data Modeling</span><span class="skill-tag">Data Quality &amp; Reconciliation</span>
+                <span class="skill-tag">Technical Specification</span><span class="skill-tag">User Stories &amp; UAT</span><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Jira &amp; Confluence</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817398/adobe-creative-cloud-logo-free-png.webp" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Dizajn a kreatíva</span>
+              <div class="skill-tags">
+                <span class="skill-tag">UI/UX Design</span><span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span>
+                <span class="skill-tag">XD</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> AI a automatizácia</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Generative AI</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI-Assisted Development</span>
+                <span class="skill-tag">AI-Assisted Data Analysis</span><span class="skill-tag">Workflow Automation</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817060/3898082.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Jazyky</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Slovenčina — rodný jazyk</span><span class="skill-tag">Angličtina — B2</span><span class="skill-tag">Nemčina — B2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Kontakt">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: CONTACT
+       ============================================================ -->
+  <section id="contact" class="theme-c">
+    <div class="contact-grid">
+      <div data-reveal>
+        <p class="eyebrow">kontakt</p>
+        <h2>Poďme prepojiť váš projekt</h2>
+        <!-- Fotka + meno: na desktope vedľa formulára, na mobile nad ním. -->
+        <div class="contact-person">
+          <span class="img-slot contact-photo">
+            <img src="https://res.cloudinary.com/livyisn3/image/upload/v1789982652/BohuslavaR.png" alt="Bohuslava Rozsypalová" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="img-fallback">IMG</span>
+          </span>
+          <span class="contact-person-info">
+            <strong>Bohuslava Rozsypalová</strong>
+            <span>Vaša správa chodí priamo mne — zvyčajne odpoviem do jedného dňa.</span>
+          </span>
+        </div>
+        <p>Máte web, ktorý potrebuje komunikovať s ďalšími systémami, alebo projekt, ktorému chýba technický konzultant? Ozvite sa — formulár chodí priamo do mojej schránky.</p>
+        <div class="contact-links">
+          <a href="mailto:b.rozsypalova@gmail.com">b.rozsypalova@gmail.com</a>
+          <a href="tel:+421950238952">+421 950 238 952</a>
+          <a href="https://www.salesforce.com/trailblazer/bohuslavarozsypalova" target="_blank" rel="noopener">Salesforce Trailblazer profil</a>
+          <span>Košice / Bratislava, Slovensko</span>
+        </div>
+      </div>
+      <form id="contact-form" data-reveal aria-label="Kontaktný formulár" action="https://formsubmit.co/b.rozsypalova@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nová správa z portfólia">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <div>
+          <label for="name">Meno</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+          <label for="message">Správa</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="contact-submit" style="align-self:flex-start;">Odoslať správu</button>
+        <p class="form-status" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Bohuslava Rozsypalová</span>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     LIGHTBOX
+     ============================================================ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Zavrieť">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Predchádzajúci obrázok">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Ďalší obrázok">›</button>
+    <div id="lightbox-content"></div>
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+</div>
+
+</body>
+</html>
