@@ -5,8 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050511">
 <meta name="color-scheme" content="dark light">
-<title>Bohuslava Rozsypalová — Technical Consultant | Web &amp; Data Integrations</title>
-<meta name="description" content="Portfolio and CV of Bohuslava Rozsypalová, Technical Consultant specializing in web and data integrations.">
+<title>Bohuslava Rozsypalová — Business &amp; Technical Solution Consultant | CDP, CRM &amp; Data Integration</title>
+<meta name="description" content="Portfolio and CV of Bohuslava Rozsypalová — Business &amp; Technical Solution Consultant specializing in Customer Data Platforms, CRM and data integration.">
+
+<!-- Jazykové verzie stránky -->
+<link rel="alternate" hreflang="en" href="https://bohuslavar.github.io/index.html">
+<link rel="alternate" hreflang="sk" href="https://bohuslavar.github.io/sk.html">
+<link rel="alternate" hreflang="de" href="https://bohuslavar.github.io/de.html">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
@@ -15,12 +20,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-additions.css">
 <script src="script.js" defer></script>
 </head>
 <body>
 
 <!-- ============================================================
-     PIPELINE 
+     PIPELINE
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
@@ -40,17 +46,25 @@
      ============================================================ -->
 <header>
   <a href="#home" class="logo">BR.</a>
-  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-  <nav>
-    <ul id="nav-list">
-      <li><a href="#home" data-nav="home">Home</a></li>
-      <li><a href="#about" data-nav="about">About</a></li>
-      <li><a href="#photo" data-nav="photo">Photography</a></li>
-      <li><a href="#graphic" data-nav="graphic">Graphic Design</a></li>
-      <li><a href="#cv" data-nav="cv">CV</a></li>
-      <li><a href="#contact" data-nav="contact">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="header-right">
+    <nav>
+      <ul id="nav-list">
+        <li><a href="#home" data-nav="home">Home</a></li>
+        <li><a href="#about" data-nav="about">About</a></li>
+        <li><a href="#photo" data-nav="photo">Photography</a></li>
+        <li><a href="#graphic" data-nav="graphic">Graphic Design</a></li>
+        <li><a href="#cv" data-nav="cv">CV</a></li>
+        <li><a href="#contact" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- Prepínač jazykových verzií -->
+    <div class="lang-switch" role="navigation" aria-label="Language">
+      <a href="index.html" class="active" hreflang="en" aria-current="page">EN</a>
+      <a href="sk.html" hreflang="sk">SK</a>
+      <a href="de.html" hreflang="de">DE</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
 </header>
 
 <div class="scroller" id="scroller">
@@ -60,13 +74,13 @@
   </button>
 
   <!-- ============================================================
-       SEKCIA: HOME 
+       SEKCIA: HOME
        ============================================================ -->
   <section id="home" class="theme-a">
     <div class="home-copy" data-reveal>
       <p class="eyebrow">hello</p>
-      <h1>I'm Bohuslava<br>Rozsypalová</h1>
-      <p><span class="role">Technical Consultant</span> — I help companies connect the web and their data into one working system. I design, integrate and fine-tune platforms so information actually makes sense to each other.</p>
+      <h1>Bohuslava<br>Rozsypalová</h1>
+      <p><span class="role">Business &amp; Technical Solution Consultant</span> — I lead customer data and integration projects for international clients, from the first analysis and solution design through to implementation and go-live.</p>
       <div class="btn-row">
         <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-primary">View CV</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
@@ -86,7 +100,7 @@
       <div class="about-stats" data-reveal>
         <div class="stat">
           <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-          <div><strong>5+</strong><span>years in web development</span></div>
+          <div><strong>6+</strong><span>years in IT &amp; enterprise technologies</span></div>
         </div>
         <div class="stat">
           <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787831828/ChatGPT_Image_27._8._2026_13_56_57.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
@@ -94,21 +108,22 @@
         </div>
         <div class="stat">
           <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-          <div><strong>2</strong><span>languages, B2 level</span></div>
+          <div><strong>3</strong><span>languages — SK native, EN &amp; DE B2</span></div>
         </div>
       </div>
       <div class="about-text" data-reveal>
         <p class="eyebrow">about me</p>
         <h2>Connecting technology to results that make sense</h2>
-        <p>Technical Consultant and Developer with experience delivering enterprise IT solutions across international projects in banking, telecommunications and pharmaceutical industries. Strong background in web development, database development, data-driven solutions, API and system integrations — combined with hands-on experience in Bloomreach Engagement and Salesforce Marketing Cloud.</p>
-        <p>Alongside my IT career, I continue to pursue photography, web and graphic design, bringing a strong visual and creative perspective to digital products, UI/UX and customer-facing solutions.</p>
+        <p>Business and Technical Solution Consultant with 6+ years of hands-on experience in IT and enterprise technologies, delivering international projects in banking, telecommunications and pharma. I connect business needs with technical delivery, from analysis and solution design through to implementation, with AI as a natural part of my everyday work. I typically run several projects at the same time.</p>
+        <p>Alongside my IT career, I also work professionally in graphic and web design, bringing a creative and visual dimension to the UI/UX design side of my projects. I actively pursue certifications across a range of areas to keep my expertise current.</p>
         <div class="chips">
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Web Development</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Data Integrations</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST APIs &amp; JSON</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Customer Data Platforms</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST APIs &amp; Integrations</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Data Modeling &amp; Analysis</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806261/ChatGPT_Image_27._8._2026_06_48_27.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> SQL &amp; Oracle PL/SQL</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Web Development</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> UI/UX &amp; Graphic Design</span>
         </div>
       </div>
     </div>
@@ -138,7 +153,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: PHOTOGRAPHY 
+       SEKCIA: PHOTOGRAPHY
        ============================================================ -->
   <section id="photo" class="gallery-section theme-d">
     <p class="eyebrow">photography</p>
@@ -175,10 +190,7 @@
         </div>
       </div>
       <div class="grid" data-role="thumbs"></div>
-      <!-- Stránkovanie miniatúr — zobrazuje vždy 4 fotky naraz, šípky
-           prepínajú na ďalšiu/predchádzajúcu štvoricu. Ak kategória má
-           4 alebo menej fotiek, tento riadok sa automaticky skryje
-           (nastavuje sa v script.js cez initCategoryGallery). -->
+      <!-- Stránkovanie miniatúr — zobrazuje vždy 4 fotky naraz -->
       <div class="thumb-pagination" data-role="thumb-pagination" hidden>
         <button class="thumb-nav" data-role="thumb-prev" aria-label="Previous photos">‹</button>
         <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
@@ -193,7 +205,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: GRAPHIC DESIGN 
+       SEKCIA: GRAPHIC DESIGN
        ============================================================ -->
   <section id="graphic" class="gallery-section theme-e">
     <p class="eyebrow">graphic design</p>
@@ -213,7 +225,7 @@
         <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787829710/Renesakideabook.png" alt="Various" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
         <span class="cat-card-title">Various</span>
       </button>
-     
+
     </div>
 
     <div class="category-detail" data-role="category-detail" data-reveal hidden>
@@ -241,7 +253,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: TYPE & COLOR SPECIMEN 
+       SEKCIA: TYPE & COLOR SPECIMEN
        ============================================================ -->
   <section id="specimen" class="theme-f">
     <p class="eyebrow">specimen</p>
@@ -276,7 +288,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: MEMORY GAME (pexeso) 
+       SEKCIA: MEMORY GAME (pexeso)
        ============================================================ -->
   <section id="game" class="theme-a">
     <div class="game-wrap" data-reveal>
@@ -299,7 +311,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: CV 
+       SEKCIA: CV
        ============================================================ -->
   <section id="cv" class="theme-b">
     <div class="cv-top">
@@ -310,11 +322,11 @@
       <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Download full CV (PDF)</a>
     </div>
     <div class="cv-layout">
-      <!-- Bočný panel s ikonkami — placeholder pre "čo robím", neskôr nahraditeľné vlastnou grafikou -->
+      <!-- Bočný panel s ikonkami — "čo robím" -->
       <aside class="cv-icons" aria-label="Areas of work">
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="Web Development" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Web Development</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Customer Data Platforms" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Customer Data Platforms</span></div>
         <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="APIs & Integrations" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>APIs &amp; Integrations</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Bloomreach Engagement" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Bloomreach Engagement</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="Data & Analysis" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Data &amp; Analysis</span></div>
         <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="Salesforce Marketing Cloud" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
         <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="Design & Creative" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Design &amp; Creative</span></div>
         <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="Languages" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Languages</span></div>
@@ -325,12 +337,14 @@
             <div class="period">Nov 2024 — Present</div>
             <div>
               <h3>Adastra s.r.o., Bratislava</h3>
-              <span class="role">Business Solution Consultant — Data, Development &amp; Integrations</span>
+              <span class="role">Business Solution Consultant | Customer Data Platform Specialist</span>
               <ul>
-                <li>Design customer-facing solutions with JavaScript, HTML/CSS, REST APIs, JSON and Jinja, including interactive web layers and dynamic content.</li>
-                <li>Integrate websites and mobile apps with Bloomreach to support data-driven personalization and customer journeys.</li>
-                <li>Conduct as-is / gap analyses and lead technical workshops with client stakeholders.</li>
-                <li>Built omnichannel personalization for Orange Moldova, Yettel Bulgaria and A1 Croatia; SQL/PL-SQL reporting for a Serbian banking project; supported a Real-Time Decisioning rollout for O2 Slovakia.</li>
+                <li>Lead CDP projects for international telecom clients — Orange Moldova, Yettel Bulgaria and A1 Croatia — from first analysis and solution design through implementation and go-live, primarily in Bloomreach Engagement.</li>
+                <li>Run workshops with business, marketing and IT stakeholders and turn their requirements into target data models, technical specifications and delivery plans.</li>
+                <li>Connect websites, mobile apps and backend systems to the CDP through REST APIs, webhooks, Mobile SDK and Tag Manager for real-time data collection.</li>
+                <li>Build omnichannel customer journeys across email, web, push and in-app, including segmentation, triggers, content, personalised weblayers and reusable responsive templates with a strong focus on UI/UX.</li>
+                <li>Analyse customer, campaign and behavioural data — as-is, gap and data-quality analysis, funnels and segment performance — and use the findings to improve targeting and personalisation.</li>
+                <li>Delivered an enterprise Real-Time Decisioning platform for O2 Slovakia and Oracle PL/SQL reporting, reconciliation and migration validation for a Serbian banking client.</li>
               </ul>
             </div>
           </div>
@@ -338,12 +352,13 @@
             <div class="period">Aug 2021 — Oct 2024</div>
             <div>
               <h3>IBM Slovensko s.r.o., Košice</h3>
-              <span class="role">Salesforce Marketing Cloud Developer &amp; Consultant</span>
+              <span class="role">Salesforce Marketing Cloud Consultant &amp; Developer</span>
               <ul>
-                <li>Implemented and automated multichannel campaigns for an international pharmaceutical client using Salesforce Marketing Cloud.</li>
-                <li>Built responsive email templates, landing pages and microsites with HTML5, CSS3 and JavaScript; reusable master templates in Figma.</li>
-                <li>Developed Data Extensions, audience segments and personalization logic with SQL, SOQL and AMPscript.</li>
-                <li>Integrated Google Analytics and OneTrust Cookie Consent across microsites; managed CRM Orbit access.</li>
+                <li>Owned the technical delivery of marketing automation and multichannel customer communication in Salesforce Marketing Cloud for enterprise clients.</li>
+                <li>Built and maintained Data Extensions, audience segments, personalisation rules and SQL selection logic behind automated campaigns.</li>
+                <li>Integrated SFMC with CRM systems and external web services via REST and SOAP APIs, automating data flows and keeping data consistent across platforms.</li>
+                <li>Developed responsive email templates, landing pages and microsites in AMPscript, HTML/CSS and JavaScript, including reusable master templates.</li>
+                <li>Resolved production data incidents using Salesforce Inspector and SOQL; administered users, roles and data-access rights in Orbit CRM; implemented Google Analytics and OneTrust consent management.</li>
               </ul>
             </div>
           </div>
@@ -351,10 +366,11 @@
             <div class="period">Jul 2020 — Jul 2021</div>
             <div>
               <h3>M-Victory s.r.o., Košice</h3>
-              <span class="role">Web Designer — Website Design Creator</span>
+              <span class="role">Web Designer | UI/UX &amp; Brand Design</span>
               <ul>
-                <li>Designed visual concepts and UI for websites — layouts, icons and graphics in Adobe Illustrator &amp; Photoshop.</li>
-                <li>Created responsive, brand-aligned designs with a focus on UI/UX and usability, collaborating with dev and QA teams.</li>
+                <li>Owned the visual identity of the website end to end, including the logo, brand elements and usage guidelines that kept the design consistent as the site grew.</li>
+                <li>Designed the visual concept, UI and page layouts with a strong focus on UI/UX, intuitive navigation, typography, colour and usability.</li>
+                <li>Guided development and QA through implementation and testing, reviewing delivered components against the original designs.</li>
               </ul>
             </div>
           </div>
@@ -362,10 +378,10 @@
             <div class="period">Dec 2016 — Jul 2020</div>
             <div>
               <h3>LafargeHolcim EBS s.r.o., Košice</h3>
-              <span class="role">Accounts Payable Coordinator (German &amp; English)</span>
+              <span class="role">Accounts Payable Specialist | Coordinator</span>
               <ul>
-                <li>Processed supplier invoices in SAP and coordinated an Accounts Payable team for the Southern Germany region.</li>
-                <li>Managed vendor communication and supported month-end closing and reporting.</li>
+                <li>Coordinated a small Accounts Payable team for the Southern Germany region, managing workload, priorities and issue resolution.</li>
+                <li>Processed and verified supplier invoices in SAP (FI) and managed vendor communication in German and English.</li>
               </ul>
             </div>
           </div>
@@ -383,14 +399,14 @@
             <div class="period">2010 — 2014</div>
             <div>
               <h3>School of Arts, Košice</h3>
-              <span class="role">Photography and Graphic Design</span>
+              <span class="role">Graphic Design and Photography</span>
             </div>
           </div>
         </div>
 
         <div class="cv-skills">
           <h3>Certifications</h3>
-          <p style="font-weight:400; color:var(--muted); font-size:0.88rem; max-width:60ch;">Salesforce Certified Marketing Cloud Consultant, Developer, Administrator &amp; Engagement Specialist · Bloomreach Academy: Discovery &amp; Engagement (Jinja Unlocked, Jinja Jumpstart, Data Hub) · IBM Industry Certifications (Banking, Telecom, Healthcare)</p>
+          <p style="font-weight:400; color:var(--muted); font-size:0.88rem; max-width:60ch;">Salesforce Certified Marketing Cloud Consultant, Developer, Email Specialist &amp; Administrator · Bloomreach Academy: Engagement &amp; Discovery · Google Ads Search &amp; Google Analytics Certified · IBM Industry Certifications (Banking, Telecom, Healthcare — Bronze &amp; Silver) · Hubspot Digital Marketing · Hubspot Reporting</p>
         </div>
 
         <div class="cv-skills">
@@ -399,22 +415,22 @@
             <div class="skill-cat">
               <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Development &amp; Data</span>
               <div class="skill-tags">
-                <span class="skill-tag">JavaScript</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript (ES6+)</span><span class="skill-tag">Node.js</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
                 <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">SQL</span><span class="skill-tag">Oracle PL/SQL</span>
-                <span class="skill-tag">SOQL</span><span class="skill-tag">AMPscript</span><span class="skill-tag">Jinja</span>
+                <span class="skill-tag">SOQL</span><span class="skill-tag">AMPscript</span><span class="skill-tag">Jinja2</span><span class="skill-tag">Git / GitHub</span>
               </div>
             </div>
             <div class="skill-cat">
               <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817486/17335208.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> APIs &amp; Integration</span>
               <div class="skill-tags">
-                <span class="skill-tag">REST APIs</span><span class="skill-tag">JSON</span><span class="skill-tag">Web Services</span>
-                <span class="skill-tag">System Integration</span><span class="skill-tag">Postman</span>
+                <span class="skill-tag">REST APIs</span><span class="skill-tag">SOAP / Web Services</span><span class="skill-tag">Custom Webhooks</span>
+                <span class="skill-tag">JSON &amp; Payload Mapping</span><span class="skill-tag">API Authentication</span><span class="skill-tag">Mobile SDK</span><span class="skill-tag">Postman</span>
               </div>
             </div>
             <div class="skill-cat">
               <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
               <div class="skill-tags">
-                <span class="skill-tag">Journey Orchestration</span><span class="skill-tag">Weblayers</span><span class="skill-tag">Dynamic Content</span>
+                <span class="skill-tag">Customer Data Modeling</span><span class="skill-tag">Journey Orchestration</span><span class="skill-tag">Weblayers</span><span class="skill-tag">Dynamic Content</span>
                 <span class="skill-tag">Segmentation</span><span class="skill-tag">Funnels &amp; Reporting</span><span class="skill-tag">Metrics &amp; Aggregates</span>
               </div>
             </div>
@@ -422,20 +438,34 @@
               <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
               <div class="skill-tags">
                 <span class="skill-tag">Journey Builder</span><span class="skill-tag">Automation Studio</span><span class="skill-tag">Data Extensions</span>
-                <span class="skill-tag">Email &amp; Mobile Studio</span><span class="skill-tag">A/B Testing</span>
+                <span class="skill-tag">Email &amp; Mobile Studio</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Salesforce Inspector</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Analysis &amp; Delivery</span>
+              <div class="skill-tags">
+                <span class="skill-tag">As-Is &amp; Gap Analysis</span><span class="skill-tag">Data Modeling</span><span class="skill-tag">Data Quality &amp; Reconciliation</span>
+                <span class="skill-tag">Technical Specification</span><span class="skill-tag">User Stories &amp; UAT</span><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Jira &amp; Confluence</span>
               </div>
             </div>
             <div class="skill-cat">
               <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817398/adobe-creative-cloud-logo-free-png.webp" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Design &amp; Creative</span>
               <div class="skill-tags">
-                <span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span>
+                <span class="skill-tag">UI/UX Design</span><span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span>
                 <span class="skill-tag">XD</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span>
+              </div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> AI &amp; Automation</span>
+              <div class="skill-tags">
+                <span class="skill-tag">Generative AI</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI-Assisted Development</span>
+                <span class="skill-tag">AI-Assisted Data Analysis</span><span class="skill-tag">Workflow Automation</span>
               </div>
             </div>
             <div class="skill-cat">
               <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817060/3898082.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Languages</span>
               <div class="skill-tags">
-                <span class="skill-tag">English — B2</span><span class="skill-tag">German — B2</span>
+                <span class="skill-tag">Slovak — native</span><span class="skill-tag">English — B2</span><span class="skill-tag">German — B2</span>
               </div>
             </div>
           </div>
@@ -450,13 +480,25 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: CONTACT 
+       SEKCIA: CONTACT
        ============================================================ -->
   <section id="contact" class="theme-c">
     <div class="contact-grid">
       <div data-reveal>
         <p class="eyebrow">contact</p>
         <h2>Let's connect your project</h2>
+        <!-- Fotka + meno: na desktope stojí vedľa formulára,
+             na mobile sa zalomí nad formulár. -->
+        <div class="contact-person">
+          <span class="img-slot contact-photo">
+            <img src="https://res.cloudinary.com/livyisn3/image/upload/v1789982652/BohuslavaR.png" alt="Bohuslava Rozsypalová" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="img-fallback">IMG</span>
+          </span>
+          <span class="contact-person-info">
+            <strong>Bohuslava Rozsypalová</strong>
+            <span>Your message comes straight to me — I usually reply within a day.</span>
+          </span>
+        </div>
         <p>Have a website that needs to talk to other systems, or a project missing a technical consultant? Reach out — this form goes straight to my inbox.</p>
         <div class="contact-links">
           <a href="mailto:b.rozsypalova@gmail.com">b.rozsypalova@gmail.com</a>
@@ -465,8 +507,7 @@
           <span>Košice / Bratislava, Slovakia</span>
         </div>
       </div>
-      <!-- Formulár posiela dáta cez FormSubmit priamo na b.rozsypalova@gmail.com.
-           Pri prvom odoslaní príde potvrdzujúci e-mail, ktorý treba raz potvrdiť. -->
+      <!-- Formulár posiela dáta cez FormSubmit priamo na b.rozsypalova@gmail.com. -->
       <form id="contact-form" data-reveal aria-label="Contact form" action="https://formsubmit.co/b.rozsypalova@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New message from your portfolio site">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
@@ -496,7 +537,7 @@
 </div>
 
 <!-- ============================================================
-     LIGHTBOX 
+     LIGHTBOX
      ============================================================ -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <div class="lightbox-inner">
