@@ -614,7 +614,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-o
 .contact-person .contact-photo{
   width:78px;
   height:78px;
-  border-radius:50%;
+  border-radius:15%;
   flex-shrink:0;
   border:2px solid var(--accent);
 }
@@ -641,7 +641,7 @@ a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-o
     border-radius:16px;
     gap:0.9rem;
   }
-  .contact-person .contact-photo{width:64px; height:64px;}
+  .contact-person .contact-photo{width:320px; height:460px;}
 }
 @media (max-width:420px){
   .contact-person{padding:0.75rem 0.9rem;}
