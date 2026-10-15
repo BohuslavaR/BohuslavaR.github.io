@@ -346,9 +346,9 @@ nav ul a{padding:8px 14px; border-radius:999px; font-size:0.95rem;}
 
 .more-card-visual{position:relative; aspect-ratio:16/9; overflow:hidden;}
 /* Farebný podklad — vidno ho, kým obrázok chýba */
-.more-card:nth-child(1) .more-card-visual{background:linear-gradient(135deg, #D26661, #6B354C);}
-.more-card:nth-child(2) .more-card-visual{background:linear-gradient(135deg, #933A3C, #311B2F);}
-.more-card:nth-child(3) .more-card-visual{background:linear-gradient(135deg, #F2D1D0, #D26661);}
+.more-card:nth-child(1) .more-card-visual{background:linear-gradient(135deg, #050511, #311B2F);}
+.more-card:nth-child(2) .more-card-visual{background:linear-gradient(135deg, #0d1156, #311B2F);}
+.more-card:nth-child(3) .more-card-visual{background:linear-gradient(135deg, #F2D1D0, #050511);}
 .more-card:nth-child(4) .more-card-visual{background:linear-gradient(135deg, #6B354C, #050511);}
 .more-card-visual img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s ease;}
 .more-card:hover .more-card-visual img{transform:scale(1.06);}
