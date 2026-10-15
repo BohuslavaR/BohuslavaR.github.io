@@ -152,12 +152,14 @@ nav a:hover::after, nav a.active::after{width:100%;}
    6. HOME (HERO) — meno, titulok, tlačidlá, fotka na pozadí
    ============================================================ */
 #home{
+  --hero-img:url('https://res.cloudinary.com/livyisn3/image/upload/v1789982651/BCKgrnd_image.png');
   display:flex; flex-direction:column; justify-content:center;
   background-image:var(--hero-img);
   background-repeat:no-repeat;
   background-position:75% center;
   background-size:cover;
   background-color:var(--ink);
+
 }
 .home-copy{max-width:56ch; position:relative; z-index:2;}
 .home-copy h1{ font-size:clamp(2.2rem, 5vw, 3.5rem); line-height:1.08; margin-bottom:1.1rem; } /* ExtraBold 800 (dedí z h1) */
@@ -699,4 +701,23 @@ input.has-banned, textarea.has-banned{
   .more-grid{grid-template-columns:1fr; gap:1rem;}
   .more-card-visual{aspect-ratio:16/7;}
   .more-card-visual svg{width:44px; height:44px;}
+}
+
+/* ============================================================
+   20. PREPÍNAČ JAZYKOV (EN / SK / DE)
+   ============================================================ */
+.header-right{display:flex; align-items:center; gap:1.8rem;}
+.lang-switch{
+  display:flex; gap:2px; padding:3px;
+  border:1px solid rgba(245,227,243,0.2); border-radius:20px;
+}
+.lang-switch a{
+  font-family:var(--font-main); font-weight:600; font-size:0.72rem; letter-spacing:0.04em;
+  padding:4px 10px; border-radius:14px; color:var(--mist); opacity:0.7;
+  transition:opacity .2s, background .2s, color .2s;
+}
+.lang-switch a:hover{opacity:1;}
+.lang-switch a.active{background:var(--coral); color:var(--ink); opacity:1;}
+@media (max-width:860px){
+  .header-right{gap:1rem;}
 }
