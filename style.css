@@ -92,9 +92,9 @@ section{
 section h2{font-size:clamp(1.8rem, 3.5vw, 2.4rem);}
 .lead{font-weight:300; color:var(--muted); max-width:58ch; margin:0.5rem 0 2rem;}
 
-.theme-a{--bg:var(--ink);   --text:var(--mist); --muted:var(--coral); --accent:var(--coral);      --btn-text:var(--ink);   --line:rgba(245,227,243,0.16);}
-.theme-b{--bg:var(--mist);  --text:var(--ink);  --muted:var(--mauve); --accent:var(--terracotta); --btn-text:var(--mist);  --line:rgba(5,5,17,0.14);}
-.theme-c{--bg:var(--plum);  --text:var(--mist); --muted:var(--coral); --accent:var(--coral);      --btn-text:var(--plum);  --line:rgba(245,227,243,0.16);}
+.theme-a{--bg:var(--ink);   --text:var(--mist); --muted:var(--coral); --accent:var(--darkblue);      --btn-text:var(--ink);   --line:rgba(245,227,243,0.16);}
+.theme-b{--bg:var(--mist);  --text:var(--ink);  --muted:var(--mauve); --accent:var(--darkblue); --btn-text:var(--mist);  --line:rgba(5,5,17,0.14);}
+.theme-c{--bg:var(--plum);  --text:var(--mist); --muted:var(--coral); --accent:var(--darkblue);      --btn-text:var(--plum);  --line:rgba(245,227,243,0.16);}
 .theme-d{--bg:var(--peach); --text:var(--ink);  --muted:var(--mauve); --accent:var(--terracotta); --btn-text:var(--peach); --line:rgba(5,5,17,0.12);}
 .theme-f{--bg:var(--coral); --text:var(--ink);  --muted:var(--plum);  --accent:var(--ink);        --btn-text:var(--mist);  --line:rgba(5,5,17,0.16);}
 
