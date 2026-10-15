@@ -7,7 +7,9 @@
 <meta name="color-scheme" content="dark light">
 <title>Bohuslava Rozsypalová — Technical Consultant | Web &amp; Data Integrations</title>
 <meta name="description" content="Portfolio and CV of Bohuslava Rozsypalová, Technical Consultant specializing in web and data integrations.">
-
+<link rel="alternate" hreflang="en" href="https://bohuslavar.github.io/index.html">
+<link rel="alternate" hreflang="sk" href="https://bohuslavar.github.io/sk.html">
+<link rel="alternate" hreflang="de" href="https://bohuslavar.github.io/de.html">
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
 <link rel="apple-touch-icon" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
@@ -41,17 +43,25 @@
      ============================================================ -->
 <header>
   <a href="#home" class="logo">BR.</a>
-  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
-  <nav>
-    <ul id="nav-list">
-      <li><a href="#home" data-nav="home">Home</a></li>
-      <li><a href="#about" data-nav="about">About</a></li>
-      <li><a href="#photo" data-nav="photo">Photography</a></li>
-      <li><a href="#graphic" data-nav="graphic">Graphic Design</a></li>
-      <li><a href="#cv" data-nav="cv">CV</a></li>
-      <li><a href="#contact" data-nav="contact">Contact</a></li>
-    </ul>
-  </nav>
+  <div class="header-right">
+    <nav>
+      <ul id="nav-list">
+        <li><a href="#home" data-nav="home">Home</a></li>
+        <li><a href="#about" data-nav="about">About</a></li>
+        <li><a href="#photo" data-nav="photo">Photography</a></li>
+        <li><a href="#graphic" data-nav="graphic">Graphic Design</a></li>
+        <li><a href="#cv" data-nav="cv">CV</a></li>
+        <li><a href="#contact" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- Prepínač jazykových verzií -->
+    <div class="lang-switch" role="navigation" aria-label="Language">
+      <a href="index.html" class="active" hreflang="en" aria-current="page">EN</a>
+      <a href="sk.html" hreflang="sk">SK</a>
+      <a href="de.html" hreflang="de">DE</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
 </header>
 
 <div class="scroller" id="scroller">
@@ -130,48 +140,48 @@
     <p class="lead" data-reveal>Standalone sites with more of my work.</p>
 
     <div class="more-grid" data-reveal>
-      <!-- 01 Graphic Portfolio — do href daj odkaz na stránku (kým je "#", ukáže sa štítok „Coming soon“) -->
-      <a class="more-card" href="#" target="_blank" rel="noopener">
+      <!-- 01 Graphic Portfolio -->
+      <a class="more-card" href="https://bohuslavar.github.io/GraphicPortfolio/" target="_blank" rel="noopener">
         <div class="more-card-visual">
-          <span class="more-card-num">01</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.8 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.3-.4-.6-.4-1 0-.8.7-1.4 1.5-1.4H16a5 5 0 0 0 5-5c0-4.4-4-8-9-8z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>
-        </div>
+  <img src="https://res.cloudinary.com/xbffrklb/image/upload/.../tvoj-obrazok.jpg" alt="Graphic Portfolio" loading="lazy">
+  <span class="more-card-num">01</span>
+</div>
         <div class="more-card-body">
           <h3>Graphic Portfolio</h3>
           <p>Logos, visual identities, UI concepts and print work in one place.</p>
           <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
         </div>
       </a>
-      <!-- 02 Grandhotel — do href daj odkaz na stránku (kým je "#", ukáže sa štítok „Coming soon“) -->
-      <a class="more-card" href="#" target="_blank" rel="noopener">
+      <!-- 02 Grandhotel -->
+      <a class="more-card" href="https://bohuslavar.github.io/Grandhotel/" target="_blank" rel="noopener">
         <div class="more-card-visual">
-          <span class="more-card-num">02</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16"/><path d="M2 21h20"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/><path d="M10 21v-3h4v3"/></svg>
-        </div>
+  <img src="https://res.cloudinary.com/xbffrklb/image/upload/.../tvoj-obrazok.jpg" alt="Graphic Portfolio" loading="lazy">
+  <span class="more-card-num">02</span>
+</div>
         <div class="more-card-body">
           <h3>Grandhotel</h3>
           <p>A hotel website — from the design concept to responsive development.</p>
           <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
         </div>
       </a>
-      <!-- 03 Photography — do href daj odkaz na stránku (kým je "#", ukáže sa štítok „Coming soon“) -->
-      <a class="more-card" href="#" target="_blank" rel="noopener">
+      <!-- 03 Photography -->
+      <a class="more-card" href="https://bohuslavar.github.io/Photography/" target="_blank" rel="noopener">
         <div class="more-card-visual">
-          <span class="more-card-num">03</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></svg>
-        </div>
+  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1788991617/8110A084-2484-446B-BF45-C96464E2B1D4.jpg" alt="Graphic Portfolio" loading="lazy">
+  <span class="more-card-num">03</span>
+</div>
         <div class="more-card-body">
           <h3>Photography</h3>
           <p>Portraits, products and shelter photography — full series in higher resolution.</p>
           <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
         </div>
       </a>
-      <!-- 04 AI Agents — do href daj odkaz na stránku (kým je "#", ukáže sa štítok „Coming soon“) -->
+      <!-- 04 AI Agents -->
       <a class="more-card" href="#" target="_blank" rel="noopener">
-        <div class="more-card-visual">
-          <span class="more-card-num">04</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/><path d="M2 13v3M22 13v3"/></svg>
-        </div>
+       <div class="more-card-visual">
+  <img src="https://res.cloudinary.com/xbffrklb/image/upload/.../tvoj-obrazok.jpg" alt="Graphic Portfolio" loading="lazy">
+  <span class="more-card-num">04</span>
+</div>
         <div class="more-card-body">
           <h3>AI Agents</h3>
           <p>Experiments with AI agents and automating everyday work.</p>
