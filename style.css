@@ -33,6 +33,7 @@
   --coral:#babddf;
   --mist:#F5E3F3;
   --peach:#F2D1D0;
+   --darkblue:#020828
 
   --font-main:'Montserrat', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
@@ -40,12 +41,12 @@
   --bg:var(--ink);
   --text:var(--mist);
   --muted:var(--coral);
-  --accent:var(--coral);
+  --accent:var(--darkblue);
   --btn-text:var(--ink);
   --line:rgba(245,227,243,0.16);
   --radius:4px;
 
-  --nav-hover:#B98CFF;          /* farba hover efektu v hornom menu */
+  --nav-hover:var(--darkblue);  /* farba hover efektu v hornom menu */
 
   --hero-img:url('https://res.cloudinary.com/livyisn3/image/upload/v1789982651/BCKgrnd_image.png');
 }
