@@ -31,16 +31,11 @@ window.I18N = {
   moves: 'Ťahy: ',
   pairs: 'Dvojice: ',
   solved: (n) => `🎉 Vyriešené na ${n} ťahov!`,
-  photoCats: {
-    portraits: { label: 'portréty', title: 'Portrétna fotografia', desc: 'Ateliérové portréty aj portréty v prirodzenom svetle so zameraním na charakter a náladu.' },
-    various:   { label: 'rôzne',    title: 'Rôzne',                desc: 'Mix každodenných momentov, pouličných scén a osobných projektov.' },
-    products:  { label: 'produkty', title: 'Produktová fotografia', desc: 'Čisté zábery s dôrazom na detail pre e-shopy a značky.' },
-    shelters:  { label: 'útulky',   title: 'Útulky',               desc: 'Fotografiou pomáham útulkom, ako sa len dá.' }
-  },
-  graphicCats: {
-    branding: { label: 'branding', title: 'Vizuálna identita', desc: 'Logá, farebné systémy a vizuálne identity pre značky a produkty.' },
-    ui:       { label: 'ui a web', title: 'UI a web dizajn',   desc: 'Rozhrania a rozloženia pre weby, aplikácie a digitálne produkty.' },
-    various:  { label: 'rôzne',    title: 'Rôzne',             desc: 'Plagáty, hrnčeky, brožúry a materiály pripravené do tlače.' }
+  certCats: {
+    salesforce: { label: 'salesforce', title: 'Salesforce certifikácie', desc: 'Marketing Cloud — konzultant, developer, e-mail špecialista a administrátor.' },
+    bloomreach: { label: 'bloomreach', title: 'Bloomreach Academy',      desc: 'Engagement, Discovery, Jinja a Data Hub.' },
+    technical:  { label: 'technické',  title: 'Technické a dátové',      desc: 'Webová analytika, reporting a práca s dátami.' },
+    business:   { label: 'business',   title: 'Business a marketing',    desc: 'Digitálny marketing, reklama a odvetvové certifikácie IBM.' }
   }
 };
 </script>
@@ -49,20 +44,19 @@ window.I18N = {
 <body>
 
 <!-- ============================================================
-     PIPELINE
+     PIPELINE — poradie bodiek musí sedieť so sectionIds v script.js
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
-  <div class="pipeline-node" style="top:5vh"     data-label="domov"></div>
-  <div class="pipeline-node" style="top:15.22vh" data-label="o mne"></div>
-  <div class="pipeline-node" style="top:25.44vh" data-label="ďalšie stránky"></div>
-  <div class="pipeline-node" style="top:35.67vh" data-label="motto"></div>
-  <div class="pipeline-node" style="top:45.89vh" data-label="fotografia"></div>
-  <div class="pipeline-node" style="top:56.11vh" data-label="grafický dizajn"></div>
-  <div class="pipeline-node" style="top:66.33vh" data-label="štýl a farby"></div>
-  <div class="pipeline-node" style="top:76.56vh" data-label="pexeso"></div>
-  <div class="pipeline-node" style="top:86.78vh" data-label="životopis"></div>
-  <div class="pipeline-node" style="top:97vh"    data-label="kontakt"></div>
+  <div class="pipeline-node" style="top:5vh" data-label="domov"></div>
+  <div class="pipeline-node" style="top:16.5vh" data-label="o mne"></div>
+  <div class="pipeline-node" style="top:28vh" data-label="ďalšie stránky"></div>
+  <div class="pipeline-node" style="top:39.5vh" data-label="certifikáty"></div>
+  <div class="pipeline-node" style="top:51vh" data-label="motto"></div>
+  <div class="pipeline-node" style="top:62.5vh" data-label="pexeso"></div>
+  <div class="pipeline-node" style="top:74vh" data-label="životopis"></div>
+  <div class="pipeline-node" style="top:85.5vh" data-label="štýl a farby"></div>
+  <div class="pipeline-node" style="top:97vh" data-label="kontakt"></div>
 </div>
 
 <!-- ============================================================
@@ -76,8 +70,8 @@ window.I18N = {
       <ul id="nav-list">
         <li><a href="#home" data-nav="home">Domov</a></li>
         <li><a href="#about" data-nav="about">O mne</a></li>
-        <li><a href="#photo" data-nav="photo">Fotografia</a></li>
-        <li><a href="#graphic" data-nav="graphic">Grafický dizajn</a></li>
+        <li><a href="#more" data-nav="more">Stránky</a></li>
+        <li><a href="#certs" data-nav="certs">Certifikáty</a></li>
         <li><a href="#cv" data-nav="cv">Životopis</a></li>
         <li><a href="#contact" data-nav="contact">Kontakt</a></li>
       </ul>
@@ -139,9 +133,11 @@ window.I18N = {
       <div class="about-text" data-reveal>
         <p class="eyebrow">o mne</p>
         <h2>Prepájam technológie s výsledkami, ktoré dávajú zmysel</h2>
-        <p>Business a technický solution konzultant s viac než 6 rokmi praktických skúseností v IT a podnikových technológiách na medzinárodných projektoch v bankovníctve, telekomunikáciách a farmácii. Prepájanie biznisových potrieb s technickou realizáciou – od analýzy a návrhu riešenia až po implementáciu, s AI ako prirodzenou súčasťou každodennej práce.</p>
+        <p>Business a technický solution konzultant a <strong>JavaScript developer</strong> s viac než 6 rokmi praktických skúseností v IT na medzinárodných projektoch v bankovníctve, telekomunikáciách a farmácii. Webové vrstvy, integrácie a dátové riešenia staviam v <strong>JavaScripte, cez REST API a SQL</strong> — a <strong>generatívnu AI</strong> používam každý deň na rýchlejší návrh, prototypovanie a automatizáciu.</p>
         <p>Popri IT kariére sa venujem aj profesionálnej práca v grafickom a webovom dizajne, ktorá prináša kreatívny a vizuálny rozmer do UI/UX časti IT projektov. Aktívne sa certifikujem vo viacerých oblastiach.</p>
         <div class="chips">
+          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> JavaScript (ES6+)</span>
+          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Generatívna AI a prompt engineering</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Customer Data Platforms</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST API a integrácie</span>
@@ -217,6 +213,56 @@ window.I18N = {
       </a>
     </div>
 
+    <button class="scroll-cue" onclick="document.getElementById('certs').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Certifikáty">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+  <!-- ============================================================
+       SEKCIA: CERTIFICATES — galéria certifikátov (dáta v script.js, JS 7)
+       ============================================================ -->
+  <section id="certs" class="gallery-section theme-d">
+    <p class="eyebrow">certifikáty</p>
+    <h2 data-reveal>Certifikáty</h2>
+    <p class="lead" data-reveal>Vyberte kategóriu a pozrite si certifikáty.</p>
+
+    <div class="cat-grid" data-role="cat-grid" data-reveal>
+      <button class="cat-card is-logo" data-cat="salesforce">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Salesforce</span>
+      </button>
+      <button class="cat-card is-logo" data-cat="bloomreach">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Bloomreach</span>
+      </button>
+      <button class="cat-card is-logo" data-cat="technical">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Technické a dátové</span>
+      </button>
+      <button class="cat-card is-logo" data-cat="business">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Business a marketing</span>
+      </button>
+    </div>
+
+    <div class="category-detail" data-role="category-detail" data-reveal hidden>
+      <button class="back-link" data-role="back-link">← Späť na kategórie</button>
+      <div class="cat-hero">
+        <div class="tile cat-hero-image" data-role="hero-tile"></div>
+        <div class="cat-hero-copy">
+          <p class="eyebrow" data-role="hero-eyebrow">salesforce</p>
+          <h3 data-role="hero-title">Salesforce certifikácie</h3>
+          <p data-role="hero-desc"></p>
+        </div>
+      </div>
+      <div class="grid" data-role="thumbs"></div>
+      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
+        <button class="thumb-nav" data-role="thumb-prev" aria-label="Predchádzajúce">‹</button>
+        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
+        <button class="thumb-nav" data-role="thumb-next" aria-label="Ďalšie">›</button>
+      </div>
+    </div>
+
     <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Motto">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
@@ -237,145 +283,12 @@ window.I18N = {
       </div>
       <button class="scratch-reset" id="scratch-reset">Znova</button>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('photo').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Fotografia">
-      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      <span class="scroll-label">scroll</span>
-    </button>
-  </section>
-
-  <!-- ============================================================
-       SEKCIA: PHOTOGRAPHY
-       ============================================================ -->
-  <section id="photo" class="gallery-section theme-d">
-    <p class="eyebrow">fotografia</p>
-    <h2 data-reveal>Fotografia</h2>
-    <p class="lead" data-reveal>Vyberte kategóriu a pozrite si celú galériu.</p>
-
-    <div class="cat-grid" data-role="cat-grid" data-reveal>
-      <button class="cat-card" data-cat="portraits">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813464/IMG_8443-2.jpg" alt="Portréty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Portréty</span>
-      </button>
-      <button class="cat-card" data-cat="various">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813451/BZK04091_copy.jpg" alt="Rôzne" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Rôzne</span>
-      </button>
-      <button class="cat-card" data-cat="products">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813473/IMG_3290.jpg" alt="Produkty" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Produkty</span>
-      </button>
-      <button class="cat-card" data-cat="shelters">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787814125/KAR01523.jpg" alt="Útulky" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Útulky</span>
-      </button>
-    </div>
-
-    <div class="category-detail" data-role="category-detail" data-reveal hidden>
-      <button class="back-link" data-role="back-link">← Späť na kategórie</button>
-      <div class="cat-hero">
-        <div class="tile cat-hero-image" data-role="hero-tile"></div>
-        <div class="cat-hero-copy">
-          <p class="eyebrow" data-role="hero-eyebrow">portréty</p>
-          <h3 data-role="hero-title">Portrétna fotografia</h3>
-          <p data-role="hero-desc"></p>
-        </div>
-      </div>
-      <div class="grid" data-role="thumbs"></div>
-      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
-        <button class="thumb-nav" data-role="thumb-prev" aria-label="Predchádzajúce fotky">‹</button>
-        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
-        <button class="thumb-nav" data-role="thumb-next" aria-label="Ďalšie fotky">›</button>
-      </div>
-    </div>
-
-    <button class="scroll-cue" onclick="document.getElementById('graphic').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Grafický dizajn">
-      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      <span class="scroll-label">scroll</span>
-    </button>
-  </section>
-
-  <!-- ============================================================
-       SEKCIA: GRAPHIC DESIGN
-       ============================================================ -->
-  <section id="graphic" class="gallery-section theme-e">
-    <p class="eyebrow">grafický dizajn</p>
-    <h2 data-reveal>Grafický dizajn</h2>
-    <p class="lead" data-reveal>Vyberte kategóriu a pozrite si celú galériu.</p>
-
-    <div class="cat-grid" data-role="cat-grid" data-reveal>
-      <button class="cat-card" data-cat="branding">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787818666/fabia-combi-overview-slider-01.jpg" alt="Branding" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Branding</span>
-      </button>
-      <button class="cat-card" data-cat="ui">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787819014/Endermologia_muz_-_targety2_copy.jpg" alt="UI a web" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">UI a web</span>
-      </button>
-      <button class="cat-card" data-cat="various">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787829710/Renesakideabook.png" alt="Rôzne" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Rôzne</span>
-      </button>
-
-    </div>
-
-    <div class="category-detail" data-role="category-detail" data-reveal hidden>
-      <button class="back-link" data-role="back-link">← Späť na kategórie</button>
-      <div class="cat-hero">
-        <div class="tile cat-hero-image" data-role="hero-tile"></div>
-        <div class="cat-hero-copy">
-          <p class="eyebrow" data-role="hero-eyebrow">branding</p>
-          <h3 data-role="hero-title">Vizuálna identita</h3>
-          <p data-role="hero-desc"></p>
-        </div>
-      </div>
-      <div class="grid" data-role="thumbs"></div>
-      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
-        <button class="thumb-nav" data-role="thumb-prev" aria-label="Predchádzajúce fotky">‹</button>
-        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
-        <button class="thumb-nav" data-role="thumb-next" aria-label="Ďalšie fotky">›</button>
-      </div>
-    </div>
-
-    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Štýl a farby">
-      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      <span class="scroll-label">scroll</span>
-    </button>
-  </section>
-
-  <!-- ============================================================
-       SEKCIA: TYPE & COLOR SPECIMEN
-       ============================================================ -->
-  <section id="specimen" class="theme-f">
-    <p class="eyebrow">ukážka</p>
-    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Písmo a farebný systém</h2>
-    <div class="specimen-grid" data-reveal>
-      <div class="spec-row">
-        <div class="spec-label">Písmo — Montserrat (záloha: Roboto → Helvetica Neue → Arial)</div>
-        <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
-        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
-        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
-        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / popisky</div>
-        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / bežný text</div>
-        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / poznámky</div>
-      </div>
-      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
-        <div class="spec-label">Paleta — Dusk Horizon</div>
-        <div class="swatches">
-          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
-        </div>
-      </div>
-    </div>
     <button class="scroll-cue" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Pexeso">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
   </section>
+
 
   <!-- ============================================================
        SEKCIA: MEMORY GAME (pexeso)
@@ -562,6 +475,41 @@ window.I18N = {
       </div>
     </div>
 
+    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Štýl a farby">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: TYPE & COLOR SPECIMEN
+       ============================================================ -->
+  <section id="specimen" class="theme-f">
+    <p class="eyebrow">ukážka</p>
+    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Písmo a farebný systém</h2>
+    <div class="specimen-grid" data-reveal>
+      <div class="spec-row">
+        <div class="spec-label">Písmo — Montserrat (záloha: Roboto → Helvetica Neue → Arial)</div>
+        <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
+        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
+        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
+        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / popisky</div>
+        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / bežný text</div>
+        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / poznámky</div>
+      </div>
+      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
+        <div class="spec-label">Paleta — Dusk Horizon</div>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
+        </div>
+      </div>
+    </div>
     <button class="scroll-cue" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Kontakt">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
