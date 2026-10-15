@@ -20,7 +20,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style-additions.css">
 <!-- Preklady textov, ktoré vytvára JavaScript (formulár, pexeso, galérie) -->
 <script>
 window.I18N = {
@@ -54,15 +53,16 @@ window.I18N = {
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
-  <div class="pipeline-node" style="top:5vh"  data-label="domov"></div>
-  <div class="pipeline-node" style="top:16.5vh" data-label="o mne"></div>
-  <div class="pipeline-node" style="top:28vh" data-label="motto"></div>
-  <div class="pipeline-node" style="top:39.5vh" data-label="fotografia"></div>
-  <div class="pipeline-node" style="top:51vh" data-label="grafický dizajn"></div>
-  <div class="pipeline-node" style="top:62.5vh" data-label="štýl a farby"></div>
-  <div class="pipeline-node" style="top:74vh" data-label="pexeso"></div>
-  <div class="pipeline-node" style="top:85.5vh" data-label="životopis"></div>
-  <div class="pipeline-node" style="top:97vh" data-label="kontakt"></div>
+  <div class="pipeline-node" style="top:5vh"     data-label="domov"></div>
+  <div class="pipeline-node" style="top:15.22vh" data-label="o mne"></div>
+  <div class="pipeline-node" style="top:25.44vh" data-label="ďalšie stránky"></div>
+  <div class="pipeline-node" style="top:35.67vh" data-label="motto"></div>
+  <div class="pipeline-node" style="top:45.89vh" data-label="fotografia"></div>
+  <div class="pipeline-node" style="top:56.11vh" data-label="grafický dizajn"></div>
+  <div class="pipeline-node" style="top:66.33vh" data-label="štýl a farby"></div>
+  <div class="pipeline-node" style="top:76.56vh" data-label="pexeso"></div>
+  <div class="pipeline-node" style="top:86.78vh" data-label="životopis"></div>
+  <div class="pipeline-node" style="top:97vh"    data-label="kontakt"></div>
 </div>
 
 <!-- ============================================================
@@ -70,6 +70,7 @@ window.I18N = {
      ============================================================ -->
 <header>
   <a href="#home" class="logo">BR.</a>
+  
   <div class="header-right">
     <nav>
       <ul id="nav-list">
@@ -103,6 +104,7 @@ window.I18N = {
   <section id="home" class="theme-a">
     <div class="home-copy" data-reveal>
       <h1>Bohuslava<br>Rozsypalová</h1>
+            <p class="typewriter" aria-label="Business &amp; Technical Consultant, Web Developer, grafická dizajnérka, fotografka"><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Business &amp; Technical Consultant|Web Developer|Grafická dizajnérka|Fotografka"></span><span class="tw-caret" aria-hidden="true"></span></p>
       <p><span class="role">Business &amp; Technical Solution Consultant</span> — Podieľam sa na realizácii projektov pre medzinárodných klientov, od prvotnej analýzy a návrhu riešenia až po implementáciu a spustenie.</p>
       <div class="btn-row">
         <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-primary">Zobraziť životopis</a>
@@ -150,6 +152,71 @@ window.I18N = {
         </div>
       </div>
     </div>
+        <button class="scroll-cue" onclick="document.getElementById('more').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Ďalšie stránky">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       SEKCIA: ĎALŠIE STRÁNKY
+       ============================================================ -->
+  <section id="more" class="theme-a" data-pipeline-label="ďalšie stránky">
+    <p class="eyebrow">ďalšie projekty</p>
+    <h2 data-reveal>Pozri tiež moje ďalšie stránky</h2>
+    <p class="lead" data-reveal>Samostatné weby, na ktorých nájdeš viac z mojej práce.</p>
+
+    <div class="more-grid" data-reveal>
+      <!-- 01 Graphic Portfolio -->
+      <a class="more-card" href="https://bohuslavar.github.io/GraphicPortfolio/" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/Untitled-4.jpg" alt="Graphic Portfolio" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">01</span>
+        </div>
+        <div class="more-card-body">
+          <h3>Graphic Portfolio</h3>
+          <p>Logá, vizuálne identity, UI návrhy a tlačoviny na jednom mieste.</p>
+          <span class="more-card-cta">Otvoriť <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <!-- 02 Grandhotel -->
+      <a class="more-card" href="https://bohuslavar.github.io/Grandhotel/" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/grhtl.jpg" alt="Grandhotel" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">02</span>
+        </div>
+        <div class="more-card-body">
+          <h3>Grandhotel</h3>
+          <p>Prezentačný web hotela — od návrhu dizajnu až po responzívny vývoj.</p>
+          <span class="more-card-cta">Otvoriť <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <!-- 03 Photography -->
+      <a class="more-card" href="https://bohuslavar.github.io/Photography/" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="https://res.cloudinary.com/livyisn3/image/upload/v1788991617/8110A084-2484-446B-BF45-C96464E2B1D4.jpg" alt="Photography" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">03</span>
+        </div>
+        <div class="more-card-body">
+          <h3>Photography</h3>
+          <p>Portréty, produkty a fotky pre útulky — celé série vo vyššom rozlíšení.</p>
+          <span class="more-card-cta">Otvoriť <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <!-- 04 AI Agents — kým je href="#", ukáže sa štítok „Čoskoro“ -->
+      <a class="more-card" href="#" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="SEM-DAJ-URL-OBRAZKA" alt="AI Agents" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">04</span>
+        </div>
+        <div class="more-card-body">
+          <h3>AI Agents</h3>
+          <p>Experimenty s AI agentmi a automatizáciou každodennej práce.</p>
+          <span class="more-card-cta">Otvoriť <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </div>
+
     <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Prejsť na sekciu Motto">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
