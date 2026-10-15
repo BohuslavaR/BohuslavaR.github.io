@@ -32,16 +32,11 @@ window.I18N = {
   moves: 'Züge: ',
   pairs: 'Paare: ',
   solved: (n) => `🎉 Gelöst in ${n} Zügen!`,
-  photoCats: {
-    portraits: { label: 'porträts', title: 'Porträtfotografie',  desc: 'Studio- und Available-Light-Porträts mit Fokus auf Charakter und Stimmung.' },
-    various:   { label: 'diverses', title: 'Diverses',           desc: 'Eine Mischung aus Alltagsmomenten, Straßenszenen und persönlichen Projekten.' },
-    products:  { label: 'produkte', title: 'Produktfotografie',  desc: 'Klare, detailorientierte Aufnahmen für E-Commerce und Branding.' },
-    shelters:  { label: 'tierheime', title: 'Tierheime',         desc: 'Mit Fotografie unterstütze ich Tierheime, so gut ich kann.' }
-  },
-  graphicCats: {
-    branding: { label: 'branding', title: 'Markenidentität',   desc: 'Logos, Farbsysteme und visuelle Identitäten für Marken und Produkte.' },
-    ui:       { label: 'ui & web', title: 'UI- & Webdesign',   desc: 'Interfaces und Layouts für Websites, Apps und digitale Produkte.' },
-    various:  { label: 'diverses', title: 'Diverses',          desc: 'Poster, Tassen, Broschüren und druckfertige Materialien.' }
+  certCats: {
+    salesforce: { label: 'salesforce', title: 'Salesforce-Zertifizierungen', desc: 'Marketing Cloud — Consultant, Developer, Email Specialist und Administrator.' },
+    bloomreach: { label: 'bloomreach', title: 'Bloomreach Academy',          desc: 'Engagement, Discovery, Jinja und Data Hub.' },
+    technical:  { label: 'technik',    title: 'Technik & Daten', desc: 'Webanalyse, Reporting und Arbeit mit Daten.' },
+    business:   { label: 'business',   title: 'Business & Marketing',        desc: 'Digitales Marketing, Werbung und IBM-Branchenzertifizierungen.' }
   }
 };
 </script>
@@ -50,20 +45,19 @@ window.I18N = {
 <body>
 
 <!-- ============================================================
-     PIPELINE
+     PIPELINE — poradie bodiek musí sedieť so sectionIds v script.js
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
-  <div class="pipeline-node" style="top:5vh"     data-label="start"></div>
-  <div class="pipeline-node" style="top:15.22vh" data-label="über mich"></div>
-  <div class="pipeline-node" style="top:25.44vh" data-label="weitere seiten"></div>
-  <div class="pipeline-node" style="top:35.67vh" data-label="motto"></div>
-  <div class="pipeline-node" style="top:45.89vh" data-label="fotografie"></div>
-  <div class="pipeline-node" style="top:56.11vh" data-label="grafikdesign"></div>
-  <div class="pipeline-node" style="top:66.33vh" data-label="schrift &amp; farben"></div>
-  <div class="pipeline-node" style="top:76.56vh" data-label="memory"></div>
-  <div class="pipeline-node" style="top:86.78vh" data-label="lebenslauf"></div>
-  <div class="pipeline-node" style="top:97vh"    data-label="kontakt"></div>
+  <div class="pipeline-node" style="top:5vh" data-label="start"></div>
+  <div class="pipeline-node" style="top:16.5vh" data-label="über mich"></div>
+  <div class="pipeline-node" style="top:28vh" data-label="weitere seiten"></div>
+  <div class="pipeline-node" style="top:39.5vh" data-label="zertifikate"></div>
+  <div class="pipeline-node" style="top:51vh" data-label="motto"></div>
+  <div class="pipeline-node" style="top:62.5vh" data-label="memory"></div>
+  <div class="pipeline-node" style="top:74vh" data-label="lebenslauf"></div>
+  <div class="pipeline-node" style="top:85.5vh" data-label="schrift &amp; farben"></div>
+  <div class="pipeline-node" style="top:97vh" data-label="kontakt"></div>
 </div>
 
 <!-- ============================================================
@@ -76,8 +70,8 @@ window.I18N = {
       <ul id="nav-list">
         <li><a href="#home" data-nav="home">Start</a></li>
         <li><a href="#about" data-nav="about">Über mich</a></li>
-        <li><a href="#photo" data-nav="photo">Fotografie</a></li>
-        <li><a href="#graphic" data-nav="graphic">Grafikdesign</a></li>
+        <li><a href="#more" data-nav="more">Seiten</a></li>
+        <li><a href="#certs" data-nav="certs">Zertifikate</a></li>
         <li><a href="#cv" data-nav="cv">Lebenslauf</a></li>
         <li><a href="#contact" data-nav="contact">Kontakt</a></li>
       </ul>
@@ -105,14 +99,14 @@ window.I18N = {
     <div class="home-copy" data-reveal>
       <p class="eyebrow">hallo</p>
       <h1>Bohuslava<br>Rozsypalová</h1>
-            <p class="typewriter" aria-label="Business &amp; Technical Consultant, Webentwicklerin, Grafikdesignerin, Fotografin"><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Business &amp; Technical Consultant|Webentwicklerin|Grafikdesignerin|Fotografin"></span><span class="tw-caret" aria-hidden="true"></span></p>
+      <p class="typewriter" aria-label="Business &amp; Technical Consultant, Webentwicklerin, Grafikdesignerin, Fotografin"><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Business &amp; Technical Consultant|Webentwicklerin|Grafikdesignerin|Fotografin"></span><span class="tw-caret" aria-hidden="true"></span></p>
       <p><span class="role">Business &amp; Technical Solution Consultant</span> — ich leite Kundendaten- und Integrationsprojekte für internationale Kunden, von der ersten Analyse und Lösungskonzeption bis zur Implementierung und Inbetriebnahme.</p>
       <div class="btn-row">
         <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-primary">Lebenslauf ansehen</a>
         <a href="#contact" class="btn btn-ghost">Kontakt aufnehmen</a>
       </div>
     </div>
-      <button class="scroll-cue" onclick="document.getElementById('more').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Weitere Seiten">
+    <button class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Über mich">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -140,9 +134,11 @@ window.I18N = {
       <div class="about-text" data-reveal>
         <p class="eyebrow">über mich</p>
         <h2>Technologie mit Ergebnissen verbinden, die Sinn ergeben</h2>
-        <p>Business &amp; Technical Solution Consultant mit über 6 Jahren praktischer Erfahrung in IT und Unternehmenstechnologien sowie internationalen Projekten in Banking, Telekommunikation und Pharma. Verbindung von fachlichen Anforderungen und technischer Umsetzung – von der Analyse und Lösungskonzeption bis zur Implementierung, mit AI als selbstverständlichem Teil der täglichen Arbeit.</p>
+        <p>Business &amp; Technical Solution Consultant und <strong>JavaScript-Entwicklerin</strong> mit über 6 Jahren Praxis in IT und Unternehmenstechnologien in internationalen Projekten in Banking, Telekommunikation und Pharma. Weblayer, Integrationen und datengetriebene Lösungen entstehen bei mir mit <strong>JavaScript, REST-APIs und SQL</strong> — und <strong>generative KI</strong> nutze ich täglich, um schneller zu konzipieren, Prototypen zu bauen und zu automatisieren.</p>
         <p>Neben der IT-Laufbahn außerdem professionelle Tätigkeit im Grafik- und Webdesign, die dem UI/UX-Teil der Projekte eine kreative und visuelle Dimension gibt. Laufende Zertifizierungen in verschiedenen Bereichen.</p>
         <div class="chips">
+          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> JavaScript (ES6+)</span>
+          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Generative KI &amp; Prompt Engineering</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Customer Data Platforms</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
           <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST-APIs &amp; Integrationen</span>
@@ -153,11 +149,12 @@ window.I18N = {
         </div>
       </div>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Motto">
+    <button class="scroll-cue" onclick="document.getElementById('more').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Weitere Seiten">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
   </section>
+
   <!-- ============================================================
        ABSCHNITT: WEITERE SEITEN
        ============================================================ -->
@@ -213,11 +210,62 @@ window.I18N = {
       </a>
     </div>
 
+    <button class="scroll-cue" onclick="document.getElementById('certs').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Zertifikate">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+  <!-- ============================================================
+       SEKCIA: CERTIFICATES — galéria certifikátov (dáta v script.js, JS 7)
+       ============================================================ -->
+  <section id="certs" class="gallery-section theme-d">
+    <p class="eyebrow">zertifikate</p>
+    <h2 data-reveal>Zertifikate</h2>
+    <p class="lead" data-reveal>Wählen Sie eine Kategorie, um die Zertifikate zu sehen.</p>
+
+    <div class="cat-grid" data-role="cat-grid" data-reveal>
+      <button class="cat-card is-logo" data-cat="salesforce">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Salesforce</span>
+      </button>
+      <button class="cat-card is-logo" data-cat="bloomreach">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Bloomreach</span>
+      </button>
+      <button class="cat-card is-logo" data-cat="technical">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Technik &amp; Daten</span>
+      </button>
+      <button class="cat-card is-logo" data-cat="business">
+        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+        <span class="cat-card-title">Business &amp; Marketing</span>
+      </button>
+    </div>
+
+    <div class="category-detail" data-role="category-detail" data-reveal hidden>
+      <button class="back-link" data-role="back-link">← Zurück zu den Kategorien</button>
+      <div class="cat-hero">
+        <div class="tile cat-hero-image" data-role="hero-tile"></div>
+        <div class="cat-hero-copy">
+          <p class="eyebrow" data-role="hero-eyebrow">salesforce</p>
+          <h3 data-role="hero-title">Salesforce-Zertifizierungen</h3>
+          <p data-role="hero-desc"></p>
+        </div>
+      </div>
+      <div class="grid" data-role="thumbs"></div>
+      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
+        <button class="thumb-nav" data-role="thumb-prev" aria-label="Vorherige">‹</button>
+        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
+        <button class="thumb-nav" data-role="thumb-next" aria-label="Nächste">›</button>
+      </div>
+    </div>
+
     <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Motto">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
   </section>
+
   <!-- ============================================================
        ABSCHNITT: MOTTO
        ============================================================ -->
@@ -232,145 +280,12 @@ window.I18N = {
       </div>
       <button class="scratch-reset" id="scratch-reset">Zurücksetzen</button>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('photo').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Fotografie">
-      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      <span class="scroll-label">scroll</span>
-    </button>
-  </section>
-
-  <!-- ============================================================
-       ABSCHNITT: FOTOGRAFIE
-       ============================================================ -->
-  <section id="photo" class="gallery-section theme-d">
-    <p class="eyebrow">fotografie</p>
-    <h2 data-reveal>Fotografie</h2>
-    <p class="lead" data-reveal>Wählen Sie eine Kategorie, um die ganze Galerie zu sehen.</p>
-
-    <div class="cat-grid" data-role="cat-grid" data-reveal>
-      <button class="cat-card" data-cat="portraits">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813464/IMG_8443-2.jpg" alt="Porträts" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Porträts</span>
-      </button>
-      <button class="cat-card" data-cat="various">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813451/BZK04091_copy.jpg" alt="Diverses" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Diverses</span>
-      </button>
-      <button class="cat-card" data-cat="products">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787813473/IMG_3290.jpg" alt="Produkte" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Produkte</span>
-      </button>
-      <button class="cat-card" data-cat="shelters">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787814125/KAR01523.jpg" alt="Tierheime" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Tierheime</span>
-      </button>
-    </div>
-
-    <div class="category-detail" data-role="category-detail" data-reveal hidden>
-      <button class="back-link" data-role="back-link">← Zurück zu den Kategorien</button>
-      <div class="cat-hero">
-        <div class="tile cat-hero-image" data-role="hero-tile"></div>
-        <div class="cat-hero-copy">
-          <p class="eyebrow" data-role="hero-eyebrow">porträts</p>
-          <h3 data-role="hero-title">Porträtfotografie</h3>
-          <p data-role="hero-desc"></p>
-        </div>
-      </div>
-      <div class="grid" data-role="thumbs"></div>
-      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
-        <button class="thumb-nav" data-role="thumb-prev" aria-label="Vorherige Fotos">‹</button>
-        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
-        <button class="thumb-nav" data-role="thumb-next" aria-label="Nächste Fotos">›</button>
-      </div>
-    </div>
-
-    <button class="scroll-cue" onclick="document.getElementById('graphic').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Grafikdesign">
-      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      <span class="scroll-label">scroll</span>
-    </button>
-  </section>
-
-  <!-- ============================================================
-       ABSCHNITT: GRAFIKDESIGN
-       ============================================================ -->
-  <section id="graphic" class="gallery-section theme-e">
-    <p class="eyebrow">grafikdesign</p>
-    <h2 data-reveal>Grafikdesign</h2>
-    <p class="lead" data-reveal>Wählen Sie eine Kategorie, um die ganze Galerie zu sehen.</p>
-
-    <div class="cat-grid" data-role="cat-grid" data-reveal>
-      <button class="cat-card" data-cat="branding">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787818666/fabia-combi-overview-slider-01.jpg" alt="Branding" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Branding</span>
-      </button>
-      <button class="cat-card" data-cat="ui">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787819014/Endermologia_muz_-_targety2_copy.jpg" alt="UI & Web" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">UI &amp; Web</span>
-      </button>
-      <button class="cat-card" data-cat="various">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787829710/Renesakideabook.png" alt="Diverses" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Diverses</span>
-      </button>
-
-    </div>
-
-    <div class="category-detail" data-role="category-detail" data-reveal hidden>
-      <button class="back-link" data-role="back-link">← Zurück zu den Kategorien</button>
-      <div class="cat-hero">
-        <div class="tile cat-hero-image" data-role="hero-tile"></div>
-        <div class="cat-hero-copy">
-          <p class="eyebrow" data-role="hero-eyebrow">branding</p>
-          <h3 data-role="hero-title">Markenidentität</h3>
-          <p data-role="hero-desc"></p>
-        </div>
-      </div>
-      <div class="grid" data-role="thumbs"></div>
-      <div class="thumb-pagination" data-role="thumb-pagination" hidden>
-        <button class="thumb-nav" data-role="thumb-prev" aria-label="Vorherige Fotos">‹</button>
-        <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
-        <button class="thumb-nav" data-role="thumb-next" aria-label="Nächste Fotos">›</button>
-      </div>
-    </div>
-
-    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Schrift & Farben">
-      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      <span class="scroll-label">scroll</span>
-    </button>
-  </section>
-
-  <!-- ============================================================
-       ABSCHNITT: SCHRIFT & FARBEN
-       ============================================================ -->
-  <section id="specimen" class="theme-f">
-    <p class="eyebrow">specimen</p>
-    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Schrift- &amp; Farbsystem</h2>
-    <div class="specimen-grid" data-reveal>
-      <div class="spec-row">
-        <div class="spec-label">Schrift — Montserrat (Fallback: Roboto → Helvetica Neue → Arial)</div>
-        <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
-        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
-        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
-        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / Labels</div>
-        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / Fließtext</div>
-        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / Bildunterschriften</div>
-      </div>
-      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
-        <div class="spec-label">Palette — Dusk Horizon</div>
-        <div class="swatches">
-          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
-        </div>
-      </div>
-    </div>
     <button class="scroll-cue" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Memory">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
   </section>
+
 
   <!-- ============================================================
        ABSCHNITT: MEMORY
@@ -557,6 +472,41 @@ window.I18N = {
       </div>
     </div>
 
+    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Schrift &amp; Farben">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
+
+  <!-- ============================================================
+       ABSCHNITT: SCHRIFT & FARBEN
+       ============================================================ -->
+  <section id="specimen" class="theme-f">
+    <p class="eyebrow">specimen</p>
+    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Schrift- &amp; Farbsystem</h2>
+    <div class="specimen-grid" data-reveal>
+      <div class="spec-row">
+        <div class="spec-label">Schrift — Montserrat (Fallback: Roboto → Helvetica Neue → Arial)</div>
+        <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
+        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
+        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
+        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / Labels</div>
+        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / Fließtext</div>
+        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / Bildunterschriften</div>
+      </div>
+      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
+        <div class="spec-label">Palette — Dusk Horizon</div>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
+        </div>
+      </div>
+    </div>
     <button class="scroll-cue" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Kontakt">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
