@@ -425,9 +425,27 @@ function initCategoryGallery(rootEl, categoriesData, catTexts) {
   let currentCatKey = null;
   let currentPage = 0;
 
+  /* Kocky kategórií sa vytvoria z dát (cover + názov) — netreba ich
+     písať do HTML. Pridanie novej kategórie = nový záznam v dátach. */
+  catGrid.innerHTML = '';
+  Object.keys(categoriesData).forEach((key) => {
+    const cat = categoriesData[key];
+    const tr = catTexts[key] || {};
+    const card = document.createElement('button');
+    card.className = 'cat-card';
+    card.dataset.cat = key;
+    card.innerHTML = `
+      <span class="img-slot cat-card-img">
+        ${cat.cover ? `<img src="${cat.cover}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+        <span class="img-fallback"${cat.cover ? '' : ' style="display:flex"'}></span>
+      </span>
+      <span class="cat-card-title">${tr.card || cat.card || cat.title}</span>`;
+    catGrid.appendChild(card);
+  });
+
   function renderThumbsPage() {
     const cat = categoriesData[currentCatKey];
-    const rest = cat.images.slice(1); /* všetky fotky okrem tej veľkej (hero) */
+    const rest = cat.images; /* všetky certifikáty — hero obrázok je samostatný (cat.hero) */
     const totalPages = Math.max(1, Math.ceil(rest.length / THUMBS_PER_PAGE));
     currentPage = Math.max(0, Math.min(currentPage, totalPages - 1));
     const start = currentPage * THUMBS_PER_PAGE;
@@ -438,7 +456,7 @@ function initCategoryGallery(rootEl, categoriesData, catTexts) {
       const tile = document.createElement('div');
       tile.className = 'tile';
       renderTileContent(tile, item);
-      const absoluteIndex = start + i + 1; /* +1, lebo index 0 je hero fotka */
+      const absoluteIndex = start + i;
       tile.addEventListener('click', () => openLightboxAt(cat.images, absoluteIndex));
       thumbs.appendChild(tile);
     });
@@ -465,8 +483,10 @@ function initCategoryGallery(rootEl, categoriesData, catTexts) {
     heroTitle.textContent = tr.title || cat.title;
     heroDesc.textContent = tr.desc || cat.desc;
 
-    renderTileContent(heroTile, cat.images[0]);
-    heroTile.onclick = () => openLightboxAt(cat.images, 0);
+    /* Veľký obrázok vľavo hore = samostatný "hero" (nie je súčasťou galérie) */
+    const hero = { img: (cat.hero && cat.hero.img) || '', caption: (cat.hero && cat.hero.caption) || heroTitle.textContent };
+    renderTileContent(heroTile, hero);
+    heroTile.onclick = hero.img ? () => openLightboxAt([hero], 0) : null;
 
     renderThumbsPage();
 
@@ -494,59 +514,115 @@ function initCategoryGallery(rootEl, categoriesData, catTexts) {
 }
 
 /* --- Dáta pre Certificates ---------------------------------------
-   Každý certifikát = jedna položka { img, caption }.
-   • img: URL obrázka certifikátu (napr. z Cloudinary). Kým je null,
-     zobrazí sa farebná dlaždica s názvom certifikátu.
-   • caption: názov certifikátu (zobrazí sa v galérii aj v lightboxe).
-   Prvá položka v zozname je veľký náhľad vľavo hore.
+   Každá kategória má:
+   • cover  — obrázok na kocke kategórie (titulná kocka v zozname)
+   • hero   — veľký obrázok vľavo hore v detaile kategórie
+              (samostatný, NIE je súčasťou galérie certifikátov)
+   • images — galéria certifikátov { img, caption }
+   Kde je '' (prázdne), doplň URL z Cloudinary. Kým je prázdne,
+   zobrazí sa farebná dlaždica s názvom.
+   TIP: PDF z Cloudinary sa v <img> nezobrazí — stačí zmeniť
+   koncovku .pdf na .jpg a Cloudinary vráti 1. stranu ako obrázok.
+   Texty kategórií (názov, popis) pre EN/SK/DE sú v CERT_TEXTS nižšie.
    ---------------------------------------------------------------- */
 const certificateCategories = {
   salesforce: {
+    cover: '',   /* ← URL cover obrázka kocky */
+    hero:  { img: '', caption: 'Salesforce' },   /* ← URL hero obrázka */
     title: 'Salesforce Certifications',
-    desc: 'Marketing Cloud — Consultant, Developer, Email Specialist and Administrator.',
+    desc: 'Marketing Cloud Administrator and Email Specialist.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059021/SFMC_email.png', caption: 'Salesforce' },
-       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059021/SFMC_email.png', caption: 'Salesforce Certified Marketing Cloud Email Specialist' },
-       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059022/SFMC_admin.png', caption: 'Salesforce Certified Marketing Cloud Administrator' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059022/SFMC_admin.png', caption: 'Salesforce Certified Marketing Cloud Administrator' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059021/SFMC_email.png', caption: 'Salesforce Certified Marketing Cloud Email Specialist' },
+      { img: '', caption: 'Trailhead — Expeditioner (149 badges, 47,150 points)' }
     ]
   },
   bloomreach: {
+    cover: '',
+    hero:  { img: '', caption: 'Bloomreach Academy' },
     title: 'Bloomreach Academy',
-    desc: 'Engagement, Discovery, Jinja and Data Hub.',
+    desc: 'Jinja, SMS, Data Hub, personalization, recommendations and omnichannel orchestration.',
     images: [
-       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.pdf', caption: 'Bloomreach Engagement' },
-       { img: '', caption: 'Bloomreach Engagement' },
-      { img: '', caption: 'Bloomreach Discovery' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-edghmhnnaeuf-1737035330_1.pdf', caption: 'Bloomreach — Jinja Unlocked' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.pdf', caption: 'Bloomreach — Jinja Jumpstart' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-es8xnpzi7yb8-1777974275.pdf', caption: 'Bloomreach — Web and App' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058880/certificate-5dqh9r6qz73d-1778048186.pdf', caption: 'Bloomreach — Product Recommendation' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-edghmhnnaeuf-1737035330_1.jpg', caption: 'Bloomreach — Jinja Unlocked' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.jpg', caption: 'Bloomreach — Jinja Jumpstart: Personalization Intro Course' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058884/certificate-xobnzme556ds-1777968559.jpg', caption: 'Bloomreach — SMS' },
       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058879/certificate-gqdiytnc787m-1777965406.jpg', caption: 'Bloomreach — Data Hub' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058878/certificate-5opzvxudszuw-1787689048.pdf', caption: 'Bloomreach — Campaign Channels Mastery' },
-       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058884/certificate-xobnzme556ds-1777968559.jpg', caption: 'Bloomreach — SMS' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-es8xnpzi7yb8-1777974275.jpg', caption: 'Bloomreach — Web & App Personalization' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058880/certificate-5dqh9r6qz73d-1778048186.jpg', caption: 'Bloomreach — Product Recommendations' },
+      { img: '', caption: 'Bloomreach — Omnichannel Orchestration' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058878/certificate-5opzvxudszuw-1787689048.jpg', caption: 'Bloomreach — Campaign Channels Mastery' }
     ]
   },
   technical: {
-    title: 'Technical & Data',
-    desc: 'Web analytics, reporting and working with data.',
+    cover: '',
+    hero:  { img: '', caption: 'Data & Integrations' },
+    title: 'Data & Integrations',
+    desc: 'Web analytics, reporting, data integrations and data analytics.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058850/Google_Analytics_Certification.pdf', caption: 'Google Analytics Certification' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058848/35dc3c7354b944bd813e54c8f6cfc305.png', caption: 'HubSpot Reporting' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058850/Google_Analytics_Certification.jpg', caption: 'Google Analytics Certification' },
+      { img: '', caption: 'HubSpot Data Integrations' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058848/35dc3c7354b944bd813e54c8f6cfc305.png', caption: 'HubSpot Reporting' },
+      { img: '', caption: 'LinkedIn Learning — Introduction to Career Skills in Data Analytics' }
+    ]
+  },
+  ai: {
+    cover: '',
+    hero:  { img: '', caption: 'AI' },
+    title: 'Artificial Intelligence',
+    desc: 'Prompt writing and generative AI in everyday work and project management.',
+    images: [
+      { img: '', caption: 'LinkedIn Learning — Microsoft Copilot: The Art of Prompt Writing' },
+      { img: '', caption: 'LinkedIn Learning — AI for Project Management: Boosting Collaboration with Generative AI' }
     ]
   },
   business: {
+    cover: '',
+    hero:  { img: '', caption: 'Business & Marketing' },
     title: 'Business & Marketing',
-    desc: 'Digital marketing, advertising and IBM industry certifications.',
+    desc: 'Digital marketing, search advertising and German language.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058851/Google_Ads_Search_Certification.pdf', caption: 'Google Ads Search Certification' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058849/9a9b29e57e5f4bd38f8596e1572b3574.png', caption: 'HubSpot Digital Marketing' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058851/Google_Ads_Search_Certification.jpg', caption: 'Google Ads Search Certification' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058849/9a9b29e57e5f4bd38f8596e1572b3574.png', caption: 'HubSpot Digital Marketing' },
+      { img: '', caption: 'Direktes Deutsch — Level 9 (EMPIRE language school)' }
     ]
+  }
+};
+
+/* Texty kategórií podľa jazyka: card = text na kocke, label = malý
+   nadpis v detaile, title + desc = nadpis a popis v detaile.
+   Angličtina sa berie priamo z certificateCategories. */
+const CERT_TEXTS = {
+  en: {
+    salesforce: { card: 'Salesforce' },
+    bloomreach: { card: 'Bloomreach' },
+    technical:  { card: 'Data & Integrations', label: 'data' },
+    ai:         { card: 'AI', label: 'ai' },
+    business:   { card: 'Business & Marketing', label: 'business' }
+  },
+  sk: {
+    salesforce: { card: 'Salesforce', label: 'salesforce', title: 'Salesforce certifikácie', desc: 'Marketing Cloud Administrator a Email Specialist.' },
+    bloomreach: { card: 'Bloomreach', label: 'bloomreach', title: 'Bloomreach Academy', desc: 'Jinja, SMS, Data Hub, personalizácia, odporúčania produktov a omnichannel orchestrácia.' },
+    technical:  { card: 'Dáta a integrácie', label: 'dáta', title: 'Dáta a integrácie', desc: 'Webová analytika, reporting, dátové integrácie a analýza dát.' },
+    ai:         { card: 'AI', label: 'ai', title: 'Umelá inteligencia', desc: 'Písanie promptov a generatívna AI v každodennej práci a projektovom riadení.' },
+    business:   { card: 'Business a marketing', label: 'business', title: 'Business a marketing', desc: 'Digitálny marketing, reklama vo vyhľadávaní a nemecký jazyk.' }
+  },
+  de: {
+    salesforce: { card: 'Salesforce', label: 'salesforce', title: 'Salesforce-Zertifizierungen', desc: 'Marketing Cloud Administrator und Email Specialist.' },
+    bloomreach: { card: 'Bloomreach', label: 'bloomreach', title: 'Bloomreach Academy', desc: 'Jinja, SMS, Data Hub, Personalisierung, Produktempfehlungen und Omnichannel-Orchestrierung.' },
+    technical:  { card: 'Daten & Integrationen', label: 'daten', title: 'Daten & Integrationen', desc: 'Webanalyse, Reporting, Datenintegrationen und Datenanalyse.' },
+    ai:         { card: 'KI', label: 'ki', title: 'Künstliche Intelligenz', desc: 'Prompt Writing und generative KI im Arbeitsalltag und Projektmanagement.' },
+    business:   { card: 'Business & Marketing', label: 'business', title: 'Business & Marketing', desc: 'Digitales Marketing, Suchmaschinenwerbung und Deutsch.' }
   }
 };
 
 /* Inicializácia galérie certifikátov */
 const certsSection = document.getElementById('certs');
-if (certsSection) initCategoryGallery(certsSection, certificateCategories, I18N.certCats);
+/* Texty zo script.js majú prednosť pred starým I18N.certCats v sk/de.html */
+const certTexts = {};
+Object.keys(certificateCategories).forEach((k) => {
+  certTexts[k] = Object.assign({}, (I18N.certCats || {})[k], (CERT_TEXTS[LANG] || CERT_TEXTS.en)[k]);
+});
+if (certsSection) initCategoryGallery(certsSection, certificateCategories, certTexts);
 
 /* ============================================================
    JS 8: Pexeso (memory game) — 10 dvojíc / 20 kariet
