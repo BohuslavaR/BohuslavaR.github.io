@@ -14,8 +14,7 @@
      JS 9  Typewriter v úvode
      JS 10 3D tilt kociek "Ďalšie stránky"
      JS 11 Kocky bez odkazu → štítok "Coming soon"
-     JS 12 Úvodná fotka (hero)
-   ================================================================== */
+     ================================================================== */
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -775,20 +774,4 @@ document.querySelectorAll('.more-card').forEach((card) => {
   card.addEventListener('click', (e) => e.preventDefault());
 });
 
-/* ============================================================
-   JS 12: Úvodná fotka (hero)
-   ------------------------------------------------------------
-   Ak je nižšie definované window.__heroSrc, nastaví sa ako
-   pozadie sekcie #home (CSS premenná --hero-img).
-   ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  const home = document.getElementById('home');
-  if (home && window.__heroSrc && !home.style.getPropertyValue('--hero-img')) {
-    home.style.setProperty('--hero-img', `url("${window.__heroSrc}")`);
-  }
-});
-
-/* ↓↓↓ SEM VLOŽ z pôvodného script.js všetko od riadku
-       window.__heroSrc = "data:image/png;base64,...
-   až po úplný koniec pôvodného súboru ↓↓↓ */
 
