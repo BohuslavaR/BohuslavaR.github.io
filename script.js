@@ -110,7 +110,12 @@ const navLinks = document.querySelectorAll('nav a[data-nav]');
 const pipelineNodes = document.querySelectorAll('.pipeline-node[data-target]');
 const backToTop = document.getElementById('back-to-top');
 
-const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+/* Ak je cieľová sekcia skrytá (napr. pexeso na mobile), skočí na ďalšiu viditeľnú */
+function scrollToId(id) {
+  let target = document.getElementById(id);
+  while (target && target.offsetParent === null && target.nextElementSibling) target = target.nextElementSibling;
+  target?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+}
 
 document.querySelectorAll('[data-target]').forEach((el) => {
   el.addEventListener('click', () => scrollToId(el.dataset.target));
