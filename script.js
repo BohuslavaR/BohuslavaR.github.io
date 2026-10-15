@@ -9,7 +9,7 @@
      JS 4  Kontaktný formulár — zakázané slová + odoslanie (FormSubmit)
      JS 5  Canvas scratch efekt
      JS 6  Lightbox
-     JS 7  Galéria
+     JS 7  Galéria certifikátov (kategórie → detail → lightbox)
      JS 8  Pexeso (memory game)
      JS 9  Typewriter v úvode
      JS 10 3D tilt kociek "Ďalšie stránky"
@@ -78,7 +78,7 @@ navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
    JS 2: "pipeline" bodky + tlačidlo "späť hore"
    ------------------------------------------------------------
    Poradie v sectionIds musí sedieť s poradím bodiek .pipeline-node
-   v HTML (nová sekcia "more" je 3. v poradí).
+   v HTML (9 bodiek).
    ============================================================ */
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a[data-nav]');
@@ -86,7 +86,7 @@ const pipelineNodes = document.querySelectorAll('.pipeline-node');
 const backToTop = document.getElementById('back-to-top');
 backToTop.addEventListener('click', () => document.getElementById('home').scrollIntoView({ behavior: 'smooth' }));
 
-const sectionIds = ['home', 'about', 'more', 'motto', 'photo', 'graphic', 'specimen', 'game', 'cv', 'contact'];
+const sectionIds = ['home', 'about', 'more', 'certs', 'motto', 'game', 'cv', 'specimen', 'contact'];
 const sectionIndexById = {};
 sectionIds.forEach((id, i) => { sectionIndexById[id] = i; });
 
@@ -351,7 +351,7 @@ function renderLightbox() {
   if (item.img) {
     lightboxContent.innerHTML = `<img src="${item.img}" alt="${item.caption || ''}">`;
   } else {
-    lightboxContent.innerHTML = `<div class="lb-placeholder">${item.caption || ''} — placeholder</div>`;
+    lightboxContent.innerHTML = `<div class="lb-placeholder">${item.caption || ''}</div>`;
   }
   const counter = lbImages.length > 1 ? ` (${lbIndex + 1}/${lbImages.length})` : '';
   lightboxCaption.textContent = (item.caption || '') + counter;
@@ -403,7 +403,7 @@ function renderTileContent(tile, item) {
    JS 7: GALÉRIA KATEGÓRIÍ
    ------------------------------------------------------------
    3. parameter (catTexts) = preklady názvov kategórií z window.I18N
-   (photoCats / graphicCats). Ak chýba, použijú sa anglické texty.
+   (certCats). Ak chýba, použijú sa anglické texty.
    ============================================================ */
 const THUMBS_PER_PAGE = 4;
 
@@ -493,95 +493,60 @@ function initCategoryGallery(rootEl, categoriesData, catTexts) {
   });
 }
 
-/* --- Dáta pre Photography --- */
-const photographyCategories = {
-  portraits: {
-    title: 'Portrait Photography',
-    desc: 'Studio and natural-light portraits focused on character and mood.',
+/* --- Dáta pre Certificates ---------------------------------------
+   Každý certifikát = jedna položka { img, caption }.
+   • img: URL obrázka certifikátu (napr. z Cloudinary). Kým je null,
+     zobrazí sa farebná dlaždica s názvom certifikátu.
+   • caption: názov certifikátu (zobrazí sa v galérii aj v lightboxe).
+   Prvá položka v zozname je veľký náhľad vľavo hore.
+   ---------------------------------------------------------------- */
+const certificateCategories = {
+  salesforce: {
+    title: 'Salesforce Certifications',
+    desc: 'Marketing Cloud — Consultant, Developer, Email Specialist and Administrator.',
     images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813464/IMG_8443-2.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813465/IMG_8744.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813466/IMG_8833.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813465/IMG_8744.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813463/IMG_8387-2.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813467/IMG_9934.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813467/IMG_9887.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813468/IMG_9957.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813453/IMG_0135.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813455/IMG_2095.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813455/IMG_2214.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813455/IMG_2277.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813456/IMG_2732.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813468/KAR01006_copy.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813475/IMG_7921.jpg' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059021/SFMC_email.png', caption: 'Salesforce' },
+       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059021/SFMC_email.png', caption: 'Salesforce Certified Marketing Cloud Email Specialist' },
+       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059022/SFMC_admin.png', caption: 'Salesforce Certified Marketing Cloud Administrator' }
     ]
   },
-  various: {
-    title: 'Various',
-    desc: 'A mix of everyday moments, street scenes and personal projects.',
+  bloomreach: {
+    title: 'Bloomreach Academy',
+    desc: 'Engagement, Discovery, Jinja and Data Hub.',
     images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813451/BZK04091_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813470/KAR06853_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813470/KAR03335-Enhanced-NR_copy.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813470/KAR06832_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813469/KAR03281-Enhanced-NR_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813469/KAR03308-Enhanced-NR_copy.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828900/KAR08037-final_nic_nove.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828896/KAR07625-last_speed.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828894/KAR07388_nic_nove.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829413/KAR00609-Enhanced-NR_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829415/KAR00701-2.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829412/KAR00422-Enhanced-NR_copy.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829420/KAR01521-Enhanced-NR_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829418/KAR01517-Enhanced-NR_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829417/KAR01503-Enhanced-NR_copy.jpg' }
+       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.pdf', caption: 'Bloomreach Engagement' },
+       { img: '', caption: 'Bloomreach Engagement' },
+      { img: '', caption: 'Bloomreach Discovery' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-edghmhnnaeuf-1737035330_1.pdf', caption: 'Bloomreach — Jinja Unlocked' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.pdf', caption: 'Bloomreach — Jinja Jumpstart' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-es8xnpzi7yb8-1777974275.pdf', caption: 'Bloomreach — Web and App' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058880/certificate-5dqh9r6qz73d-1778048186.pdf', caption: 'Bloomreach — Product Recommendation' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058879/certificate-gqdiytnc787m-1777965406.jpg', caption: 'Bloomreach — Data Hub' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058878/certificate-5opzvxudszuw-1787689048.pdf', caption: 'Bloomreach — Campaign Channels Mastery' },
+       { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058884/certificate-xobnzme556ds-1777968559.jpg', caption: 'Bloomreach — SMS' }
     ]
   },
-  products: {
-    title: 'Product Photography',
-    desc: 'Clean, detail-focused shots for e-commerce and branding.',
+  technical: {
+    title: 'Technical & Data',
+    desc: 'Web analytics, reporting and working with data.',
     images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813459/IMG_3245.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813458/IMG_3226.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813457/IMG_3223.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813459/IMG_3259.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813460/IMG_3281.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813457/IMG_3167.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813473/IMG_2854.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813474/IMG_3297.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813473/IMG_3290.jpg' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058850/Google_Analytics_Certification.pdf', caption: 'Google Analytics Certification' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058848/35dc3c7354b944bd813e54c8f6cfc305.png', caption: 'HubSpot Reporting' }
     ]
   },
-  shelters: {
-    title: 'Shelters',
-    desc: 'Helping shelters as much as i can with photography.',
+  business: {
+    title: 'Business & Marketing',
+    desc: 'Digital marketing, advertising and IBM industry certifications.',
     images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828889/KAR02552.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828893/KAR02839.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828892/KAR02780.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828884/KAR02146.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828886/KAR02249.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828887/KAR02335.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828883/KAR02037.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829003/KAR02428.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828879/KAR01492.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829200/KAR01836.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828882/KAR01904.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787828880/KAR01764.jpg' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058851/Google_Ads_Search_Certification.pdf', caption: 'Google Ads Search Certification' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058849/9a9b29e57e5f4bd38f8596e1572b3574.png', caption: 'HubSpot Digital Marketing' }
     ]
   }
 };
 
-/* --- Dáta pre Graphic Design --- */
-const graphicCategories = {
-  branding: {
-    title: 'Brand Identity',
-    desc: 'Logos, color systems and visual identities for brands and products.',
-    images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818502/LOGO.png' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818450/vzor_graficky_upravitelny_format_1.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818443/unnamed.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818813/ziadost_A4_color.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818781/IMG_0558.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818666/fabia-combi-overview-slider-01.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818960/Navrh_CassCo_Building_-_nahlad_-_k%C3%B3pia.jpg' }
-    ]
-  },
-  ui: {
-    title: 'UI & Web Design',
-    desc: 'Interfaces and layouts for websites, apps and digital products.',
-    images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787830542/Titulka_3.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787819015/face-care-M.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787819004/celok_-_%C5%BEena_-krk_serum_copy.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787819014/Endermologia_muz_-_targety2_copy.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818999/celok_-_%C5%BEena_-_ruky.jpg' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787818999/celok_-_%C5%BEena_-_o%C4%8Di_okienko.jpg' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787830540/dokonaly_muz_-_menu_hlavne.jpg' }
-    ]
-  },
-  various: {
-    title: 'Various',
-    desc: 'Posters, mugs, brochures and print-ready materials.',
-    images: [
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787821134/bitezstreetfood.png' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787821917/bbeauty.png' },
-      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787829710/Renesakideabook.png' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787821917/renesak.png' }, { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787821135/sakura-mug.png' }
-    ]
-  }
-};
-
-/* Inicializácia oboch galérií */
-initCategoryGallery(document.getElementById('photo'), photographyCategories, I18N.photoCats);
-initCategoryGallery(document.getElementById('graphic'), graphicCategories, I18N.graphicCats);
+/* Inicializácia galérie certifikátov */
+const certsSection = document.getElementById('certs');
+if (certsSection) initCategoryGallery(certsSection, certificateCategories, I18N.certCats);
 
 /* ============================================================
    JS 8: Pexeso (memory game) — 10 dvojíc / 20 kariet
