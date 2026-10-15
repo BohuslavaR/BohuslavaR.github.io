@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style-additions.css">
+
 <!-- Übersetzungen der per JavaScript erzeugten Texte -->
 <script>
 window.I18N = {
@@ -54,15 +54,16 @@ window.I18N = {
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
-  <div class="pipeline-node" style="top:5vh"  data-label="start"></div>
-  <div class="pipeline-node" style="top:16.5vh" data-label="über mich"></div>
-  <div class="pipeline-node" style="top:28vh" data-label="motto"></div>
-  <div class="pipeline-node" style="top:39.5vh" data-label="fotografie"></div>
-  <div class="pipeline-node" style="top:51vh" data-label="grafikdesign"></div>
-  <div class="pipeline-node" style="top:62.5vh" data-label="schrift & farben"></div>
-  <div class="pipeline-node" style="top:74vh" data-label="memory"></div>
-  <div class="pipeline-node" style="top:85.5vh" data-label="lebenslauf"></div>
-  <div class="pipeline-node" style="top:97vh" data-label="kontakt"></div>
+  <div class="pipeline-node" style="top:5vh"     data-label="start"></div>
+  <div class="pipeline-node" style="top:15.22vh" data-label="über mich"></div>
+  <div class="pipeline-node" style="top:25.44vh" data-label="weitere seiten"></div>
+  <div class="pipeline-node" style="top:35.67vh" data-label="motto"></div>
+  <div class="pipeline-node" style="top:45.89vh" data-label="fotografie"></div>
+  <div class="pipeline-node" style="top:56.11vh" data-label="grafikdesign"></div>
+  <div class="pipeline-node" style="top:66.33vh" data-label="schrift &amp; farben"></div>
+  <div class="pipeline-node" style="top:76.56vh" data-label="memory"></div>
+  <div class="pipeline-node" style="top:86.78vh" data-label="lebenslauf"></div>
+  <div class="pipeline-node" style="top:97vh"    data-label="kontakt"></div>
 </div>
 
 <!-- ============================================================
@@ -104,13 +105,14 @@ window.I18N = {
     <div class="home-copy" data-reveal>
       <p class="eyebrow">hallo</p>
       <h1>Bohuslava<br>Rozsypalová</h1>
+            <p class="typewriter" aria-label="Business &amp; Technical Consultant, Webentwicklerin, Grafikdesignerin, Fotografin"><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Business &amp; Technical Consultant|Webentwicklerin|Grafikdesignerin|Fotografin"></span><span class="tw-caret" aria-hidden="true"></span></p>
       <p><span class="role">Business &amp; Technical Solution Consultant</span> — ich leite Kundendaten- und Integrationsprojekte für internationale Kunden, von der ersten Analyse und Lösungskonzeption bis zur Implementierung und Inbetriebnahme.</p>
       <div class="btn-row">
         <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-primary">Lebenslauf ansehen</a>
         <a href="#contact" class="btn btn-ghost">Kontakt aufnehmen</a>
       </div>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Über mich">
+      <button class="scroll-cue" onclick="document.getElementById('more').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Weitere Seiten">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -156,7 +158,66 @@ window.I18N = {
       <span class="scroll-label">scroll</span>
     </button>
   </section>
+  <!-- ============================================================
+       ABSCHNITT: WEITERE SEITEN
+       ============================================================ -->
+  <section id="more" class="theme-a" data-pipeline-label="weitere seiten">
+    <p class="eyebrow">weitere projekte</p>
+    <h2 data-reveal>Sehen Sie auch meine weiteren Seiten</h2>
+    <p class="lead" data-reveal>Eigenständige Websites mit mehr aus meiner Arbeit.</p>
 
+    <div class="more-grid" data-reveal>
+      <a class="more-card" href="https://bohuslavar.github.io/GraphicPortfolio/" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/Untitled-4.jpg" alt="Graphic Portfolio" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">01</span>
+        </div>
+        <div class="more-card-body">
+          <h3>Graphic Portfolio</h3>
+          <p>Logos, visuelle Identitäten, UI-Entwürfe und Printarbeiten an einem Ort.</p>
+          <span class="more-card-cta">Öffnen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="more-card" href="https://bohuslavar.github.io/Grandhotel/" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/grhtl.jpg" alt="Grandhotel" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">02</span>
+        </div>
+        <div class="more-card-body">
+          <h3>Grandhotel</h3>
+          <p>Hotel-Website — vom Designkonzept bis zur responsiven Umsetzung.</p>
+          <span class="more-card-cta">Öffnen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="more-card" href="https://bohuslavar.github.io/Photography/" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="https://res.cloudinary.com/livyisn3/image/upload/v1788991617/8110A084-2484-446B-BF45-C96464E2B1D4.jpg" alt="Photography" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">03</span>
+        </div>
+        <div class="more-card-body">
+          <h3>Photography</h3>
+          <p>Porträts, Produkte und Tierheim-Fotos — ganze Serien in höherer Auflösung.</p>
+          <span class="more-card-cta">Öffnen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="more-card" href="#" target="_blank" rel="noopener">
+        <div class="more-card-visual">
+          <img src="SEM-DAJ-URL-OBRAZKA" alt="AI Agents" loading="lazy" onerror="this.remove()">
+          <span class="more-card-num">04</span>
+        </div>
+        <div class="more-card-body">
+          <h3>AI Agents</h3>
+          <p>Experimente mit KI-Agenten und der Automatisierung alltäglicher Arbeit.</p>
+          <span class="more-card-cta">Öffnen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+    </div>
+
+    <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Zum Abschnitt Motto">
+      <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      <span class="scroll-label">scroll</span>
+    </button>
+  </section>
   <!-- ============================================================
        ABSCHNITT: MOTTO
        ============================================================ -->
