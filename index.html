@@ -22,19 +22,19 @@
 <body>
 
 <!-- ============================================================
-     PIPELINE — poradie bodiek musí sedieť so sectionIds v script.js
+     PIPELINE — data-target = id sekcie (klik = skok na sekciu)
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
-  <div class="pipeline-node" style="top:5vh" data-label="home"></div>
-  <div class="pipeline-node" style="top:16.5vh" data-label="about"></div>
-  <div class="pipeline-node" style="top:28vh" data-label="more pages"></div>
-  <div class="pipeline-node" style="top:39.5vh" data-label="certificates"></div>
-  <div class="pipeline-node" style="top:51vh" data-label="motto"></div>
-  <div class="pipeline-node" style="top:62.5vh" data-label="memory game"></div>
-  <div class="pipeline-node" style="top:74vh" data-label="cv"></div>
-  <div class="pipeline-node" style="top:85.5vh" data-label="style specimen"></div>
-  <div class="pipeline-node" style="top:97vh" data-label="contact"></div>
+  <div class="pipeline-node" data-target="home" style="top:5vh" data-label="home"></div>
+  <div class="pipeline-node" data-target="about" style="top:16.5vh" data-label="about"></div>
+  <div class="pipeline-node" data-target="more" style="top:28vh" data-label="more pages"></div>
+  <div class="pipeline-node" data-target="certs" style="top:39.5vh" data-label="certificates"></div>
+  <div class="pipeline-node" data-target="motto" style="top:51vh" data-label="motto"></div>
+  <div class="pipeline-node" data-target="game" style="top:62.5vh" data-label="memory game"></div>
+  <div class="pipeline-node" data-target="cv" style="top:74vh" data-label="cv"></div>
+  <div class="pipeline-node" data-target="specimen" style="top:85.5vh" data-label="style specimen"></div>
+  <div class="pipeline-node" data-target="contact" style="top:97vh" data-label="contact"></div>
 </div>
 
 <!-- ============================================================
@@ -49,7 +49,10 @@
         <li><a href="#about" data-nav="about">About</a></li>
         <li><a href="#more" data-nav="more">Pages</a></li>
         <li><a href="#certs" data-nav="certs">Certificates</a></li>
+        <li><a href="#motto" data-nav="motto">Motto</a></li>
+        <li><a href="#game" data-nav="game">Game</a></li>
         <li><a href="#cv" data-nav="cv">CV</a></li>
+        <li><a href="#specimen" data-nav="specimen">Style</a></li>
         <li><a href="#contact" data-nav="contact">Contact</a></li>
       </ul>
     </nav>
@@ -59,13 +62,13 @@
       <a href="sk.html" hreflang="sk">SK</a>
       <a href="de.html" hreflang="de">DE</a>
     </div>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
 </header>
 
-<div class="scroller" id="scroller">
+<main class="scroller" id="scroller">
 
-  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
 
@@ -77,14 +80,14 @@
       <p class="eyebrow">hello</p>
       <h1>I'm Bohuslava<br>Rozsypalová</h1>
       <!-- Typewriter — roly oddelené "|" v data-words (animuje script.js, JS 9) -->
-      <p class="typewriter" aria-label="Technical Consultant, Web Developer, Graphic Designer, Photographer"><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Technical Consultant|Web Developer|Graphic Designer|Photographer"></span><span class="tw-caret" aria-hidden="true"></span></p>
+      <p class="typewriter"><span class="visually-hidden">Technical Consultant, Web Developer, Graphic Designer, Photographer</span><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Technical Consultant|Web Developer|Graphic Designer|Photographer"></span><span class="tw-caret" aria-hidden="true"></span></p>
       <p><span class="role">Technical Consultant</span> — I help companies connect the web and their data into one working system. I design, integrate and fine-tune platforms so information actually makes sense to each other.</p>
       <div class="btn-row">
         <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-primary">View CV</a>
         <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" aria-label="Go to About section">
+    <button type="button" class="scroll-cue" data-target="about" aria-label="Go to About section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -97,15 +100,15 @@
     <div class="about-grid">
       <div class="about-stats" data-reveal>
         <div class="stat">
-          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <span class="img-slot stat-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span>
           <div><strong>5+</strong><span>years in web development</span></div>
         </div>
         <div class="stat">
-          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787831828/ChatGPT_Image_27._8._2026_13_56_57.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <span class="img-slot stat-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787831828/ChatGPT_Image_27._8._2026_13_56_57.png" alt=""><span class="img-fallback">IMG</span></span>
           <div><strong>15+</strong><span>years in photography &amp; design</span></div>
         </div>
         <div class="stat">
-          <span class="img-slot stat-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
+          <span class="img-slot stat-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt=""><span class="img-fallback">IMG</span></span>
           <div><strong>2</strong><span>languages, B2 level</span></div>
         </div>
       </div>
@@ -115,18 +118,18 @@
         <p>Technical Consultant and <strong>JavaScript developer</strong> delivering enterprise IT solutions across international projects in banking, telecommunications and pharma. I build web layers, integrations and data-driven solutions with <strong>JavaScript, REST APIs and SQL</strong> — and I use <strong>generative AI</strong> every day to design, prototype and automate faster.</p>
         <p>Alongside my IT career, I continue to pursue photography, web and graphic design, bringing a strong visual and creative perspective to digital products, UI/UX and customer-facing solutions.</p>
         <div class="chips">
-          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> JavaScript (ES6+)</span>
-          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Generative AI &amp; Prompt Engineering</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Web Development</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Data Integrations</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> REST APIs &amp; JSON</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806261/ChatGPT_Image_27._8._2026_06_48_27.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> SQL &amp; Oracle PL/SQL</span>
+          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span> JavaScript (ES6+)</span>
+          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt=""><span class="img-fallback">IMG</span></span> Generative AI &amp; Prompt Engineering</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span> Web Development</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt=""><span class="img-fallback">IMG</span></span> Data Integrations</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt=""><span class="img-fallback">IMG</span></span> REST APIs &amp; JSON</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt=""><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt=""><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806261/ChatGPT_Image_27._8._2026_06_48_27.png" alt=""><span class="img-fallback">IMG</span></span> SQL &amp; Oracle PL/SQL</span>
         </div>
       </div>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('more').scrollIntoView({behavior:'smooth'})" aria-label="Go to More pages section">
+    <button type="button" class="scroll-cue" data-target="more" aria-label="Go to More pages section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -144,7 +147,7 @@
       <!-- 01 Graphic Portfolio -->
       <a class="more-card" href="https://bohuslavar.github.io/GraphicPortfolio/" target="_blank" rel="noopener">
         <div class="more-card-visual">
-  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/Untitled-4.jpg" alt="Graphic Portfolio" loading="lazy" onerror="this.remove()">
+  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/Untitled-4.jpg" alt="Graphic Portfolio" loading="lazy">
   <span class="more-card-num">01</span>
 </div>
         <div class="more-card-body">
@@ -156,7 +159,7 @@
       <!-- 02 Grandhotel -->
       <a class="more-card" href="https://bohuslavar.github.io/Grandhotel/" target="_blank" rel="noopener">
         <div class="more-card-visual">
-  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/grhtl.jpg" alt="Grandhotel" loading="lazy" onerror="this.remove()">
+  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1792050900/grhtl.jpg" alt="Grandhotel" loading="lazy">
   <span class="more-card-num">02</span>
 </div>
         <div class="more-card-body">
@@ -168,7 +171,7 @@
       <!-- 03 Photography -->
       <a class="more-card" href="https://bohuslavar.github.io/Photography/" target="_blank" rel="noopener">
         <div class="more-card-visual">
-  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1788991617/8110A084-2484-446B-BF45-C96464E2B1D4.jpg" alt="Photography" loading="lazy" onerror="this.remove()">
+  <img src="https://res.cloudinary.com/livyisn3/image/upload/v1788991617/8110A084-2484-446B-BF45-C96464E2B1D4.jpg" alt="Photography" loading="lazy">
   <span class="more-card-num">03</span>
 </div>
         <div class="more-card-body">
@@ -177,55 +180,26 @@
           <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
         </div>
       </a>
-      <!-- 04 AI Agents -->
-         <!-- 04 AI Agents 
-      <a class="more-card" href="#" target="_blank" rel="noopener">
-       <div class="more-card-visual">
-  <img src="https://res.cloudinary.com/xbffrklb/image/upload/.../tvoj-obrazok.jpg" alt="AI Agents" loading="lazy" onerror="this.remove()">
-  <span class="more-card-num">04</span>
-</div>
-        <div class="more-card-body">
-          <h3>AI Agents</h3>
-          <p>Experiments with AI agents and automating everyday work.</p>
-          <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
-        </div>
-      </a> -->
     </div>
 
-    <button class="scroll-cue" onclick="document.getElementById('certs').scrollIntoView({behavior:'smooth'})" aria-label="Go to Certificates section">
+    <button type="button" class="scroll-cue" data-target="certs" aria-label="Go to Certificates section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
-    </button> 
+    </button>
   </section>
   <!-- ============================================================
        SEKCIA: CERTIFICATES — galéria certifikátov (dáta v script.js, JS 7)
        ============================================================ -->
-  <section id="certs" class="gallery-section theme-d">
+  <section id="certs" class="theme-d">
     <p class="eyebrow">certificates</p>
     <h2 data-reveal>Certificates</h2>
     <p class="lead" data-reveal>Choose a category to see the certificates.</p>
 
-    <div class="cat-grid" data-role="cat-grid" data-reveal>
-      <button class="cat-card is-logo" data-cat="salesforce">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/livyisn3/image/upload/v1792059022/SFMC_admin.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Salesforce</span>
-      </button>
-      <button class="cat-card is-logo" data-cat="bloomreach">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.pdf" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Bloomreach</span>
-      </button>
-      <button class="cat-card is-logo" data-cat="technical">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Technical &amp; Data</span>
-      </button>
-      <button class="cat-card is-logo" data-cat="business">
-        <span class="img-slot cat-card-img"><img src="https://res.cloudinary.com/livyisn3/image/upload/v1792058849/9a9b29e57e5f4bd38f8596e1572b3574.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span>
-        <span class="cat-card-title">Business &amp; Marketing</span>
-      </button>
+    <div class="cat-grid" data-role="cat-grid" data-reveal><!-- kocky kategórií vytvára script.js (JS 8) -->
     </div>
 
     <div class="category-detail" data-role="category-detail" data-reveal hidden>
-      <button class="back-link" data-role="back-link">← Back to categories</button>
+      <button type="button" class="back-link" data-role="back-link">← Back to categories</button>
       <div class="cat-hero">
         <div class="tile cat-hero-image" data-role="hero-tile"></div>
         <div class="cat-hero-copy">
@@ -236,13 +210,13 @@
       </div>
       <div class="grid" data-role="thumbs"></div>
       <div class="thumb-pagination" data-role="thumb-pagination" hidden>
-        <button class="thumb-nav" data-role="thumb-prev" aria-label="Previous">‹</button>
+        <button type="button" class="thumb-nav" data-role="thumb-prev" aria-label="Previous">‹</button>
         <span class="thumb-page-indicator" data-role="thumb-page-indicator"></span>
-        <button class="thumb-nav" data-role="thumb-next" aria-label="Next">›</button>
+        <button type="button" class="thumb-nav" data-role="thumb-next" aria-label="Next">›</button>
       </div>
     </div>
 
-    <button class="scroll-cue" onclick="document.getElementById('motto').scrollIntoView({behavior:'smooth'})" aria-label="Go to Motto section">
+    <button type="button" class="scroll-cue" data-target="motto" aria-label="Go to Motto section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -260,9 +234,9 @@
         <div class="scratch-message">"Great integrations are the ones nobody ever notices."</div>
         <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
       </div>
-      <button class="scratch-reset" id="scratch-reset">Reset</button>
+      <button type="button" class="pill-btn" id="scratch-reset">Reset</button>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('game').scrollIntoView({behavior:'smooth'})" aria-label="Go to Memory Game section">
+    <button type="button" class="scroll-cue" data-target="game" aria-label="Go to Memory Game section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -275,7 +249,7 @@
   <section id="game" class="theme-a">
     <div class="game-wrap" data-reveal>
       <p class="eyebrow">take a break</p>
-      <h2 style="font-size:clamp(1.6rem,3vw,2.1rem); margin-bottom:0.4rem;">Memory Game</h2>
+      <h2>Memory Game</h2>
       <p class="motto-hint">Match all 10 pairs.:)</p>
       <div class="game-hud">
         <span id="game-moves">Moves: 0</span>
@@ -283,10 +257,10 @@
       </div>
       <div class="memory-grid" id="memory-grid"></div>
       <p class="game-win" id="game-win"></p>
-      <button class="game-reset" id="game-reset">Shuffle again</button>
+      <button type="button" class="pill-btn" id="game-reset">Shuffle again</button>
       <p class="game-note">Van Gogh Collection</p>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('cv').scrollIntoView({behavior:'smooth'})" aria-label="Go to CV section">
+    <button type="button" class="scroll-cue" data-target="cv" aria-label="Go to CV section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -306,12 +280,12 @@
     <div class="cv-layout">
       <!-- Bočný panel s ikonkami — placeholder pre "čo robím", neskôr nahraditeľné vlastnou grafikou -->
       <aside class="cv-icons" aria-label="Areas of work">
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="Web Development" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Web Development</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="APIs & Integrations" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>APIs &amp; Integrations</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Bloomreach Engagement" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Bloomreach Engagement</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="Salesforce Marketing Cloud" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="Design & Creative" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Design &amp; Creative</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="Languages" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span><span>Languages</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="Web Development"><span class="img-fallback">IMG</span></span><span>Web Development</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="APIs & Integrations"><span class="img-fallback">IMG</span></span><span>APIs &amp; Integrations</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Bloomreach Engagement"><span class="img-fallback">IMG</span></span><span>Bloomreach Engagement</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="Salesforce Marketing Cloud"><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="Design & Creative"><span class="img-fallback">IMG</span></span><span>Design &amp; Creative</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="Languages"><span class="img-fallback">IMG</span></span><span>Languages</span></div>
       </aside>
       <div class="cv-scroll" data-reveal>
         <div class="timeline">
@@ -384,14 +358,14 @@
 
         <div class="cv-skills">
           <h3>Certifications</h3>
-          <p style="font-weight:400; color:var(--muted); font-size:0.88rem; max-width:60ch;">Salesforce Certified Marketing Cloud Consultant, Developer, Administrator &amp; Engagement Specialist · Bloomreach Academy: Discovery &amp; Engagement (Jinja Unlocked, Jinja Jumpstart, Data Hub) · IBM Industry Certifications (Banking, Telecom, Healthcare)</p>
+          <p class="cv-certs-text">Salesforce Certified Marketing Cloud Consultant, Developer, Administrator &amp; Engagement Specialist · Bloomreach Academy: Discovery &amp; Engagement (Jinja Unlocked, Jinja Jumpstart, Data Hub) · IBM Industry Certifications (Banking, Telecom, Healthcare)</p>
         </div>
 
         <div class="cv-skills">
           <h3>Technical Skills</h3>
           <div class="skill-cats">
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Development &amp; Data</span>
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt=""><span class="img-fallback">IMG</span></span> Development &amp; Data</span>
               <div class="skill-tags">
                 <span class="skill-tag">JavaScript</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
                 <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">SQL</span><span class="skill-tag">Oracle PL/SQL</span>
@@ -399,35 +373,35 @@
               </div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817486/17335208.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> APIs &amp; Integration</span>
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817486/17335208.png" alt=""><span class="img-fallback">IMG</span></span> APIs &amp; Integration</span>
               <div class="skill-tags">
                 <span class="skill-tag">REST APIs</span><span class="skill-tag">JSON</span><span class="skill-tag">Web Services</span>
                 <span class="skill-tag">System Integration</span><span class="skill-tag">Postman</span>
               </div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt=""><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
               <div class="skill-tags">
                 <span class="skill-tag">Journey Orchestration</span><span class="skill-tag">Weblayers</span><span class="skill-tag">Dynamic Content</span>
                 <span class="skill-tag">Segmentation</span><span class="skill-tag">Funnels &amp; Reporting</span><span class="skill-tag">Metrics &amp; Aggregates</span>
               </div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt=""><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
               <div class="skill-tags">
                 <span class="skill-tag">Journey Builder</span><span class="skill-tag">Automation Studio</span><span class="skill-tag">Data Extensions</span>
                 <span class="skill-tag">Email &amp; Mobile Studio</span><span class="skill-tag">A/B Testing</span>
               </div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817398/adobe-creative-cloud-logo-free-png.webp" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Design &amp; Creative</span>
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817398/adobe-creative-cloud-logo-free-png.webp" alt=""><span class="img-fallback">IMG</span></span> Design &amp; Creative</span>
               <div class="skill-tags">
                 <span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span>
                 <span class="skill-tag">XD</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span>
               </div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817060/3898082.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><span class="img-fallback">IMG</span></span> Languages</span>
+              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817060/3898082.png" alt=""><span class="img-fallback">IMG</span></span> Languages</span>
               <div class="skill-tags">
                 <span class="skill-tag">English — B2</span><span class="skill-tag">German — B2</span>
               </div>
@@ -437,7 +411,7 @@
       </div>
     </div>
 
-    <button class="scroll-cue" onclick="document.getElementById('specimen').scrollIntoView({behavior:'smooth'})" aria-label="Go to Style Specimen section">
+    <button type="button" class="scroll-cue" data-target="specimen" aria-label="Go to Style Specimen section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -448,31 +422,31 @@
        ============================================================ -->
   <section id="specimen" class="theme-f">
     <p class="eyebrow">specimen</p>
-    <h2 data-reveal style="font-size:clamp(1.8rem,3.5vw,2.4rem); margin-bottom:2rem;">Type &amp; Color System</h2>
+    <h2 data-reveal>Type &amp; Color System</h2>
     <div class="specimen-grid" data-reveal>
       <div class="spec-row">
         <div class="spec-label">Typeface — Montserrat (fallback: Roboto → Helvetica Neue → Arial)</div>
         <div class="spec-h1">Aa Bb Cc — ExtraBold 800 / H1</div>
-        <div class="spec-h2" style="margin-top:0.5rem;">Aa Bb Cc — Bold 700 / H2</div>
-        <div class="spec-h3" style="margin-top:0.5rem;">Aa Bb Cc — SemiBold 600 / H3</div>
-        <div class="spec-medium" style="margin-top:0.5rem;">Aa Bb Cc — Medium 500 / labels</div>
-        <div class="spec-body" style="margin-top:0.5rem;">Aa Bb Cc — Regular 400 / body text</div>
-        <div class="spec-light" style="margin-top:0.5rem; color:var(--muted);">Aa Bb Cc — Light 300 / captions &amp; notes</div>
+        <div class="spec-h2">Aa Bb Cc — Bold 700 / H2</div>
+        <div class="spec-h3">Aa Bb Cc — SemiBold 600 / H3</div>
+        <div class="spec-medium">Aa Bb Cc — Medium 500 / labels</div>
+        <div class="spec-body">Aa Bb Cc — Regular 400 / body text</div>
+        <div class="spec-light">Aa Bb Cc — Light 300 / captions &amp; notes</div>
       </div>
-      <div class="spec-row" style="border-bottom:none; padding-bottom:0;">
+      <div class="spec-row">
         <div class="spec-label">Palette — Dusk Horizon</div>
         <div class="swatches">
-          <div class="swatch"><div class="swatch-color" style="background:#050511;"></div><span>Ink<br>#050511</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#311B2F;"></div><span>Plum<br>#311B2F</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#6B354C;"></div><span>Mauve<br>#6B354C</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#933A3C;"></div><span>Terracotta<br>#933A3C</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#D26661;"></div><span>Coral<br>#D26661</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#F2D1D0;"></div><span>Peach<br>#F2D1D0</span></div>
-          <div class="swatch"><div class="swatch-color" style="background:#F5E3F3;"></div><span>Mist<br>#F5E3F3</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#050511"></div><span>Ink<br>#050511</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#311B2F"></div><span>Plum<br>#311B2F</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#6B354C"></div><span>Mauve<br>#6B354C</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#933A3C"></div><span>Terracotta<br>#933A3C</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#D26661"></div><span>Coral<br>#D26661</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#F2D1D0"></div><span>Peach<br>#F2D1D0</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#F5E3F3"></div><span>Mist<br>#F5E3F3</span></div>
         </div>
       </div>
     </div>
-    <button class="scroll-cue" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Go to Contact section">
+    <button type="button" class="scroll-cue" data-target="contact" aria-label="Go to Contact section">
       <span class="scroll-circle"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
       <span class="scroll-label">scroll</span>
     </button>
@@ -489,7 +463,7 @@
         <!-- Fotka + meno pri formulári -->
         <div class="contact-person">
           <span class="img-slot contact-photo">
-            <img src="https://res.cloudinary.com/livyisn3/image/upload/v1789982652/BohuslavaR.png" alt="Bohuslava Rozsypalová" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <img loading="lazy" src="https://res.cloudinary.com/livyisn3/image/upload/v1789982652/BohuslavaR.png" alt="Bohuslava Rozsypalová">
             <span class="img-fallback">IMG</span>
           </span>
           <span class="contact-person-info">
@@ -497,7 +471,7 @@
             <span>Your message comes straight to me — I usually reply within one day.</span>
           </span>
         </div>
-        <p>Have a website that needs to talk to other systems, or a project missing a technical consultant? Reach out — this form goes straight to my inbox.</p>
+        <p class="contact-intro">Have a website that needs to talk to other systems, or a project missing a technical consultant? Reach out — this form goes straight to my inbox.</p>
         <div class="contact-links">
           <a href="mailto:b.rozsypalova@gmail.com">b.rozsypalova@gmail.com</a>
           <a href="tel:+421950238952">+421 950 238 952</a>
@@ -510,7 +484,7 @@
            Polia Name a Message kontroluje script.js (JS 4) na zakázané slová. -->
       <form id="contact-form" data-reveal aria-label="Contact form" action="https://formsubmit.co/b.rozsypalova@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New message from your portfolio site">
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div>
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required>
@@ -523,7 +497,7 @@
           <label for="message">Message</label>
           <textarea id="message" name="message" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" id="contact-submit" style="align-self:flex-start;">Send message</button>
+        <button type="submit" class="btn btn-primary" id="contact-submit">Send message</button>
         <p class="form-status" id="form-status" role="status"></p>
       </form>
     </div>
@@ -534,16 +508,16 @@
     <span>Made with care.</span>
   </footer>
 
-</div>
+</main>
 
 <!-- ============================================================
      LIGHTBOX
      ============================================================ -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview" aria-hidden="true">
   <div class="lightbox-inner">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
-    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">‹</button>
-    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">›</button>
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous image">‹</button>
+    <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next image">›</button>
     <div id="lightbox-content"></div>
     <p class="lightbox-caption" id="lightbox-caption"></p>
   </div>
