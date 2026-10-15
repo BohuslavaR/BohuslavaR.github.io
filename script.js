@@ -2,33 +2,64 @@
    SCRIPT.JS — Bohuslava Rozsypalová — Portfolio & CV
    ------------------------------------------------------------------
    Obsah:
-     JS 0  Preklady textov generovaných skriptom (i18n)
+     JS 0  Texty podľa jazyka stránky (en / sk / de + window.I18N)
      JS 1  Mobilné menu (hamburger)
      JS 2  Aktívna položka menu + "pipeline" bodky + tlačidlo "späť hore"
      JS 3  Postupné "objavenie sa" prvkov pri scrollovaní
-     JS 4  Kontaktný formulár (FormSubmit)
+     JS 4  Kontaktný formulár — zakázané slová + odoslanie (FormSubmit)
      JS 5  Canvas scratch efekt
      JS 6  Lightbox
      JS 7  Galéria
      JS 8  Pexeso (memory game)
-     JS 9  Hero obrázok na pozadí
+     JS 9  Typewriter v úvode
+     JS 10 3D tilt kociek "Ďalšie stránky"
+     JS 11 Kocky bez odkazu → štítok "Coming soon"
+     JS 12 Úvodná fotka (hero)
    ================================================================== */
 
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ============================================================
-   JS 0: i18n   
+   JS 0: Texty podľa jazyka
+   ------------------------------------------------------------
+   Jazyk sa zistí z <html lang="...">. Ak stránka definuje
+   window.I18N (sk.html, de.html), použijú sa jej preklady.
    ============================================================ */
-const T = Object.assign({
-  sending: 'Sending…',
-  sendBtn: 'Send message',
-  formOk: '✓ Message sent — thank you! I will get back to you soon.',
-  formErr: 'Something went wrong. Please email b.rozsypalova@gmail.com directly.',
-  scratchHint: 'scratch to reveal',
-  moves: 'Moves: ',
-  pairs: 'Pairs: ',
-  solved: (n) => `🎉 Solved in ${n} moves!`,
-  photoCats: {},
-  graphicCats: {}
-}, window.I18N || {});
+const LANG = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
+const I18N = window.I18N || {};
+const UI_TEXTS = {
+  en: {
+    sending: 'Sending…',
+    sendBtn: 'Send message',
+    formOk: '✓ Message sent — thank you! I will get back to you soon.',
+    formErr: 'Something went wrong. Please email b.rozsypalova@gmail.com directly.',
+    scratchHint: 'scratch to reveal',
+    moves: 'Moves: ',
+    pairs: 'Pairs: ',
+    solved: (n) => `🎉 Solved in ${n} moves!`,
+    soon: 'Coming soon',
+    bannedOne: (w) => `Please leave out the word “${w}”.`,
+    bannedMany: (w) => `Please leave out these words: ${w}.`,
+    tooManyLinks: (max) => `The message can contain at most ${max} links.`,
+    blocked: 'Message not sent — please fix the highlighted field.'
+  },
+  sk: {
+    soon: 'Čoskoro',
+    bannedOne: (w) => `Prosím, vynechajte slovo „${w}“.`,
+    bannedMany: (w) => `Prosím, vynechajte slová: ${w}.`,
+    tooManyLinks: (max) => `Správa môže obsahovať najviac ${max} odkazy.`,
+    blocked: 'Správa nebola odoslaná — upravte, prosím, označené pole.'
+  },
+  de: {
+    soon: 'Demnächst',
+    bannedOne: (w) => `Bitte verzichten Sie auf das Wort „${w}“.`,
+    bannedMany: (w) => `Bitte verzichten Sie auf diese Wörter: ${w}.`,
+    tooManyLinks: (max) => `Die Nachricht darf höchstens ${max} Links enthalten.`,
+    blocked: 'Nachricht nicht gesendet — bitte das markierte Feld korrigieren.'
+  }
+};
+/* Poradie: angličtina (základ) ← texty daného jazyka ← window.I18N zo stránky */
+const T = Object.assign({}, UI_TEXTS.en, UI_TEXTS[LANG] || {}, I18N);
 
 /* ============================================================
    JS 1: Mobilné menu (hamburger)
@@ -45,7 +76,10 @@ navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 }));
 
 /* ============================================================
-   JS 2: "pipeline" bodky + tlačidlo späť hore"
+   JS 2: "pipeline" bodky + tlačidlo "späť hore"
+   ------------------------------------------------------------
+   Poradie v sectionIds musí sedieť s poradím bodiek .pipeline-node
+   v HTML (nová sekcia "more" je 3. v poradí).
    ============================================================ */
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a[data-nav]');
@@ -53,7 +87,7 @@ const pipelineNodes = document.querySelectorAll('.pipeline-node');
 const backToTop = document.getElementById('back-to-top');
 backToTop.addEventListener('click', () => document.getElementById('home').scrollIntoView({ behavior: 'smooth' }));
 
-const sectionIds = ['home', 'about', 'motto', 'photo', 'graphic', 'specimen', 'game', 'cv', 'contact'];
+const sectionIds = ['home', 'about', 'more', 'motto', 'photo', 'graphic', 'specimen', 'game', 'cv', 'contact'];
 const sectionIndexById = {};
 sectionIds.forEach((id, i) => { sectionIndexById[id] = i; });
 
@@ -72,7 +106,10 @@ sections.forEach(s => sectionObserver.observe(s));
 
 /* Klik na bodku v pipeline = plynulý skok na danú sekciu */
 pipelineNodes.forEach((node, i) => {
-  node.addEventListener('click', () => document.getElementById(sectionIds[i]).scrollIntoView({ behavior: 'smooth' }));
+  node.addEventListener('click', () => {
+    const target = document.getElementById(sectionIds[i]);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
 });
 
 /* ============================================================
@@ -85,13 +122,147 @@ const revealObserver = new IntersectionObserver((entries) => {
 revealEls.forEach(el => revealObserver.observe(el));
 
 /* ============================================================
-   JS 4: Kontaktný formulár — odošle sa cez FormSubmit AJAX
+   JS 4: Kontaktný formulár — zakázané slová + odoslanie
+   ------------------------------------------------------------
+   • kontroluje pole Meno aj Správa už počas písania
+   • zachytí aj obchádzky: diakritiku (píča → pica), veľké písmená,
+     "leet" (sh1t, $hit), opakované písmená (kuuurva) a bodky
+     medzi písmenami (k.u.r.v.a)
+   • blokuje aj správy s viac ako MAX_LINKS odkazmi (spam)
+   • ak je všetko OK, správa sa odošle cez FormSubmit AJAX
    ============================================================ */
+const BANNED = {
+  /* Celé slová — musia sa zhodovať presne */
+  exact: [
+    'pica', 'pice', 'picu', 'picou', 'pici', 'dick', 'cock', 'ass',
+    'idiot', 'idioti', 'kkt', 'xxx', 'porn',
+    'hovado', 'hovada', 'hovadu', 'hovadom', 'hovad'
+  ],
+  /* Začiatky slov — chytí aj tvary (kurva, kurvy, kurviť…) */
+  stems: [
+    /* SK / CZ */
+    'kurv', 'kokot', 'jeba', 'jebe', 'jebl', 'jebn', 'jebo', 'zjeb', 'pojeb', 'vyjeb',
+    'chuj', 'debil', 'sracka', 'kreten', 'zmrd', 'mrdk', 'curak',
+    /* EN */
+    'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'cunt', 'motherf',
+    /* DE */
+    'scheiss', 'scheis', 'arschloch', 'fotze', 'wichser', 'hurensohn', 'fick', 'schlampe',
+    /* Spam */
+    'viagra', 'cialis', 'casino', 'kasino', 'porno', 'lottery'
+  ]
+};
+/* Výnimky — bežné slová, ktoré začínajú ako niektorý "stem" */
+const ALLOWED = ['shitake', 'shiitake', 'assess', 'assist', 'class', 'passau'];
+const MAX_LINKS = 2;
+
+/* Normalizácia textu pred porovnaním */
+function normalizeWord(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')      /* bez diakritiky */
+    .replace(/ß/g, 'ss')
+    .replace(/[0@4$5!1|3€7]/g, (c) => ({
+      '0': 'o', '@': 'a', '4': 'a', '$': 's', '5': 's',
+      '!': 'i', '1': 'i', '|': 'i', '3': 'e', '€': 'e', '7': 't'
+    })[c])
+    .replace(/([a-z])[.\-_*~]+(?=[a-z])/g, '$1')            /* k.u.r.v.a → kurva */
+    .replace(/([a-z])\1{2,}/g, '$1');                        /* kuuurva → kurva */
+}
+
+/* Vráti zoznam nájdených zakázaných slov (v tvare, ako ich napísal používateľ) */
+function findBanned(text) {
+  if (!text) return [];
+  const found = new Set();
+  text.split(/\s+/).filter(Boolean).forEach((orig) => {
+    /* odstránime interpunkciu na krajoch (ahoj! → ahoj), potom normalizujeme */
+    const trimmed = orig.replace(/^[^\p{L}\p{N}@$]+|[^\p{L}\p{N}@$]+$/gu, '');
+    const word = normalizeWord(trimmed).replace(/[^a-z]/g, '');
+    if (!word || ALLOWED.includes(word)) return;
+    if (ALLOWED.some((a) => a.length > 3 && word.startsWith(a))) return;
+    const hit = BANNED.exact.includes(word) || BANNED.stems.some((s) => word.startsWith(s));
+    if (hit) found.add(trimmed);
+  });
+  return [...found];
+}
+
+function countLinks(text) {
+  return (text.match(/(https?:\/\/|www\.)\S+/gi) || []).length;
+}
+
+/* Dá sa vyskúšať aj v konzole prehliadača: checkBannedWords('ahoj sh1t') */
+window.checkBannedWords = findBanned;
+
 const contactForm = document.getElementById('contact-form');
 const submitBtn = document.getElementById('contact-submit');
+const statusEl = document.getElementById('form-status');
+const checkedFields = ['name', 'message'].map(id => document.getElementById(id)).filter(Boolean);
+
+/* Pod každé kontrolované pole vložíme miesto na upozornenie */
+checkedFields.forEach((field) => {
+  const warn = document.createElement('p');
+  warn.className = 'field-warning';
+  warn.id = field.id + '-warning';
+  warn.setAttribute('aria-live', 'polite');
+  field.insertAdjacentElement('afterend', warn);
+  field.setAttribute('aria-describedby', warn.id);
+});
+
+/* Skontroluje jedno pole — vráti true, ak je v poriadku */
+function validateField(field) {
+  const warn = document.getElementById(field.id + '-warning');
+  const banned = findBanned(field.value);
+  let msg = '';
+  if (banned.length === 1) msg = T.bannedOne(banned[0]);
+  else if (banned.length > 1) msg = T.bannedMany(banned.join(', '));
+  else if (field.id === 'message' && countLinks(field.value) > MAX_LINKS) msg = T.tooManyLinks(MAX_LINKS);
+
+  warn.textContent = msg;
+  field.classList.toggle('has-banned', !!msg);
+  field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  return !msg;
+}
+
+function validateForm() {
+  const ok = checkedFields.map(validateField).every(Boolean);
+  submitBtn.disabled = !ok;
+  return ok;
+}
+
+function clearValidation() {
+  checkedFields.forEach((f) => {
+    f.classList.remove('has-banned');
+    f.setAttribute('aria-invalid', 'false');
+    const w = document.getElementById(f.id + '-warning');
+    if (w) w.textContent = '';
+  });
+}
+
+/* Kontrola počas písania — s malým oneskorením (debounce) */
+let validateTimer = null;
+checkedFields.forEach((field) => {
+  field.addEventListener('input', () => {
+    clearTimeout(validateTimer);
+    validateTimer = setTimeout(validateForm, 250);
+  });
+});
+
 contactForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  const statusEl = document.getElementById('form-status');
+
+  /* 1) Kontrola zakázaných slov — ak niečo nájde, správa sa neodošle */
+  if (!validateForm()) {
+    statusEl.textContent = T.blocked;
+    const bad = checkedFields.find((f) => f.classList.contains('has-banned'));
+    if (bad) {
+      bad.focus();
+      bad.classList.remove('shake');
+      void bad.offsetWidth; /* reštart animácie */
+      bad.classList.add('shake');
+    }
+    return;
+  }
+
+  /* 2) Odoslanie cez FormSubmit */
   submitBtn.disabled = true;
   submitBtn.textContent = T.sending;
   statusEl.textContent = '';
@@ -105,6 +276,7 @@ contactForm.addEventListener('submit', function (e) {
     .then(() => {
       statusEl.textContent = T.formOk;
       contactForm.reset();
+      clearValidation();
     })
     .catch(() => {
       statusEl.textContent = T.formErr;
@@ -116,7 +288,7 @@ contactForm.addEventListener('submit', function (e) {
 });
 
 /* ============================================================
-   JS 5: Motto —(canvas scratch efekt)
+   JS 5: Motto — (canvas scratch efekt)
    ============================================================ */
 (function () {
   const canvas = document.getElementById('scratch-canvas');
@@ -230,10 +402,14 @@ function renderTileContent(tile, item) {
 
 /* ============================================================
    JS 7: GALÉRIA KATEGÓRIÍ
+   ------------------------------------------------------------
+   3. parameter (catTexts) = preklady názvov kategórií z window.I18N
+   (photoCats / graphicCats). Ak chýba, použijú sa anglické texty.
    ============================================================ */
 const THUMBS_PER_PAGE = 4;
 
-function initCategoryGallery(rootEl, categoriesData) {
+function initCategoryGallery(rootEl, categoriesData, catTexts) {
+  catTexts = catTexts || {};
   const catGrid = rootEl.querySelector('[data-role="cat-grid"]');
   const categoryDetail = rootEl.querySelector('[data-role="category-detail"]');
   const heroTile = rootEl.querySelector('[data-role="hero-tile"]');
@@ -281,19 +457,22 @@ function initCategoryGallery(rootEl, categoriesData) {
   function showCategory(key) {
     const cat = categoriesData[key];
     if (!cat) return;
+    const tr = catTexts[key] || {};
     currentCatKey = key;
     currentPage = 0;
     catGrid.hidden = true;
     categoryDetail.hidden = false;
-    heroEyebrow.textContent = cat.label || key;
-    heroTitle.textContent = cat.title;
-    heroDesc.textContent = cat.desc;
+    heroEyebrow.textContent = tr.label || key;
+    heroTitle.textContent = tr.title || cat.title;
+    heroDesc.textContent = tr.desc || cat.desc;
 
     renderTileContent(heroTile, cat.images[0]);
     heroTile.onclick = () => openLightboxAt(cat.images, 0);
 
     renderThumbsPage();
 
+    /* Na mobile (šírka ≤ 900px) sa po otvorení kategórie automaticky
+       odscrolluje nadol na zobrazenú galériu. */
     if (window.matchMedia('(max-width: 900px)').matches) {
       categoryDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -308,26 +487,14 @@ function initCategoryGallery(rootEl, categoriesData) {
   backBtn.addEventListener('click', () => {
     categoryDetail.hidden = true;
     catGrid.hidden = false;
+    /* Rovnaký princíp aj pri návrate na zoznam kategórií (len mobile) */
     if (window.matchMedia('(max-width: 900px)').matches) {
       catGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
 }
 
-
-function localizeCats(cats, dict) {
-  Object.keys(cats).forEach(key => {
-    const tr = (dict || {})[key];
-    if (tr) {
-      if (tr.title) cats[key].title = tr.title;
-      if (tr.desc) cats[key].desc = tr.desc;
-      if (tr.label) cats[key].label = tr.label;
-    }
-  });
-  return cats;
-}
-
-/* --- Dáta pre Photography  --- */
+/* --- Dáta pre Photography --- */
 const photographyCategories = {
   portraits: {
     title: 'Portrait Photography',
@@ -336,6 +503,7 @@ const photographyCategories = {
       { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813464/IMG_8443-2.jpg' },
       { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813465/IMG_8744.jpg' },
       { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813466/IMG_8833.jpg' },
+      { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813465/IMG_8744.jpg' },
       { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813463/IMG_8387-2.jpg' },
       { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813467/IMG_9934.jpg' },
       { img: 'https://res.cloudinary.com/xbffrklb/image/upload/v1787813467/IMG_9887.jpg' },
@@ -382,7 +550,7 @@ const photographyCategories = {
   }
 };
 
-/* --- Dáta pre Graphic Design  */
+/* --- Dáta pre Graphic Design --- */
 const graphicCategories = {
   branding: {
     title: 'Brand Identity',
@@ -412,9 +580,9 @@ const graphicCategories = {
   }
 };
 
-/* Inicializácia oboch galérií  */
-initCategoryGallery(document.getElementById('photo'), localizeCats(photographyCategories, T.photoCats));
-initCategoryGallery(document.getElementById('graphic'), localizeCats(graphicCategories, T.graphicCats));
+/* Inicializácia oboch galérií */
+initCategoryGallery(document.getElementById('photo'), photographyCategories, I18N.photoCats);
+initCategoryGallery(document.getElementById('graphic'), graphicCategories, I18N.graphicCats);
 
 /* ============================================================
    JS 8: Pexeso (memory game) — 10 dvojíc / 20 kariet
@@ -507,7 +675,120 @@ initCategoryGallery(document.getElementById('graphic'), localizeCats(graphicCate
 })();
 
 /* ============================================================
-   JS 9: Hero HOME
+   JS 9: Typewriter — postupne píše a maže roly z data-words
+   ------------------------------------------------------------
+   HTML: <span class="tw-text" data-words="Rola 1|Rola 2|Rola 3"></span>
    ============================================================ */
-const HERO_IMAGE = 'https://res.cloudinary.com/livyisn3/image/upload/v1789982651/BCKgrnd_image.png';
-document.getElementById('home').style.setProperty('--hero-img', 'url(' + HERO_IMAGE + ')');
+(function () {
+  const el = document.querySelector('.tw-text[data-words]');
+  if (!el) return;
+  const words = el.dataset.words.split('|').map((w) => w.trim()).filter(Boolean);
+  if (!words.length) return;
+
+  /* Pri "obmedzenom pohybe" len zobrazíme prvú rolu, bez animácie */
+  if (reduceMotion) { el.textContent = words[0]; return; }
+
+  const TYPE_SPEED = 70;     /* ms na jedno písmeno pri písaní */
+  const DELETE_SPEED = 35;   /* ms na jedno písmeno pri mazaní */
+  const HOLD_TIME = 1600;    /* ako dlho ostane celé slovo     */
+  let wordIndex = 0, charIndex = 0, deleting = false;
+
+  function tick() {
+    const word = words[wordIndex];
+    if (!deleting) {
+      charIndex++;
+      el.textContent = word.slice(0, charIndex);
+      if (charIndex === word.length) {
+        deleting = true;
+        return setTimeout(tick, HOLD_TIME);
+      }
+      return setTimeout(tick, TYPE_SPEED);
+    }
+    charIndex--;
+    el.textContent = word.slice(0, charIndex);
+    if (charIndex === 0) {
+      deleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      return setTimeout(tick, 350);
+    }
+    setTimeout(tick, DELETE_SPEED);
+  }
+  setTimeout(tick, 600);
+})();
+
+/* ============================================================
+   JS 10: 3D tilt — kocka sa nakláňa podľa polohy myši
+   ------------------------------------------------------------
+   Len pre myš (na dotykových zariadeniach by to rušilo scroll).
+   ============================================================ */
+(function () {
+  const cards = document.querySelectorAll('.more-card');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!cards.length || !canHover || reduceMotion) return;
+
+  const MAX_TILT = 10; /* maximálny náklon v stupňoch */
+
+  cards.forEach((card) => {
+    let frame = null;
+
+    card.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;   /* 0 … 1 */
+      const py = (e.clientY - rect.top) / rect.height;   /* 0 … 1 */
+
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rotY = (px - 0.5) * 2 * MAX_TILT;
+        const rotX = (0.5 - py) * 2 * MAX_TILT;
+        card.classList.add('is-tilting');
+        card.style.transform =
+          `perspective(900px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
+        card.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+      });
+    });
+
+    card.addEventListener('pointerleave', () => {
+      if (frame) cancelAnimationFrame(frame);
+      card.classList.remove('is-tilting');
+      card.style.transform = '';
+    });
+  });
+})();
+
+/* ============================================================
+   JS 11: Kocky bez odkazu (href="#") → štítok "Coming soon"
+   ============================================================ */
+document.querySelectorAll('.more-card').forEach((card) => {
+  const href = card.getAttribute('href');
+  if (href && href !== '#') return;
+  card.classList.add('is-soon');
+  card.setAttribute('aria-disabled', 'true');
+  const visual = card.querySelector('.more-card-visual');
+  if (visual) {
+    const badge = document.createElement('span');
+    badge.className = 'more-card-badge';
+    badge.textContent = T.soon;
+    visual.appendChild(badge);
+  }
+  card.addEventListener('click', (e) => e.preventDefault());
+});
+
+/* ============================================================
+   JS 12: Úvodná fotka (hero)
+   ------------------------------------------------------------
+   Ak je nižšie definované window.__heroSrc, nastaví sa ako
+   pozadie sekcie #home (CSS premenná --hero-img).
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const home = document.getElementById('home');
+  if (home && window.__heroSrc && !home.style.getPropertyValue('--hero-img')) {
+    home.style.setProperty('--hero-img', `url("${window.__heroSrc}")`);
+  }
+});
+
+/* ↓↓↓ SEM VLOŽ z pôvodného script.js všetko od riadku
+       window.__heroSrc = "data:image/png;base64,...
+   až po úplný koniec pôvodného súboru ↓↓↓ */
+
