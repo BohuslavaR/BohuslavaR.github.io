@@ -1,31 +1,33 @@
 /* ==================================================================
    SCRIPT.JS — Bohuslava Rozsypalová — Portfolio & CV
    ------------------------------------------------------------------
+   Načítava sa s atribútom "defer" — beží až po načítaní celého HTML.
    Obsah:
-     JS 0  Texty podľa jazyka stránky (en / sk / de + window.I18N)
-     JS 1  Mobilné menu (hamburger)
-     JS 2  Aktívna položka menu + "pipeline" bodky + tlačidlo "späť hore"
-     JS 3  Postupné "objavenie sa" prvkov pri scrollovaní
-     JS 4  Kontaktný formulár — zakázané slová + odoslanie (FormSubmit)
-     JS 5  Canvas scratch efekt
-     JS 6  Lightbox
-     JS 7  Galéria certifikátov (kategórie → detail → lightbox)
-     JS 8  Pexeso (memory game)
-     JS 9  Typewriter v úvode
-     JS 10 3D tilt kociek "Ďalšie stránky"
-     JS 11 Kocky bez odkazu → štítok "Coming soon"
-     ================================================================== */
+     JS 0  Texty podľa jazyka (en / sk / de + window.I18N zo stránky)
+     JS 1  Obrázky — náhradný text pri chybe načítania
+     JS 2  Mobilné menu (hamburger)
+     JS 3  Navigácia — aktívne menu, pipeline, šípky "scroll", späť hore
+     JS 4  Postupné objavenie prvkov pri scrollovaní
+     JS 5  Kontaktný formulár — zakázané slová + odoslanie (FormSubmit)
+     JS 6  Motto — canvas scratch efekt
+     JS 7  Lightbox
+     JS 8  Galéria certifikátov (dáta + kategórie → detail → lightbox)
+     JS 9  Pexeso (memory game)
+     JS 10 Typewriter v úvode
+     JS 11 Ďalšie stránky — 3D tilt + štítok "Coming soon"
+   ================================================================== */
+'use strict';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
 /* ============================================================
    JS 0: Texty podľa jazyka
    ------------------------------------------------------------
    Jazyk sa zistí z <html lang="...">. Ak stránka definuje
-   window.I18N (sk.html, de.html), použijú sa jej preklady.
+   window.I18N (sk.html, de.html), jej texty majú prednosť.
    ============================================================ */
 const LANG = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
-const I18N = window.I18N || {};
 const UI_TEXTS = {
   en: {
     sending: 'Sending…',
@@ -57,78 +59,101 @@ const UI_TEXTS = {
     blocked: 'Nachricht nicht gesendet — bitte das markierte Feld korrigieren.'
   }
 };
-/* Poradie: angličtina (základ) ← texty daného jazyka ← window.I18N zo stránky */
-const T = Object.assign({}, UI_TEXTS.en, UI_TEXTS[LANG] || {}, I18N);
+/* Poradie: angličtina (základ) ← texty jazyka ← window.I18N zo stránky */
+const T = { ...UI_TEXTS.en, ...(UI_TEXTS[LANG] || {}), ...(window.I18N || {}) };
 
 /* ============================================================
-   JS 1: Mobilné menu (hamburger)
+   JS 1: Obrázky — pri chybe načítania ukáž náhradu
+   ------------------------------------------------------------
+   • .img-slot img → slot dostane triedu .is-broken (CSS ukáže
+     .img-fallback namiesto obrázka)
+   • .more-card-visual img → obrázok sa odstráni a ostane gradient
+   Kontrolujeme aj obrázky, ktoré zlyhali ešte pred spustením JS.
+   ============================================================ */
+function handleBrokenImage(img) {
+  if (img.closest('.more-card-visual')) { img.remove(); return; }
+  const slot = img.closest('.img-slot');
+  if (slot) slot.classList.add('is-broken');
+}
+function watchImage(img) {
+  if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) handleBrokenImage(img);
+  else img.addEventListener('error', () => handleBrokenImage(img), { once: true });
+}
+document.querySelectorAll('.img-slot img, .more-card-visual img').forEach(watchImage);
+
+/* ============================================================
+   JS 2: Mobilné menu (hamburger) — zatvára sa klikom na odkaz
+   alebo klávesou Escape
    ============================================================ */
 const navToggle = document.querySelector('.nav-toggle');
 const navList = document.getElementById('nav-list');
-navToggle.addEventListener('click', () => {
-  const open = navList.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', open);
+
+function setMenu(open) {
+  navList.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+}
+navToggle.addEventListener('click', () => setMenu(!navList.classList.contains('open')));
+navList.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navList.classList.contains('open')) setMenu(false);
 });
-navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navList.classList.remove('open');
-  navToggle.setAttribute('aria-expanded', 'false');
-}));
 
 /* ============================================================
-   JS 2: "pipeline" bodky + tlačidlo "späť hore"
+   JS 3: Navigácia
    ------------------------------------------------------------
-   Poradie v sectionIds musí sedieť s poradím bodiek .pipeline-node
-   v HTML (9 bodiek).
+   • zvýraznenie aktívnej položky menu a bodky v pipeline
+   • klik na prvok s data-target="id" = plynulý skok na sekciu
+     (bodky pipeline aj šípky "scroll")
+   • tlačidlo "späť hore" — skryté v sekcii pexeso
    ============================================================ */
-const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a[data-nav]');
-const pipelineNodes = document.querySelectorAll('.pipeline-node');
+const pipelineNodes = document.querySelectorAll('.pipeline-node[data-target]');
 const backToTop = document.getElementById('back-to-top');
-backToTop.addEventListener('click', () => document.getElementById('home').scrollIntoView({ behavior: 'smooth' }));
 
-const sectionIds = ['home', 'about', 'more', 'certs', 'motto', 'game', 'cv', 'specimen', 'contact'];
-const sectionIndexById = {};
-sectionIds.forEach((id, i) => { sectionIndexById[id] = i; });
+const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+
+document.querySelectorAll('[data-target]').forEach((el) => {
+  el.addEventListener('click', () => scrollToId(el.dataset.target));
+});
+backToTop.addEventListener('click', () => scrollToId('home'));
 
 const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.id;
-      navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
-      pipelineNodes.forEach((n, i) => n.classList.toggle('active', i === sectionIndexById[id]));
-      /* "Späť hore" tlačidlo je viditeľné vždy, okrem sekcie #game (pexeso) */
-      backToTop.classList.toggle('visible', id !== 'game');
-    }
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    navLinks.forEach((link) => {
+      const active = link.dataset.nav === id;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+    pipelineNodes.forEach((node) => node.classList.toggle('active', node.dataset.target === id));
+    backToTop.classList.toggle('visible', id !== 'game');
   });
 }, { threshold: 0.5 });
-sections.forEach(s => sectionObserver.observe(s));
-
-/* Klik na bodku v pipeline = plynulý skok na danú sekciu */
-pipelineNodes.forEach((node, i) => {
-  node.addEventListener('click', () => {
-    const target = document.getElementById(sectionIds[i]);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
-});
+document.querySelectorAll('section[id]').forEach((s) => sectionObserver.observe(s));
 
 /* ============================================================
-   JS 3: plynulé objavenie sa prvkov pri scrollovaní
+   JS 4: Postupné objavenie prvkov pri scrollovaní
    ============================================================ */
-const revealEls = document.querySelectorAll('[data-reveal]');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+const revealObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('in');
+    observer.unobserve(entry.target);          /* stačí raz */
+  });
 }, { threshold: 0.15 });
-revealEls.forEach(el => revealObserver.observe(el));
+document.querySelectorAll('[data-reveal]').forEach((el) => revealObserver.observe(el));
 
 /* ============================================================
-   JS 4: Kontaktný formulár — zakázané slová + odoslanie
+   JS 5: Kontaktný formulár — zakázané slová + odoslanie
    ------------------------------------------------------------
-   • kontroluje pole Meno aj Správa už počas písania
+   • kontroluje polia Meno a Správa už počas písania
    • zachytí aj obchádzky: diakritiku (píča → pica), veľké písmená,
-     "leet" (sh1t, $hit), opakované písmená (kuuurva) a bodky
+     "leet" (sh1t, $hit), opakované písmená (kuuurva) a znaky
      medzi písmenami (k.u.r.v.a)
-   • blokuje aj správy s viac ako MAX_LINKS odkazmi (spam)
-   • ak je všetko OK, správa sa odošle cez FormSubmit AJAX
+   • blokuje správy s viac ako MAX_LINKS odkazmi (spam)
+   • ak je všetko v poriadku, odošle správu cez FormSubmit (AJAX)
    ============================================================ */
 const BANNED = {
   /* Celé slová — musia sa zhodovať presne */
@@ -153,157 +178,128 @@ const BANNED = {
 /* Výnimky — bežné slová, ktoré začínajú ako niektorý "stem" */
 const ALLOWED = ['shitake', 'shiitake', 'assess', 'assist', 'class', 'passau'];
 const MAX_LINKS = 2;
+const LEET = { 0: 'o', '@': 'a', 4: 'a', $: 's', 5: 's', '!': 'i', 1: 'i', '|': 'i', 3: 'e', '€': 'e', 7: 't' };
 
-/* Normalizácia textu pred porovnaním */
 function normalizeWord(text) {
   return text
     .toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')      /* bez diakritiky */
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')   /* bez diakritiky */
     .replace(/ß/g, 'ss')
-    .replace(/[0@4$5!1|3€7]/g, (c) => ({
-      '0': 'o', '@': 'a', '4': 'a', '$': 's', '5': 's',
-      '!': 'i', '1': 'i', '|': 'i', '3': 'e', '€': 'e', '7': 't'
-    })[c])
-    .replace(/([a-z])[.\-_*~]+(?=[a-z])/g, '$1')            /* k.u.r.v.a → kurva */
-    .replace(/([a-z])\1{2,}/g, '$1');                        /* kuuurva → kurva */
+    .replace(/[0@4$5!1|3€7]/g, (c) => LEET[c])
+    .replace(/([a-z])[.\-_*~]+(?=[a-z])/g, '$1')         /* k.u.r.v.a → kurva */
+    .replace(/([a-z])\1{2,}/g, '$1');                     /* kuuurva → kurva */
 }
 
-/* Vráti zoznam nájdených zakázaných slov (v tvare, ako ich napísal používateľ) */
+/* Vráti zakázané slová v tvare, ako ich napísal používateľ */
 function findBanned(text) {
-  if (!text) return [];
   const found = new Set();
-  text.split(/\s+/).filter(Boolean).forEach((orig) => {
-    /* odstránime interpunkciu na krajoch (ahoj! → ahoj), potom normalizujeme */
+  (text || '').split(/\s+/).filter(Boolean).forEach((orig) => {
     const trimmed = orig.replace(/^[^\p{L}\p{N}@$]+|[^\p{L}\p{N}@$]+$/gu, '');
     const word = normalizeWord(trimmed).replace(/[^a-z]/g, '');
-    if (!word || ALLOWED.includes(word)) return;
-    if (ALLOWED.some((a) => a.length > 3 && word.startsWith(a))) return;
-    const hit = BANNED.exact.includes(word) || BANNED.stems.some((s) => word.startsWith(s));
-    if (hit) found.add(trimmed);
+    if (!word || ALLOWED.some((a) => word === a || (a.length > 3 && word.startsWith(a)))) return;
+    if (BANNED.exact.includes(word) || BANNED.stems.some((s) => word.startsWith(s))) found.add(trimmed);
   });
   return [...found];
 }
+const countLinks = (text) => (text.match(/(https?:\/\/|www\.)\S+/gi) || []).length;
 
-function countLinks(text) {
-  return (text.match(/(https?:\/\/|www\.)\S+/gi) || []).length;
-}
-
-/* Dá sa vyskúšať aj v konzole prehliadača: checkBannedWords('ahoj sh1t') */
+/* Test v konzole prehliadača: checkBannedWords('ahoj sh1t') */
 window.checkBannedWords = findBanned;
 
-const contactForm = document.getElementById('contact-form');
-const submitBtn = document.getElementById('contact-submit');
-const statusEl = document.getElementById('form-status');
-const checkedFields = ['name', 'message'].map(id => document.getElementById(id)).filter(Boolean);
+(function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  const submitBtn = document.getElementById('contact-submit');
+  const statusEl = document.getElementById('form-status');
+  const fields = ['name', 'message'].map((id) => document.getElementById(id)).filter(Boolean);
 
-/* Pod každé kontrolované pole vložíme miesto na upozornenie */
-checkedFields.forEach((field) => {
-  const warn = document.createElement('p');
-  warn.className = 'field-warning';
-  warn.id = field.id + '-warning';
-  warn.setAttribute('aria-live', 'polite');
-  field.insertAdjacentElement('afterend', warn);
-  field.setAttribute('aria-describedby', warn.id);
-});
-
-/* Skontroluje jedno pole — vráti true, ak je v poriadku */
-function validateField(field) {
-  const warn = document.getElementById(field.id + '-warning');
-  const banned = findBanned(field.value);
-  let msg = '';
-  if (banned.length === 1) msg = T.bannedOne(banned[0]);
-  else if (banned.length > 1) msg = T.bannedMany(banned.join(', '));
-  else if (field.id === 'message' && countLinks(field.value) > MAX_LINKS) msg = T.tooManyLinks(MAX_LINKS);
-
-  warn.textContent = msg;
-  field.classList.toggle('has-banned', !!msg);
-  field.setAttribute('aria-invalid', msg ? 'true' : 'false');
-  return !msg;
-}
-
-function validateForm() {
-  const ok = checkedFields.map(validateField).every(Boolean);
-  submitBtn.disabled = !ok;
-  return ok;
-}
-
-function clearValidation() {
-  checkedFields.forEach((f) => {
-    f.classList.remove('has-banned');
-    f.setAttribute('aria-invalid', 'false');
-    const w = document.getElementById(f.id + '-warning');
-    if (w) w.textContent = '';
+  /* Pod každé kontrolované pole vložíme miesto na upozornenie */
+  fields.forEach((field) => {
+    const warn = document.createElement('p');
+    warn.className = 'field-warning';
+    warn.id = `${field.id}-warning`;
+    warn.setAttribute('aria-live', 'polite');
+    field.after(warn);
+    field.setAttribute('aria-describedby', warn.id);
   });
-}
 
-/* Kontrola počas písania — s malým oneskorením (debounce) */
-let validateTimer = null;
-checkedFields.forEach((field) => {
-  field.addEventListener('input', () => {
-    clearTimeout(validateTimer);
-    validateTimer = setTimeout(validateForm, 250);
-  });
-});
+  function validateField(field) {
+    const banned = findBanned(field.value);
+    let msg = '';
+    if (banned.length === 1) msg = T.bannedOne(banned[0]);
+    else if (banned.length > 1) msg = T.bannedMany(banned.join(', '));
+    else if (field.id === 'message' && countLinks(field.value) > MAX_LINKS) msg = T.tooManyLinks(MAX_LINKS);
 
-contactForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  /* 1) Kontrola zakázaných slov — ak niečo nájde, správa sa neodošle */
-  if (!validateForm()) {
-    statusEl.textContent = T.blocked;
-    const bad = checkedFields.find((f) => f.classList.contains('has-banned'));
-    if (bad) {
-      bad.focus();
-      bad.classList.remove('shake');
-      void bad.offsetWidth; /* reštart animácie */
-      bad.classList.add('shake');
-    }
-    return;
+    document.getElementById(`${field.id}-warning`).textContent = msg;
+    field.classList.toggle('has-banned', Boolean(msg));
+    field.setAttribute('aria-invalid', String(Boolean(msg)));
+    return !msg;
+  }
+  function validateForm() {
+    const ok = fields.map(validateField).every(Boolean);
+    submitBtn.disabled = !ok;
+    return ok;
   }
 
-  /* 2) Odoslanie cez FormSubmit */
-  submitBtn.disabled = true;
-  submitBtn.textContent = T.sending;
-  statusEl.textContent = '';
-  const data = new FormData(contactForm);
-  fetch('https://formsubmit.co/ajax/b.rozsypalova@gmail.com', {
-    method: 'POST',
-    headers: { 'Accept': 'application/json' },
-    body: data
-  })
-    .then(res => res.json())
-    .then(() => {
+  let timer;
+  fields.forEach((field) => field.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(validateForm, 250);   /* debounce */
+  }));
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    /* 1) Kontrola zakázaných slov */
+    if (!validateForm()) {
+      statusEl.textContent = T.blocked;
+      const bad = fields.find((f) => f.classList.contains('has-banned'));
+      if (bad) {
+        bad.focus();
+        bad.classList.remove('shake');
+        void bad.offsetWidth;                   /* reštart animácie */
+        bad.classList.add('shake');
+      }
+      return;
+    }
+
+    /* 2) Odoslanie cez FormSubmit */
+    submitBtn.disabled = true;
+    submitBtn.textContent = T.sending;
+    statusEl.textContent = '';
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/b.rozsypalova@gmail.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form)
+      });
+      if (!res.ok) throw new Error(res.status);
       statusEl.textContent = T.formOk;
-      contactForm.reset();
-      clearValidation();
-    })
-    .catch(() => {
+      form.reset();
+      fields.forEach(validateField);
+    } catch {
       statusEl.textContent = T.formErr;
-    })
-    .finally(() => {
+    } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = T.sendBtn;
-    });
-});
+    }
+  });
+})();
 
 /* ============================================================
-   JS 5: Motto — (canvas scratch efekt)
+   JS 6: Motto — canvas scratch efekt (myš aj dotyk)
    ============================================================ */
-(function () {
+(function initScratch() {
   const canvas = document.getElementById('scratch-canvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const box = canvas.parentElement;
   let drawing = false;
 
-  function sizeCanvas() {
-    const rect = box.getBoundingClientRect();
-    canvas.width = rect.width; canvas.height = rect.height;
-    paintScratchLayer();
-  }
-  function paintScratchLayer() {
+  function paintLayer() {
     const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    grad.addColorStop(0, '#311B2F'); /* plum */
-    grad.addColorStop(1, '#050511'); /* ink */
+    grad.addColorStop(0, '#311B2F');
+    grad.addColorStop(1, '#050511');
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -312,223 +308,123 @@ contactForm.addEventListener('submit', function (e) {
     ctx.textAlign = 'center';
     ctx.fillText(T.scratchHint, canvas.width / 2, canvas.height / 2);
   }
-  function getPos(e) {
+  function resize() {
+    const { width, height } = box.getBoundingClientRect();
+    canvas.width = width;
+    canvas.height = height;
+    paintLayer();
+  }
+  function scratch(e) {
     const rect = canvas.getBoundingClientRect();
-    const point = e.touches ? e.touches[0] : e;
-    return { x: point.clientX - rect.left, y: point.clientY - rect.top };
-  }
-  function scratchAt(x, y) {
     ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath(); ctx.arc(x, y, 32, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath();
+    ctx.arc(e.clientX - rect.left, e.clientY - rect.top, 32, 0, Math.PI * 2);
+    ctx.fill();
   }
-  function start(e) { drawing = true; const p = getPos(e); scratchAt(p.x, p.y); }
-  function move(e) { if (!drawing) return; e.preventDefault(); const p = getPos(e); scratchAt(p.x, p.y); }
-  function end() { drawing = false; }
 
-  canvas.addEventListener('mousedown', start);
-  canvas.addEventListener('mousemove', move);
-  window.addEventListener('mouseup', end);
-  canvas.addEventListener('touchstart', start, { passive: true });
-  canvas.addEventListener('touchmove', move, { passive: false });
-  canvas.addEventListener('touchend', end);
-  document.getElementById('scratch-reset').addEventListener('click', paintScratchLayer);
-  window.addEventListener('resize', sizeCanvas);
-  sizeCanvas();
+  /* Pointer events = jedno riešenie pre myš, dotyk aj pero */
+  canvas.addEventListener('pointerdown', (e) => { drawing = true; canvas.setPointerCapture(e.pointerId); scratch(e); });
+  canvas.addEventListener('pointermove', (e) => { if (drawing) scratch(e); });
+  ['pointerup', 'pointercancel'].forEach((type) => canvas.addEventListener(type, () => { drawing = false; }));
+
+  document.getElementById('scratch-reset').addEventListener('click', paintLayer);
+  new ResizeObserver(resize).observe(box);
 })();
 
 /* ============================================================
-   JS 6: Zdieľaný lightbox
+   JS 7: Lightbox — zväčšenie obrázka, šípky, Escape
    ============================================================ */
 const lightbox = document.getElementById('lightbox');
-const lightboxContent = document.getElementById('lightbox-content');
-const lightboxCaption = document.getElementById('lightbox-caption');
-let lbImages = [];
+const lbContent = document.getElementById('lightbox-content');
+const lbCaption = document.getElementById('lightbox-caption');
+const lbPrev = document.getElementById('lightbox-prev');
+const lbNext = document.getElementById('lightbox-next');
+let lbItems = [];
 let lbIndex = 0;
+let lbReturnFocus = null;
 
 function renderLightbox() {
-  const item = lbImages[lbIndex];
+  const item = lbItems[lbIndex];
   if (!item) return;
+  lbContent.replaceChildren();
   if (item.img) {
-    lightboxContent.innerHTML = `<img src="${item.img}" alt="${item.caption || ''}">`;
+    const img = document.createElement('img');
+    img.src = item.img;
+    img.alt = item.caption || '';
+    lbContent.append(img);
   } else {
-    lightboxContent.innerHTML = `<div class="lb-placeholder">${item.caption || ''}</div>`;
+    const box = document.createElement('div');
+    box.className = 'lb-placeholder';
+    box.textContent = item.caption || '';
+    lbContent.append(box);
   }
-  const counter = lbImages.length > 1 ? ` (${lbIndex + 1}/${lbImages.length})` : '';
-  lightboxCaption.textContent = (item.caption || '') + counter;
+  const counter = lbItems.length > 1 ? ` (${lbIndex + 1}/${lbItems.length})` : '';
+  lbCaption.textContent = (item.caption || '') + counter;
+  lbPrev.hidden = lbNext.hidden = lbItems.length < 2;
 }
-function openLightboxAt(images, index) {
-  lbImages = images; lbIndex = index;
+function openLightbox(items, index) {
+  lbItems = items;
+  lbIndex = index;
+  lbReturnFocus = document.activeElement;
   renderLightbox();
   lightbox.classList.add('open');
   lightbox.setAttribute('aria-hidden', 'false');
+  document.getElementById('lightbox-close').focus();
 }
 function closeLightbox() {
   lightbox.classList.remove('open');
   lightbox.setAttribute('aria-hidden', 'true');
-  lightboxContent.innerHTML = '';
+  lbContent.replaceChildren();
+  lbReturnFocus?.focus();
 }
-document.getElementById('lightbox-prev').addEventListener('click', () => {
-  lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
-  renderLightbox();
-});
-document.getElementById('lightbox-next').addEventListener('click', () => {
-  lbIndex = (lbIndex + 1) % lbImages.length;
-  renderLightbox();
-});
+const stepLightbox = (dir) => { lbIndex = (lbIndex + dir + lbItems.length) % lbItems.length; renderLightbox(); };
+
+lbPrev.addEventListener('click', () => stepLightbox(-1));
+lbNext.addEventListener('click', () => stepLightbox(1));
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', (e) => {
   if (!lightbox.classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') document.getElementById('lightbox-prev').click();
-  if (e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
+  if (e.key === 'ArrowLeft') stepLightbox(-1);
+  if (e.key === 'ArrowRight') stepLightbox(1);
 });
 
-function renderTileContent(tile, item) {
-  tile.innerHTML = '';
+/* Dlaždica: obrázok, alebo farebná plocha s názvom, kým obrázok chýba */
+function renderTile(tile, item) {
+  tile.replaceChildren();
+  tile.dataset.hasImg = String(Boolean(item.img));
   if (item.img) {
-    tile.dataset.hasImg = 'true';
     const img = document.createElement('img');
-    img.src = item.img; img.alt = item.caption || '';
-    tile.appendChild(img);
+    img.src = item.img;
+    img.alt = item.caption || '';
+    img.loading = 'lazy';
+    tile.append(img);
   } else {
-    tile.dataset.hasImg = 'false';
     const span = document.createElement('span');
     span.textContent = item.caption || '';
-    tile.appendChild(span);
+    tile.append(span);
   }
 }
 
 /* ============================================================
-   JS 7: GALÉRIA KATEGÓRIÍ
+   JS 8: Galéria certifikátov
    ------------------------------------------------------------
-   3. parameter (catTexts) = preklady názvov kategórií z window.I18N
-   (certCats). Ak chýba, použijú sa anglické texty.
-   ============================================================ */
-const THUMBS_PER_PAGE = 4;
-
-function initCategoryGallery(rootEl, categoriesData, catTexts) {
-  catTexts = catTexts || {};
-  const catGrid = rootEl.querySelector('[data-role="cat-grid"]');
-  const categoryDetail = rootEl.querySelector('[data-role="category-detail"]');
-  const heroTile = rootEl.querySelector('[data-role="hero-tile"]');
-  const heroEyebrow = rootEl.querySelector('[data-role="hero-eyebrow"]');
-  const heroTitle = rootEl.querySelector('[data-role="hero-title"]');
-  const heroDesc = rootEl.querySelector('[data-role="hero-desc"]');
-  const thumbs = rootEl.querySelector('[data-role="thumbs"]');
-  const backBtn = rootEl.querySelector('[data-role="back-link"]');
-  const paginationEl = rootEl.querySelector('[data-role="thumb-pagination"]');
-  const prevBtn = rootEl.querySelector('[data-role="thumb-prev"]');
-  const nextBtn = rootEl.querySelector('[data-role="thumb-next"]');
-  const pageIndicator = rootEl.querySelector('[data-role="thumb-page-indicator"]');
-
-  let currentCatKey = null;
-  let currentPage = 0;
-
-  /* Kocky kategórií sa vytvoria z dát (cover + názov) — netreba ich
-     písať do HTML. Pridanie novej kategórie = nový záznam v dátach. */
-  catGrid.innerHTML = '';
-  Object.keys(categoriesData).forEach((key) => {
-    const cat = categoriesData[key];
-    const tr = catTexts[key] || {};
-    const card = document.createElement('button');
-    card.className = 'cat-card';
-    card.dataset.cat = key;
-    card.innerHTML = `
-      <span class="img-slot cat-card-img">
-        ${cat.cover ? `<img src="${cat.cover}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
-        <span class="img-fallback"${cat.cover ? '' : ' style="display:flex"'}></span>
-      </span>
-      <span class="cat-card-title">${tr.card || cat.card || cat.title}</span>`;
-    catGrid.appendChild(card);
-  });
-
-  function renderThumbsPage() {
-    const cat = categoriesData[currentCatKey];
-    const rest = cat.images; /* všetky certifikáty — hero obrázok je samostatný (cat.hero) */
-    const totalPages = Math.max(1, Math.ceil(rest.length / THUMBS_PER_PAGE));
-    currentPage = Math.max(0, Math.min(currentPage, totalPages - 1));
-    const start = currentPage * THUMBS_PER_PAGE;
-    const pageItems = rest.slice(start, start + THUMBS_PER_PAGE);
-
-    thumbs.innerHTML = '';
-    pageItems.forEach((item, i) => {
-      const tile = document.createElement('div');
-      tile.className = 'tile';
-      renderTileContent(tile, item);
-      const absoluteIndex = start + i;
-      tile.addEventListener('click', () => openLightboxAt(cat.images, absoluteIndex));
-      thumbs.appendChild(tile);
-    });
-
-    if (totalPages <= 1) {
-      paginationEl.hidden = true;
-    } else {
-      paginationEl.hidden = false;
-      pageIndicator.textContent = (currentPage + 1) + ' / ' + totalPages;
-      prevBtn.disabled = currentPage === 0;
-      nextBtn.disabled = currentPage === totalPages - 1;
-    }
-  }
-
-  function showCategory(key) {
-    const cat = categoriesData[key];
-    if (!cat) return;
-    const tr = catTexts[key] || {};
-    currentCatKey = key;
-    currentPage = 0;
-    catGrid.hidden = true;
-    categoryDetail.hidden = false;
-    heroEyebrow.textContent = tr.label || key;
-    heroTitle.textContent = tr.title || cat.title;
-    heroDesc.textContent = tr.desc || cat.desc;
-
-    /* Veľký obrázok vľavo hore = samostatný "hero" (nie je súčasťou galérie) */
-    const hero = { img: (cat.hero && cat.hero.img) || '', caption: (cat.hero && cat.hero.caption) || heroTitle.textContent };
-    renderTileContent(heroTile, hero);
-    heroTile.onclick = hero.img ? () => openLightboxAt([hero], 0) : null;
-
-    renderThumbsPage();
-
-    /* Na mobile (šírka ≤ 900px) sa po otvorení kategórie automaticky
-       odscrolluje nadol na zobrazenú galériu. */
-    if (window.matchMedia('(max-width: 900px)').matches) {
-      categoryDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  prevBtn.addEventListener('click', () => { currentPage--; renderThumbsPage(); });
-  nextBtn.addEventListener('click', () => { currentPage++; renderThumbsPage(); });
-
-  rootEl.querySelectorAll('.cat-card').forEach(card => {
-    card.addEventListener('click', () => showCategory(card.dataset.cat));
-  });
-  backBtn.addEventListener('click', () => {
-    categoryDetail.hidden = true;
-    catGrid.hidden = false;
-    /* Rovnaký princíp aj pri návrate na zoznam kategórií (len mobile) */
-    if (window.matchMedia('(max-width: 900px)').matches) {
-      catGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-}
-
-/* --- Dáta pre Certificates ---------------------------------------
    Každá kategória má:
-   • cover  — obrázok na kocke kategórie (titulná kocka v zozname)
-   • hero   — veľký obrázok vľavo hore v detaile kategórie
-              (samostatný, NIE je súčasťou galérie certifikátov)
+   • cover  — obrázok na kocke kategórie
+   • hero   — menší úvodný obrázok vedľa textu v detaile
+              (samostatný, nie je súčasťou galérie)
    • images — galéria certifikátov { img, caption }
    Kde je '' (prázdne), doplň URL z Cloudinary. Kým je prázdne,
    zobrazí sa farebná dlaždica s názvom.
-   TIP: PDF z Cloudinary sa v <img> nezobrazí — stačí zmeniť
-   koncovku .pdf na .jpg a Cloudinary vráti 1. stranu ako obrázok.
-   Texty kategórií (názov, popis) pre EN/SK/DE sú v CERT_TEXTS nižšie.
-   ---------------------------------------------------------------- */
+   TIP: PDF z Cloudinary sa ako obrázok nezobrazí — zmeň koncovku
+   .pdf na .jpg a Cloudinary vráti 1. stranu ako obrázok.
+   Texty kategórií v jazykoch sú v CERT_TEXTS.
+   ============================================================ */
 const certificateCategories = {
   salesforce: {
-    cover: '',   /* ← URL cover obrázka kocky */
-    hero:  { img: '', caption: 'Salesforce' },   /* ← URL hero obrázka */
+    cover: '',
+    hero: { img: '', caption: 'Salesforce' },
     title: 'Salesforce Certifications',
     desc: 'Marketing Cloud Administrator and Email Specialist.',
     images: [
@@ -539,7 +435,7 @@ const certificateCategories = {
   },
   bloomreach: {
     cover: '',
-    hero:  { img: '', caption: 'Bloomreach Academy' },
+    hero: { img: '', caption: 'Bloomreach Academy' },
     title: 'Bloomreach Academy',
     desc: 'Jinja, SMS, Data Hub, personalization, recommendations and omnichannel orchestration.',
     images: [
@@ -555,7 +451,7 @@ const certificateCategories = {
   },
   technical: {
     cover: '',
-    hero:  { img: '', caption: 'Data & Integrations' },
+    hero: { img: '', caption: 'Data & Integrations' },
     title: 'Data & Integrations',
     desc: 'Web analytics, reporting, data integrations and data analytics.',
     images: [
@@ -567,7 +463,7 @@ const certificateCategories = {
   },
   ai: {
     cover: '',
-    hero:  { img: '', caption: 'AI' },
+    hero: { img: '', caption: 'AI' },
     title: 'Artificial Intelligence',
     desc: 'Prompt writing and generative AI in everyday work and project management.',
     images: [
@@ -577,7 +473,7 @@ const certificateCategories = {
   },
   business: {
     cover: '',
-    hero:  { img: '', caption: 'Business & Marketing' },
+    hero: { img: '', caption: 'Business & Marketing' },
     title: 'Business & Marketing',
     desc: 'Digital marketing, search advertising and German language.',
     images: [
@@ -588,50 +484,131 @@ const certificateCategories = {
   }
 };
 
-/* Texty kategórií podľa jazyka: card = text na kocke, label = malý
-   nadpis v detaile, title + desc = nadpis a popis v detaile.
-   Angličtina sa berie priamo z certificateCategories. */
+/* card = text na kocke, label = malý nadpis v detaile,
+   title + desc = nadpis a popis v detaile (EN berie z dát vyššie) */
 const CERT_TEXTS = {
   en: {
     salesforce: { card: 'Salesforce' },
     bloomreach: { card: 'Bloomreach' },
     technical:  { card: 'Data & Integrations', label: 'data' },
-    ai:         { card: 'AI', label: 'ai' },
-    business:   { card: 'Business & Marketing', label: 'business' }
+    ai:         { card: 'AI' },
+    business:   { card: 'Business & Marketing' }
   },
   sk: {
-    salesforce: { card: 'Salesforce', label: 'salesforce', title: 'Salesforce certifikácie', desc: 'Marketing Cloud Administrator a Email Specialist.' },
-    bloomreach: { card: 'Bloomreach', label: 'bloomreach', title: 'Bloomreach Academy', desc: 'Jinja, SMS, Data Hub, personalizácia, odporúčania produktov a omnichannel orchestrácia.' },
+    salesforce: { card: 'Salesforce', title: 'Salesforce certifikácie', desc: 'Marketing Cloud Administrator a Email Specialist.' },
+    bloomreach: { card: 'Bloomreach', title: 'Bloomreach Academy', desc: 'Jinja, SMS, Data Hub, personalizácia, odporúčania produktov a omnichannel orchestrácia.' },
     technical:  { card: 'Dáta a integrácie', label: 'dáta', title: 'Dáta a integrácie', desc: 'Webová analytika, reporting, dátové integrácie a analýza dát.' },
-    ai:         { card: 'AI', label: 'ai', title: 'Umelá inteligencia', desc: 'Písanie promptov a generatívna AI v každodennej práci a projektovom riadení.' },
-    business:   { card: 'Business a marketing', label: 'business', title: 'Business a marketing', desc: 'Digitálny marketing, reklama vo vyhľadávaní a nemecký jazyk.' }
+    ai:         { card: 'AI', title: 'Umelá inteligencia', desc: 'Písanie promptov a generatívna AI v každodennej práci a projektovom riadení.' },
+    business:   { card: 'Business a marketing', title: 'Business a marketing', desc: 'Digitálny marketing, reklama vo vyhľadávaní a nemecký jazyk.' }
   },
   de: {
-    salesforce: { card: 'Salesforce', label: 'salesforce', title: 'Salesforce-Zertifizierungen', desc: 'Marketing Cloud Administrator und Email Specialist.' },
-    bloomreach: { card: 'Bloomreach', label: 'bloomreach', title: 'Bloomreach Academy', desc: 'Jinja, SMS, Data Hub, Personalisierung, Produktempfehlungen und Omnichannel-Orchestrierung.' },
+    salesforce: { card: 'Salesforce', title: 'Salesforce-Zertifizierungen', desc: 'Marketing Cloud Administrator und Email Specialist.' },
+    bloomreach: { card: 'Bloomreach', title: 'Bloomreach Academy', desc: 'Jinja, SMS, Data Hub, Personalisierung, Produktempfehlungen und Omnichannel-Orchestrierung.' },
     technical:  { card: 'Daten & Integrationen', label: 'daten', title: 'Daten & Integrationen', desc: 'Webanalyse, Reporting, Datenintegrationen und Datenanalyse.' },
     ai:         { card: 'KI', label: 'ki', title: 'Künstliche Intelligenz', desc: 'Prompt Writing und generative KI im Arbeitsalltag und Projektmanagement.' },
-    business:   { card: 'Business & Marketing', label: 'business', title: 'Business & Marketing', desc: 'Digitales Marketing, Suchmaschinenwerbung und Deutsch.' }
+    business:   { card: 'Business & Marketing', title: 'Business & Marketing', desc: 'Digitales Marketing, Suchmaschinenwerbung und Deutsch.' }
   }
 };
 
-/* Inicializácia galérie certifikátov */
+const THUMBS_PER_PAGE = 4;
+
+function initCertificateGallery(root, data, texts) {
+  const $ = (role) => root.querySelector(`[data-role="${role}"]`);
+  const catGrid = $('cat-grid');
+  const detail = $('category-detail');
+  const heroTile = $('hero-tile');
+  const heroEyebrow = $('hero-eyebrow');
+  const heroTitle = $('hero-title');
+  const heroDesc = $('hero-desc');
+  const thumbs = $('thumbs');
+  const pagination = $('thumb-pagination');
+  const prevBtn = $('thumb-prev');
+  const nextBtn = $('thumb-next');
+  const pageIndicator = $('thumb-page-indicator');
+  let current = null;
+  let page = 0;
+
+  /* Kocky kategórií sa vytvoria z dát — v HTML je len prázdny kontajner */
+  Object.entries(data).forEach(([key, cat]) => {
+    const tr = texts[key] || {};
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'cat-card';
+    card.innerHTML = `
+      <span class="img-slot cat-card-img${cat.cover ? '' : ' is-broken'}">
+        ${cat.cover ? `<img src="${cat.cover}" alt="" loading="lazy">` : ''}
+        <span class="img-fallback"></span>
+      </span>
+      <span class="cat-card-title"></span>`;
+    card.querySelector('.cat-card-title').textContent = tr.card || cat.title;
+    const img = card.querySelector('img');
+    if (img) watchImage(img);
+    card.addEventListener('click', () => showCategory(key));
+    catGrid.append(card);
+  });
+
+  function renderPage() {
+    const items = data[current].images;
+    const pages = Math.max(1, Math.ceil(items.length / THUMBS_PER_PAGE));
+    page = Math.min(Math.max(page, 0), pages - 1);
+    const start = page * THUMBS_PER_PAGE;
+
+    thumbs.replaceChildren();
+    items.slice(start, start + THUMBS_PER_PAGE).forEach((item, i) => {
+      const tile = document.createElement('button');
+      tile.type = 'button';
+      tile.className = 'tile';
+      tile.setAttribute('aria-label', item.caption || '');
+      renderTile(tile, item);
+      tile.addEventListener('click', () => openLightbox(items, start + i));
+      thumbs.append(tile);
+    });
+
+    pagination.hidden = pages <= 1;
+    pageIndicator.textContent = `${page + 1} / ${pages}`;
+    prevBtn.disabled = page === 0;
+    nextBtn.disabled = page === pages - 1;
+  }
+
+  function showCategory(key) {
+    const cat = data[key];
+    const tr = texts[key] || {};
+    current = key;
+    page = 0;
+    heroEyebrow.textContent = tr.label || key;
+    heroTitle.textContent = tr.title || cat.title;
+    heroDesc.textContent = tr.desc || cat.desc;
+
+    const hero = { img: cat.hero?.img || '', caption: cat.hero?.caption || heroTitle.textContent };
+    renderTile(heroTile, hero);
+    heroTile.onclick = hero.img ? () => openLightbox([hero], 0) : null;
+
+    renderPage();
+    catGrid.hidden = true;
+    detail.hidden = false;
+    if (isMobile()) detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  prevBtn.addEventListener('click', () => { page--; renderPage(); });
+  nextBtn.addEventListener('click', () => { page++; renderPage(); });
+  $('back-link').addEventListener('click', () => {
+    detail.hidden = true;
+    catGrid.hidden = false;
+    if (isMobile()) catGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
 const certsSection = document.getElementById('certs');
-/* Texty zo script.js majú prednosť pred starým I18N.certCats v sk/de.html */
-const certTexts = {};
-Object.keys(certificateCategories).forEach((k) => {
-  certTexts[k] = Object.assign({}, (I18N.certCats || {})[k], (CERT_TEXTS[LANG] || CERT_TEXTS.en)[k]);
-});
-if (certsSection) initCategoryGallery(certsSection, certificateCategories, certTexts);
+if (certsSection) initCertificateGallery(certsSection, certificateCategories, CERT_TEXTS[LANG] || CERT_TEXTS.en);
 
 /* ============================================================
-   JS 8: Pexeso (memory game) — 10 dvojíc / 20 kariet
+   JS 9: Pexeso (memory game) — 10 dvojíc / 20 kariet
    ============================================================ */
-(function () {
-
-  const memCoverImage = 'https://res.cloudinary.com/xbffrklb/image/upload/v1787814858/IMG_8590.jpg';
-
-  const memoryImages = [
+(function initMemoryGame() {
+  const grid = document.getElementById('memory-grid');
+  if (!grid) return;
+  const COVER = 'https://res.cloudinary.com/xbffrklb/image/upload/v1787814858/IMG_8590.jpg';
+  const IMAGES = [
     'https://res.cloudinary.com/xbffrklb/image/upload/v1787832120/PEXESO10.webp',
     'https://res.cloudinary.com/xbffrklb/image/upload/v1787832118/PEXESO9.jpg',
     'https://res.cloudinary.com/xbffrklb/image/upload/v1787832116/PEXESO8.webp',
@@ -643,13 +620,15 @@ if (certsSection) initCategoryGallery(certsSection, certificateCategories, certT
     'https://res.cloudinary.com/xbffrklb/image/upload/v1787832104/PEXESO2.webp',
     'https://res.cloudinary.com/xbffrklb/image/upload/v1787832102/PEXESO1.jpg'
   ];
-  const grid = document.getElementById('memory-grid');
-
-  grid.style.setProperty('--mem-cover-img', 'url(' + memCoverImage + ')');
   const movesEl = document.getElementById('game-moves');
   const pairsEl = document.getElementById('game-pairs');
   const winEl = document.getElementById('game-win');
-  let cards = [], flipped = [], moves = 0, matched = 0, lock = false;
+  let flipped = [];
+  let moves = 0;
+  let matched = 0;
+  let lock = false;
+
+  grid.style.setProperty('--mem-cover-img', `url(${COVER})`);
 
   function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -658,161 +637,141 @@ if (certsSection) initCategoryGallery(certsSection, certificateCategories, certT
     }
     return arr;
   }
+  function updateHud() {
+    movesEl.textContent = T.moves + moves;
+    pairsEl.textContent = `${T.pairs}${matched} / ${IMAGES.length}`;
+  }
   function build() {
-    grid.innerHTML = '';
     flipped = []; moves = 0; matched = 0; lock = false;
-    movesEl.textContent = T.moves + '0';
-    pairsEl.textContent = T.pairs + '0 / ' + memoryImages.length;
     winEl.textContent = '';
-
-    const deck = memoryImages.map((url, idx) => ({ url, slot: idx + 1 }));
-    cards = shuffle([...deck, ...deck]);
-    cards.forEach((item, i) => {
-      const card = document.createElement('div');
+    updateHud();
+    grid.replaceChildren();
+    shuffle([...IMAGES, ...IMAGES]).forEach((url, i) => {
+      const card = document.createElement('button');
+      card.type = 'button';
       card.className = 'mem-card';
-      card.dataset.key = item.url + '|' + item.slot;
-      card.dataset.index = i;
+      card.dataset.key = url;
+      card.setAttribute('aria-label', `${i + 1}`);
       card.innerHTML = `
-        <div class="mem-card-inner">
-          <div class="mem-face mem-front"></div>
-          <div class="mem-face mem-back">
-            <span class="img-slot mem-img-slot">
-              <img src="${item.url}" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <span class="img-fallback">IMG ${item.slot}</span>
-            </span>
-          </div>
-        </div>`;
-      card.addEventListener('click', () => flipCard(card));
-      grid.appendChild(card);
+        <span class="mem-card-inner">
+          <span class="mem-face mem-front"></span>
+          <span class="mem-face mem-back">
+            <span class="img-slot mem-img-slot"><img src="${url}" alt=""><span class="img-fallback">IMG</span></span>
+          </span>
+        </span>`;
+      watchImage(card.querySelector('img'));
+      card.addEventListener('click', () => flip(card));
+      grid.append(card);
     });
   }
-  function flipCard(card) {
+  function flip(card) {
     if (lock || card.classList.contains('flipped') || card.classList.contains('matched')) return;
     card.classList.add('flipped');
     flipped.push(card);
-    if (flipped.length === 2) {
-      moves++; movesEl.textContent = T.moves + moves;
-      lock = true;
-      const [a, b] = flipped;
-      if (a.dataset.key === b.dataset.key) {
-        a.classList.add('matched'); b.classList.add('matched');
-        matched++;
-        pairsEl.textContent = T.pairs + matched + ' / ' + memoryImages.length;
-        flipped = []; lock = false;
-        if (matched === memoryImages.length) {
-          winEl.textContent = T.solved(moves);
-        }
-      } else {
-        setTimeout(() => {
-          a.classList.remove('flipped'); b.classList.remove('flipped');
-          flipped = []; lock = false;
-        }, 700);
-      }
+    if (flipped.length < 2) return;
+
+    moves++;
+    lock = true;
+    const [a, b] = flipped;
+    if (a.dataset.key === b.dataset.key) {
+      a.classList.add('matched');
+      b.classList.add('matched');
+      matched++;
+      flipped = [];
+      lock = false;
+      if (matched === IMAGES.length) winEl.textContent = T.solved(moves);
+    } else {
+      setTimeout(() => {
+        a.classList.remove('flipped');
+        b.classList.remove('flipped');
+        flipped = [];
+        lock = false;
+      }, 700);
     }
+    updateHud();
   }
+
   document.getElementById('game-reset').addEventListener('click', build);
   build();
 })();
 
 /* ============================================================
-   JS 9: Typewriter — postupne píše a maže roly z data-words
-   ------------------------------------------------------------
-   HTML: <span class="tw-text" data-words="Rola 1|Rola 2|Rola 3"></span>
+   JS 10: Typewriter — píše a maže roly z data-words ("|")
    ============================================================ */
-(function () {
+(function initTypewriter() {
   const el = document.querySelector('.tw-text[data-words]');
   if (!el) return;
   const words = el.dataset.words.split('|').map((w) => w.trim()).filter(Boolean);
   if (!words.length) return;
-
-  /* Pri "obmedzenom pohybe" len zobrazíme prvú rolu, bez animácie */
   if (reduceMotion) { el.textContent = words[0]; return; }
 
-  const TYPE_SPEED = 70;     /* ms na jedno písmeno pri písaní */
-  const DELETE_SPEED = 35;   /* ms na jedno písmeno pri mazaní */
-  const HOLD_TIME = 1600;    /* ako dlho ostane celé slovo     */
-  let wordIndex = 0, charIndex = 0, deleting = false;
+  const TYPE_SPEED = 70;     /* ms na písmeno pri písaní */
+  const DELETE_SPEED = 35;   /* ms na písmeno pri mazaní */
+  const HOLD_TIME = 1600;    /* ako dlho ostane celé slovo */
+  let wordIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
 
   function tick() {
     const word = words[wordIndex];
-    if (!deleting) {
-      charIndex++;
-      el.textContent = word.slice(0, charIndex);
-      if (charIndex === word.length) {
-        deleting = true;
-        return setTimeout(tick, HOLD_TIME);
-      }
-      return setTimeout(tick, TYPE_SPEED);
-    }
-    charIndex--;
+    charIndex += deleting ? -1 : 1;
     el.textContent = word.slice(0, charIndex);
-    if (charIndex === 0) {
+
+    if (!deleting && charIndex === word.length) { deleting = true; return setTimeout(tick, HOLD_TIME); }
+    if (deleting && charIndex === 0) {
       deleting = false;
       wordIndex = (wordIndex + 1) % words.length;
       return setTimeout(tick, 350);
     }
-    setTimeout(tick, DELETE_SPEED);
+    setTimeout(tick, deleting ? DELETE_SPEED : TYPE_SPEED);
   }
   setTimeout(tick, 600);
 })();
 
 /* ============================================================
-   JS 10: 3D tilt — kocka sa nakláňa podľa polohy myši
+   JS 11: Ďalšie stránky — 3D tilt + "Coming soon"
    ------------------------------------------------------------
-   Len pre myš (na dotykových zariadeniach by to rušilo scroll).
+   • tilt len pre myš (na dotyku by rušil scroll)
+   • kocka s href="#" dostane štítok "Coming soon" a neotvorí sa
    ============================================================ */
-(function () {
+(function initMoreCards() {
   const cards = document.querySelectorAll('.more-card');
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!cards.length || !canHover || reduceMotion) return;
-
-  const MAX_TILT = 10; /* maximálny náklon v stupňoch */
+  const MAX_TILT = 10;   /* maximálny náklon v stupňoch */
 
   cards.forEach((card) => {
-    let frame = null;
+    /* Coming soon */
+    if (!card.getAttribute('href') || card.getAttribute('href') === '#') {
+      card.classList.add('is-soon');
+      card.setAttribute('aria-disabled', 'true');
+      card.removeAttribute('target');
+      const badge = document.createElement('span');
+      badge.className = 'more-card-badge';
+      badge.textContent = T.soon;
+      card.querySelector('.more-card-visual')?.append(badge);
+      card.addEventListener('click', (e) => e.preventDefault());
+    }
 
+    /* 3D tilt */
+    if (!canHover || reduceMotion) return;
+    let frame = null;
     card.addEventListener('pointermove', (e) => {
       if (e.pointerType !== 'mouse') return;
       const rect = card.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;   /* 0 … 1 */
-      const py = (e.clientY - rect.top) / rect.height;   /* 0 … 1 */
-
-      if (frame) cancelAnimationFrame(frame);
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const rotY = (px - 0.5) * 2 * MAX_TILT;
-        const rotX = (0.5 - py) * 2 * MAX_TILT;
         card.classList.add('is-tilting');
-        card.style.transform =
-          `perspective(900px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
-        card.style.setProperty('--gx', (px * 100).toFixed(1) + '%');
-        card.style.setProperty('--gy', (py * 100).toFixed(1) + '%');
+        card.style.transform = `perspective(900px) rotateX(${((0.5 - py) * 2 * MAX_TILT).toFixed(2)}deg) rotateY(${((px - 0.5) * 2 * MAX_TILT).toFixed(2)}deg) translateY(-4px)`;
+        card.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
+        card.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
       });
     });
-
     card.addEventListener('pointerleave', () => {
-      if (frame) cancelAnimationFrame(frame);
+      cancelAnimationFrame(frame);
       card.classList.remove('is-tilting');
       card.style.transform = '';
     });
   });
 })();
-
-/* ============================================================
-   JS 11: Kocky bez odkazu (href="#") → štítok "Coming soon"
-   ============================================================ */
-document.querySelectorAll('.more-card').forEach((card) => {
-  const href = card.getAttribute('href');
-  if (href && href !== '#') return;
-  card.classList.add('is-soon');
-  card.setAttribute('aria-disabled', 'true');
-  const visual = card.querySelector('.more-card-visual');
-  if (visual) {
-    const badge = document.createElement('span');
-    badge.className = 'more-card-badge';
-    badge.textContent = T.soon;
-    visual.appendChild(badge);
-  }
-  card.addEventListener('click', (e) => e.preventDefault());
-});
-
-
