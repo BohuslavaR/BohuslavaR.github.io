@@ -6,15 +6,16 @@
      JS 0  Texty podľa jazyka (en / sk / de + window.I18N zo stránky)
      JS 1  Obrázky — náhradný text pri chybe načítania
      JS 2  Mobilné menu (hamburger)
-     JS 3  Navigácia — aktívne menu, pipeline, šípky "scroll", späť hore
+     JS 3  Navigácia — aktívna sekcia (menu, pipeline, neón), šípky "scroll", späť hore,
+           rozbaľovací životopis na mobile
      JS 4  Postupné objavenie prvkov pri scrollovaní
      JS 5  Kontaktný formulár — zakázané slová + odoslanie (FormSubmit)
-     JS 6  Motto — canvas scratch efekt
+     JS 6  Motto — canvas scratch efekt + striedanie motta pri Reset
      JS 7  Lightbox
-     JS 8  Galéria certifikátov (dáta + kategórie → detail → lightbox)
+     JS 8  Galéria certifikátov (dáta + kategórie → detail → lightbox) + rotujúca galéria v About
      JS 9  Pexeso (memory game)
-     JS 10 Typewriter v úvode
-     JS 11 Ďalšie stránky — 3D tilt + štítok "Coming soon"
+     JS 10 Typewriter — roly v úvode, štatistiky a zručnosti v About
+     JS 11 3D tilt kociek (Ďalšie stránky + Certifikáty) + štítok "Coming soon"
    ================================================================== */
 'use strict';
 
@@ -23,9 +24,6 @@ const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
 
 /* ============================================================
    JS 0: Texty podľa jazyka
-   ------------------------------------------------------------
-   Jazyk sa zistí z <html lang="...">. Ak stránka definuje
-   window.I18N (sk.html, de.html), jej texty majú prednosť.
    ============================================================ */
 const LANG = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
 const UI_TEXTS = {
@@ -42,34 +40,35 @@ const UI_TEXTS = {
     bannedOne: (w) => `Please leave out the word “${w}”.`,
     bannedMany: (w) => `Please leave out these words: ${w}.`,
     tooManyLinks: (max) => `The message can contain at most ${max} links.`,
-    blocked: 'Message not sent — please fix the highlighted field.'
+    blocked: 'Message not sent — please fix the highlighted field.',
+    cvMore: 'Show full CV',
+    cvLess: 'Show less'
   },
   sk: {
     soon: 'Čoskoro',
     bannedOne: (w) => `Prosím, vynechajte slovo „${w}“.`,
     bannedMany: (w) => `Prosím, vynechajte slová: ${w}.`,
     tooManyLinks: (max) => `Správa môže obsahovať najviac ${max} odkazy.`,
-    blocked: 'Správa nebola odoslaná — upravte, prosím, označené pole.'
+    blocked: 'Správa nebola odoslaná — upravte, prosím, označené pole.',
+    cvMore: 'Zobraziť celý životopis',
+    cvLess: 'Zobraziť menej'
   },
   de: {
     soon: 'Demnächst',
     bannedOne: (w) => `Bitte verzichten Sie auf das Wort „${w}“.`,
     bannedMany: (w) => `Bitte verzichten Sie auf diese Wörter: ${w}.`,
     tooManyLinks: (max) => `Die Nachricht darf höchstens ${max} Links enthalten.`,
-    blocked: 'Nachricht nicht gesendet — bitte das markierte Feld korrigieren.'
+    blocked: 'Nachricht nicht gesendet — bitte das markierte Feld korrigieren.',
+    cvMore: 'Ganzen Lebenslauf anzeigen',
+    cvLess: 'Weniger anzeigen'
   }
 };
 /* Poradie: angličtina (základ) ← texty jazyka ← window.I18N zo stránky */
 const T = { ...UI_TEXTS.en, ...(UI_TEXTS[LANG] || {}), ...(window.I18N || {}) };
 
 /* ============================================================
-   JS 1: Obrázky — pri chybe načítania ukáž náhradu
-   ------------------------------------------------------------
-   • .img-slot img → slot dostane triedu .is-broken (CSS ukáže
-     .img-fallback namiesto obrázka)
-   • .more-card-visual img → obrázok sa odstráni a ostane gradient
-   Kontrolujeme aj obrázky, ktoré zlyhali ešte pred spustením JS.
-   ============================================================ */
+   JS 1: chyba načítania 
+    ============================================================ */
 function handleBrokenImage(img) {
   if (img.closest('.more-card-visual')) { img.remove(); return; }
   const slot = img.closest('.img-slot');
@@ -82,8 +81,7 @@ function watchImage(img) {
 document.querySelectorAll('.img-slot img, .more-card-visual img').forEach(watchImage);
 
 /* ============================================================
-   JS 2: Mobilné menu (hamburger) — zatvára sa klikom na odkaz
-   alebo klávesou Escape
+   JS 2: Mobilné menu (hamburger) 
    ============================================================ */
 const navToggle = document.querySelector('.nav-toggle');
 const navList = document.getElementById('nav-list');
@@ -100,17 +98,12 @@ document.addEventListener('keydown', (e) => {
 
 /* ============================================================
    JS 3: Navigácia
-   ------------------------------------------------------------
-   • zvýraznenie aktívnej položky menu a bodky v pipeline
-   • klik na prvok s data-target="id" = plynulý skok na sekciu
-     (bodky pipeline aj šípky "scroll")
-   • tlačidlo "späť hore" — skryté v sekcii pexeso
    ============================================================ */
 const navLinks = document.querySelectorAll('nav a[data-nav]');
 const pipelineNodes = document.querySelectorAll('.pipeline-node[data-target]');
 const backToTop = document.getElementById('back-to-top');
 
-/* Ak je cieľová sekcia skrytá (napr. pexeso na mobile), skočí na ďalšiu viditeľnú */
+/* Ak je cieľová sekcia skrytá skočí na viditeľnú */
 function scrollToId(id) {
   let target = document.getElementById(id);
   while (target && target.offsetParent === null && target.nextElementSibling) target = target.nextElementSibling;
@@ -122,8 +115,10 @@ document.querySelectorAll('[data-target]').forEach((el) => {
 });
 backToTop.addEventListener('click', () => scrollToId('home'));
 
+/* Aktívna = sekcia - neónový názov */
 const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
+    entry.target.classList.toggle('is-active', entry.isIntersecting);
     if (!entry.isIntersecting) return;
     const id = entry.target.id;
     navLinks.forEach((link) => {
@@ -135,8 +130,28 @@ const sectionObserver = new IntersectionObserver((entries) => {
     pipelineNodes.forEach((node) => node.classList.toggle('active', node.dataset.target === id));
     backToTop.classList.toggle('visible', id !== 'game');
   });
-}, { threshold: 0.5 });
+}, { rootMargin: '-45% 0px -45% 0px' });
 document.querySelectorAll('section[id]').forEach((s) => sectionObserver.observe(s));
+
+/* Životopis na mobile - skrytý text */
+(function initCvToggle() {
+  const cv = document.querySelector('#cv .cv-scroll');
+  if (!cv) return;
+  cv.id = 'cv-content';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn btn-ghost cv-toggle';
+  btn.setAttribute('aria-controls', cv.id);
+  btn.setAttribute('aria-expanded', 'false');
+  btn.textContent = T.cvMore;
+  cv.after(btn);
+  btn.addEventListener('click', () => {
+    const open = cv.classList.toggle('is-expanded');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? T.cvLess : T.cvMore;
+    if (!open) document.getElementById('cv').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+})();
 
 /* ============================================================
    JS 4: Postupné objavenie prvkov pri scrollovaní
@@ -153,10 +168,6 @@ document.querySelectorAll('[data-reveal]').forEach((el) => revealObserver.observ
 /* ============================================================
    JS 5: Kontaktný formulár — zakázané slová + odoslanie
    ------------------------------------------------------------
-   • kontroluje polia Meno a Správa už počas písania
-   • zachytí aj obchádzky: diakritiku (píča → pica), veľké písmená,
-     "leet" (sh1t, $hit), opakované písmená (kuuurva) a znaky
-     medzi písmenami (k.u.r.v.a)
    • blokuje správy s viac ako MAX_LINKS odkazmi (spam)
    • ak je všetko v poriadku, odošle správu cez FormSubmit (AJAX)
    ============================================================ */
@@ -188,7 +199,7 @@ const LEET = { 0: 'o', '@': 'a', 4: 'a', $: 's', 5: 's', '!': 'i', 1: 'i', '|': 
 function normalizeWord(text) {
   return text
     .toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')   /* bez diakritiky */
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')   /* bez diakritiky */
     .replace(/ß/g, 'ss')
     .replace(/[0@4$5!1|3€7]/g, (c) => LEET[c])
     .replace(/([a-z])[.\-_*~]+(?=[a-z])/g, '$1')         /* k.u.r.v.a → kurva */
@@ -208,7 +219,7 @@ function findBanned(text) {
 }
 const countLinks = (text) => (text.match(/(https?:\/\/|www\.)\S+/gi) || []).length;
 
-/* Test v konzole prehliadača: checkBannedWords('ahoj sh1t') */
+
 window.checkBannedWords = findBanned;
 
 (function initContactForm() {
@@ -218,7 +229,7 @@ window.checkBannedWords = findBanned;
   const statusEl = document.getElementById('form-status');
   const fields = ['name', 'message'].map((id) => document.getElementById(id)).filter(Boolean);
 
-  /* Pod každé kontrolované pole vložíme miesto na upozornenie */
+ 
   fields.forEach((field) => {
     const warn = document.createElement('p');
     warn.className = 'field-warning';
@@ -268,7 +279,7 @@ window.checkBannedWords = findBanned;
       return;
     }
 
-    /* 2) Odoslanie cez FormSubmit */
+    /* Odoslanie cez FormSubmit */
     submitBtn.disabled = true;
     submitBtn.textContent = T.sending;
     statusEl.textContent = '';
@@ -292,7 +303,7 @@ window.checkBannedWords = findBanned;
 })();
 
 /* ============================================================
-   JS 6: Motto — canvas scratch efekt (myš aj dotyk)
+   JS 6: Motto — canvas scratch efekt 
    ============================================================ */
 (function initScratch() {
   const canvas = document.getElementById('scratch-canvas');
@@ -303,12 +314,12 @@ window.checkBannedWords = findBanned;
 
   function paintLayer() {
     const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    grad.addColorStop(0, '#311B2F');
-    grad.addColorStop(1, '#050511');
+    grad.addColorStop(0, '#354458');   /* slate — rovnaké farby ako v style.css */
+    grad.addColorStop(1, '#050511');   /* ink */
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(245,227,243,0.55)';
+    ctx.fillStyle = 'rgba(227,228,245,0.55)';   /* frost */
     ctx.font = '600 13px "Montserrat", sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(T.scratchHint, canvas.width / 2, canvas.height / 2);
@@ -332,12 +343,37 @@ window.checkBannedWords = findBanned;
   canvas.addEventListener('pointermove', (e) => { if (drawing) scratch(e); });
   ['pointerup', 'pointercancel'].forEach((type) => canvas.addEventListener(type, () => { drawing = false; }));
 
-  document.getElementById('scratch-reset').addEventListener('click', paintLayer);
+  /* Mottá z data-mottos ("|"); Reset = ďalšie motto + nová vrstva na zotretie */
+  const message = box.querySelector('.scratch-message');
+  const mottos = (message?.dataset.mottos || '').split('|').map((t) => t.trim()).filter(Boolean);
+  let mottoIndex = 0;
+
+  /* "citát — autor" → citát + autor v samostatnom riadku */
+  function showMotto(text) {
+    const cut = text.lastIndexOf(' — ');
+    const quote = cut > -1 ? text.slice(0, cut) : text;
+    const author = cut > -1 ? text.slice(cut + 3) : '';
+    message.textContent = quote;
+    if (author) {
+      const span = document.createElement('span');
+      span.className = 'motto-author';
+      span.textContent = `— ${author}`;
+      message.append(span);
+    }
+  }
+
+  document.getElementById('scratch-reset').addEventListener('click', () => {
+    if (mottos.length > 1) {
+      mottoIndex = (mottoIndex + 1) % mottos.length;
+      showMotto(mottos[mottoIndex]);
+    }
+    paintLayer();
+  });
   new ResizeObserver(resize).observe(box);
 })();
 
 /* ============================================================
-   JS 7: Lightbox — zväčšenie obrázka, šípky, Escape
+   JS 7: Lightbox 
    ============================================================ */
 const lightbox = document.getElementById('lightbox');
 const lbContent = document.getElementById('lightbox-content');
@@ -413,84 +449,72 @@ function renderTile(tile, item) {
 }
 
 /* ============================================================
-   JS 8: Galéria certifikátov
-   ------------------------------------------------------------
-   Každá kategória má:
-   • cover  — obrázok na kocke kategórie
-   • hero   — menší úvodný obrázok vedľa textu v detaile
-              (samostatný, nie je súčasťou galérie)
-   • images — galéria certifikátov { img, caption }
-   Kde je '' (prázdne), doplň URL z Cloudinary. Kým je prázdne,
-   zobrazí sa farebná dlaždica s názvom.
-   TIP: PDF z Cloudinary sa ako obrázok nezobrazí — zmeň koncovku
-   .pdf na .jpg a Cloudinary vráti 1. stranu ako obrázok.
-   Texty kategórií v jazykoch sú v CERT_TEXTS.
+   JS 8: Galéria certifikátov   
    ============================================================ */
 const certificateCategories = {
   salesforce: {
-    cover: '',
-    hero: { img: '', caption: 'Salesforce' },
+    cover: 'https://res.cloudinary.com/udbct254/image/upload/v1792137231/sf.png',
+    hero: { img: 'https://res.cloudinary.com/udbct254/image/upload/v1792137231/sf.png', caption: 'Salesforce' },
     title: 'Salesforce Certifications',
     desc: 'Marketing Cloud Administrator and Email Specialist.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059022/SFMC_admin.png', caption: 'Salesforce Certified Marketing Cloud Administrator' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792059021/SFMC_email.png', caption: 'Salesforce Certified Marketing Cloud Email Specialist' },
-      { img: '', caption: 'Trailhead — Expeditioner (149 badges, 47,150 points)' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136450/SFMC_admin.jpg', caption: 'Salesforce Certified Marketing Cloud Administrator' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136448/SFMC_email.jpg', caption: 'Salesforce Certified Marketing Cloud Email Specialist' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136624/TrailheadBr.jpg', caption: 'Trailhead — Expeditioner (149 badges, 47,150 points)' }
     ]
   },
   bloomreach: {
-    cover: '',
-    hero: { img: '', caption: 'Bloomreach Academy' },
+    cover: 'https://res.cloudinary.com/udbct254/image/upload/v1792137232/instructor_9pfzdk8i675yn21vhzkxc3y6z_public_1753890490_Copy_of_Bloomreach-Academy-Logo_secondary.1753890490189.png',
+    hero: { img: 'https://res.cloudinary.com/udbct254/image/upload/v1792137232/instructor_9pfzdk8i675yn21vhzkxc3y6z_public_1753890490_Copy_of_Bloomreach-Academy-Logo_secondary.1753890490189.png', caption: 'Bloomreach Academy' },
     title: 'Bloomreach Academy',
     desc: 'Jinja, SMS, Data Hub, personalization, recommendations and omnichannel orchestration.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-edghmhnnaeuf-1737035330_1.jpg', caption: 'Bloomreach — Jinja Unlocked' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058885/certificate-u8gg2x3ywodj-1736179452.jpg', caption: 'Bloomreach — Jinja Jumpstart: Personalization Intro Course' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058884/certificate-xobnzme556ds-1777968559.jpg', caption: 'Bloomreach — SMS' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058879/certificate-gqdiytnc787m-1777965406.jpg', caption: 'Bloomreach — Data Hub' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058882/certificate-es8xnpzi7yb8-1777974275.jpg', caption: 'Bloomreach — Web & App Personalization' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058880/certificate-5dqh9r6qz73d-1778048186.jpg', caption: 'Bloomreach — Product Recommendations' },
-      { img: '', caption: 'Bloomreach — Omnichannel Orchestration' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058878/certificate-5opzvxudszuw-1787689048.jpg', caption: 'Bloomreach — Campaign Channels Mastery' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136468/certificate-edghmhnnaeuf-1737035330_1.jpg', caption: 'Bloomreach — Jinja Unlocked' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136464/certificate-u8gg2x3ywodj-1736179452.jpg', caption: 'Bloomreach — Jinja Jumpstart: Personalization Intro Course' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136491/certificate-xobnzme556ds-1777968559_-_k%C3%B3pia.jpg', caption: 'Bloomreach — SMS' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136488/certificate-gqdiytnc787m-1777965406_-_k%C3%B3pia.jpg', caption: 'Bloomreach — Data Hub' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136466/certificate-es8xnpzi7yb8-1777974275.jpg', caption: 'Bloomreach — Web & App Personalization' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136472/certificate-5dqh9r6qz73d-1778048186.jpg', caption: 'Bloomreach — Product Recommendations' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136470/certificate-5opzvxudszuw-1787689048.jpg', caption: 'Bloomreach — Campaign Channels Mastery' }
     ]
   },
   technical: {
-    cover: '',
-    hero: { img: '', caption: 'Data & Integrations' },
+    cover: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136452/fb2e92e66f1e4d488589097b11ea9be4.jpg',
+    hero: { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136454/35dc3c7354b944bd813e54c8f6cfc305.jpg', caption: 'Data & Integrations' },
     title: 'Data & Integrations',
     desc: 'Web analytics, reporting, data integrations and data analytics.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058850/Google_Analytics_Certification.jpg', caption: 'Google Analytics Certification' },
-      { img: '', caption: 'HubSpot Data Integrations' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058848/35dc3c7354b944bd813e54c8f6cfc305.png', caption: 'HubSpot Reporting' },
-      { img: '', caption: 'LinkedIn Learning — Introduction to Career Skills in Data Analytics' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136459/Google_Analytics_Certification.jpg', caption: 'Google Analytics Certification' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136452/fb2e92e66f1e4d488589097b11ea9be4.jpg', caption: 'HubSpot Data Integrations' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136454/35dc3c7354b944bd813e54c8f6cfc305.jpg', caption: 'HubSpot Reporting' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136481/CertificateOfCompletion_Introduction_to_Career_Skills_in_Data_Analytics_2022.jpg', caption: 'LinkedIn Learning — Introduction to Career Skills in Data Analytics' }
     ]
   },
   ai: {
-    cover: '',
-    hero: { img: '', caption: 'AI' },
+    cover: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136479/CertificateOfCompletion_Industry_Primer_for_Industrials_Technology_Innovation_and_AI.jpg',
+    hero: { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136475/CertificateOfCompletion_AI_for_Project_Management_Boosting_Collaboration_with_Generative_AI.jpg', caption: 'AI' },
     title: 'Artificial Intelligence',
     desc: 'Prompt writing and generative AI in everyday work and project management.',
     images: [
-      { img: '', caption: 'LinkedIn Learning — Microsoft Copilot: The Art of Prompt Writing' },
-      { img: '', caption: 'LinkedIn Learning — AI for Project Management: Boosting Collaboration with Generative AI' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136486/CertificateOfCompletion_Microsoft_Copilot_The_Art_of_Prompt_Writing.jpg', caption: 'LinkedIn Learning — Microsoft Copilot: The Art of Prompt Writing' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136479/CertificateOfCompletion_Industry_Primer_for_Industrials_Technology_Innovation_and_AI.jpg', caption: 'LinkedIn Learning — Industry Primer for Industrials Technology Innovation and AI' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136475/CertificateOfCompletion_AI_for_Project_Management_Boosting_Collaboration_with_Generative_AI.jpg', caption: 'LinkedIn Learning — AI for Project Management: Boosting Collaboration with Generative AI' }
     ]
   },
   business: {
-    cover: '',
-    hero: { img: '', caption: 'Business & Marketing' },
+    cover: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136461/Google_Ads_Search_Certification.jpg',
+    hero: { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136461/Google_Ads_Search_Certification.jpg', caption: 'Business & Marketing' },
     title: 'Business & Marketing',
     desc: 'Digital marketing, search advertising and German language.',
     images: [
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058851/Google_Ads_Search_Certification.jpg', caption: 'Google Ads Search Certification' },
-      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792058849/9a9b29e57e5f4bd38f8596e1572b3574.png', caption: 'HubSpot Digital Marketing' },
-      { img: '', caption: 'Direktes Deutsch — Level 9 (EMPIRE language school)' }
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136461/Google_Ads_Search_Certification.jpg', caption: 'Google Ads Search Certification' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792136457/9a9b29e57e5f4bd38f8596e1572b3574.jpg', caption: 'HubSpot Digital Marketing' },
+      { img: 'https://res.cloudinary.com/livyisn3/image/upload/v1792138753/DirektesDeutschBR.png', caption: 'Direktes Deutsch — Level 9 (EMPIRE language school)' }
     ]
   }
 };
 
-/* card = text na kocke, label = malý nadpis v detaile,
-   title + desc = nadpis a popis v detaile (EN berie z dát vyššie) */
+
 const CERT_TEXTS = {
   en: {
     salesforce: { card: 'Salesforce' },
@@ -606,6 +630,41 @@ function initCertificateGallery(root, data, texts) {
 const certsSection = document.getElementById('certs');
 if (certsSection) initCertificateGallery(certsSection, certificateCategories, CERT_TEXTS[LANG] || CERT_TEXTS.en);
 
+/* Malá galéria v About — všetky certifikáty s obrázkom sa striedajú
+   každých 5 sekúnd (prelínanie). Nie je klikateľná. */
+(function initCertRotator() {
+  const box = document.querySelector('[data-cert-rotator]');
+  if (!box) return;
+  const items = Object.values(certificateCategories).flatMap((cat) => cat.images).filter((item) => item.img);
+  if (!items.length) return;
+
+  const INTERVAL = 5000;   /* ms medzi certifikátmi */
+  const caption = document.createElement('figcaption');
+  const imgs = items.map((item) => {
+    const img = document.createElement('img');
+    img.src = item.img;
+    img.alt = item.caption || '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    box.append(img);
+    return img;
+  });
+  box.append(caption);
+
+  let index = 0;
+  function show(i) {
+    imgs.forEach((img, k) => img.classList.toggle('is-visible', k === i));
+    caption.textContent = items[i].caption || '';
+  }
+  show(0);
+  if (reduceMotion || items.length < 2) return;
+  setInterval(() => {
+    if (document.hidden) return;   /* na neaktívnej karte nestriedame */
+    index = (index + 1) % items.length;
+    show(index);
+  }, INTERVAL);
+})();
+
 /* ============================================================
    JS 9: Pexeso (memory game) — 10 dvojíc / 20 kariet
    ============================================================ */
@@ -701,18 +760,20 @@ if (certsSection) initCertificateGallery(certsSection, certificateCategories, CE
 })();
 
 /* ============================================================
-   JS 10: Typewriter — píše a maže roly z data-words ("|")
+   JS 10: Typewriter — postupne píše a maže texty dookola
+   ------------------------------------------------------------
+   • typeLoop(element, zoznam, nastavenia) — píše a maže dookola:
+       – roly v úvode → <span class="tw-text" data-words="A|B|C">
+       – zručnosti v About → štítky v <ul class="chips" data-skill-ticker>;
+         JS ich skryje (ostanú pre čítačky obrazovky) a vypisuje ich
+         jednu po druhej
+   • typeOnce(element, text) — napíše text raz a nechá ho tak:
+       – štatistiky v About → <div class="about-stats" data-type-once>
    ============================================================ */
-(function initTypewriter() {
-  const el = document.querySelector('.tw-text[data-words]');
-  if (!el) return;
-  const words = el.dataset.words.split('|').map((w) => w.trim()).filter(Boolean);
-  if (!words.length) return;
-  if (reduceMotion) { el.textContent = words[0]; return; }
+function typeLoop(el, words, { typeSpeed = 70, deleteSpeed = 35, hold = 1600, gap = 350 } = {}) {
+  if (!el || !words.length) return;
+  if (reduceMotion) { el.textContent = words.join(' · '); return; }   /* bez animácie */
 
-  const TYPE_SPEED = 70;     /* ms na písmeno pri písaní */
-  const DELETE_SPEED = 35;   /* ms na písmeno pri mazaní */
-  const HOLD_TIME = 1600;    /* ako dlho ostane celé slovo */
   let wordIndex = 0;
   let charIndex = 0;
   let deleting = false;
@@ -722,31 +783,101 @@ if (certsSection) initCertificateGallery(certsSection, certificateCategories, CE
     charIndex += deleting ? -1 : 1;
     el.textContent = word.slice(0, charIndex);
 
-    if (!deleting && charIndex === word.length) { deleting = true; return setTimeout(tick, HOLD_TIME); }
+    if (!deleting && charIndex === word.length) { deleting = true; return setTimeout(tick, hold); }
     if (deleting && charIndex === 0) {
       deleting = false;
       wordIndex = (wordIndex + 1) % words.length;
-      return setTimeout(tick, 350);
+      return setTimeout(tick, gap);
     }
-    setTimeout(tick, deleting ? DELETE_SPEED : TYPE_SPEED);
+    setTimeout(tick, deleting ? deleteSpeed : typeSpeed);
   }
   setTimeout(tick, 600);
+}
+
+/* Roly v úvode */
+(function initHeroTypewriter() {
+  const el = document.querySelector('.tw-text[data-words]');
+  if (!el) return;
+  typeLoop(el, el.dataset.words.split('|').map((w) => w.trim()).filter(Boolean));
+})();
+
+/* Zručnosti v About */
+(function initSkillTicker() {
+  const list = document.querySelector('[data-skill-ticker]');
+  if (!list) return;
+  const skills = [...list.querySelectorAll('.chip')].map((li) => li.textContent.trim()).filter(Boolean);
+  if (!skills.length) return;
+
+  const ticker = document.createElement('p');
+  ticker.className = 'skill-ticker';
+  ticker.setAttribute('aria-hidden', 'true');          /* čítačky čítajú pôvodný zoznam */
+  ticker.innerHTML = '<span class="skill-ticker-text"></span><span class="tw-caret"></span>';
+  list.classList.add('visually-hidden');
+  list.after(ticker);
+
+  typeLoop(ticker.querySelector('.skill-ticker-text'), skills, { typeSpeed: 55, deleteSpeed: 25, hold: 1400 });
+})();
+
+/* Napíše text raz (písmeno po písmene) s kurzorom; vráti Promise */
+function typeOnce(el, text, speed = 45) {
+  return new Promise((resolve) => {
+    const caret = document.createElement('span');
+    caret.className = 'tw-caret';
+    caret.setAttribute('aria-hidden', 'true');
+    let i = 0;
+    el.textContent = '';
+    el.append(caret);
+    (function step() {
+      if (i < text.length) {
+        caret.before(text[i++]);
+        setTimeout(step, speed);
+      } else {
+        caret.remove();
+        resolve();
+      }
+    })();
+  });
+}
+
+/* Štatistiky v About — vypíšu sa raz, keď sa sekcia zobrazí, jedna po druhej */
+(function initStatsTypewriter() {
+  const box = document.querySelector('[data-type-once]');
+  if (!box || reduceMotion) return;
+  const parts = [...box.querySelectorAll('.stat strong, .stat span')].map((el) => ({ el, text: el.textContent.trim() }));
+
+  /* Celý text ostáva pre čítačky obrazovky v skrytom <span> */
+  box.querySelectorAll('.stat').forEach((stat) => {
+    const full = stat.textContent.replace(/\s+/g, ' ').trim();
+    [...stat.children].forEach((child) => child.setAttribute('aria-hidden', 'true'));
+    const sr = document.createElement('span');
+    sr.className = 'visually-hidden';
+    sr.textContent = full;
+    stat.append(sr);
+  });
+  parts.forEach(({ el }) => { el.textContent = ''; });
+
+  const observer = new IntersectionObserver(async (entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    observer.disconnect();
+    for (const { el, text } of parts) await typeOnce(el, text, el.tagName === 'STRONG' ? 90 : 35);
+  }, { threshold: 0.4 });
+  observer.observe(box);
 })();
 
 /* ============================================================
-   JS 11: Ďalšie stránky — 3D tilt + "Coming soon"
+   JS 11: 3D tilt kociek (Ďalšie stránky + Certifikáty) + "Coming soon"
    ------------------------------------------------------------
    • tilt len pre myš (na dotyku by rušil scroll)
    • kocka s href="#" dostane štítok "Coming soon" a neotvorí sa
    ============================================================ */
 (function initMoreCards() {
-  const cards = document.querySelectorAll('.more-card');
+  const cards = document.querySelectorAll('.more-card, .cat-card');   /* kocky Ďalších stránok aj Certifikátov */
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const MAX_TILT = 10;   /* maximálny náklon v stupňoch */
 
   cards.forEach((card) => {
-    /* Coming soon */
-    if (!card.getAttribute('href') || card.getAttribute('href') === '#') {
+    /* Coming soon (len kocky Ďalších stránok — odkazy <a>) */
+    if (card.matches('a.more-card') && (!card.getAttribute('href') || card.getAttribute('href') === '#')) {
       card.classList.add('is-soon');
       card.setAttribute('aria-disabled', 'true');
       card.removeAttribute('target');
