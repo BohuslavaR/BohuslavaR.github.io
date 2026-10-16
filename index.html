@@ -7,6 +7,7 @@
 <meta name="color-scheme" content="dark light">
 <title>Bohuslava Rozsypalová — Technical Consultant | Web &amp; Data Integrations</title>
 <meta name="description" content="Portfolio and CV of Bohuslava Rozsypalová, Technical Consultant specializing in web and data integrations.">
+<!-- Jazykové verzie stránky -->
 <link rel="alternate" hreflang="en" href="https://bohuslavar.github.io/index.html">
 <link rel="alternate" hreflang="sk" href="https://bohuslavar.github.io/sk.html">
 <link rel="alternate" hreflang="de" href="https://bohuslavar.github.io/de.html">
@@ -15,7 +16,8 @@
 <link rel="apple-touch-icon" href="https://res.cloudinary.com/xbffrklb/image/upload/v1787764963/9043000.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Písma: Montserrat (text) + Audiowide (animované texty) + Caveat (písané popisky v životopise) -->
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="script.js" defer></script>
 </head>
@@ -26,15 +28,15 @@
      ============================================================ -->
 <div class="pipeline" aria-hidden="true">
   <div class="pipeline-track"></div>
-  <div class="pipeline-node" data-target="home" style="top:5vh" data-label="home"></div>
-  <div class="pipeline-node" data-target="about" style="top:16.5vh" data-label="about"></div>
-  <div class="pipeline-node" data-target="more" style="top:28vh" data-label="more pages"></div>
-  <div class="pipeline-node" data-target="certs" style="top:39.5vh" data-label="certificates"></div>
-  <div class="pipeline-node" data-target="motto" style="top:51vh" data-label="motto"></div>
-  <div class="pipeline-node" data-target="game" style="top:62.5vh" data-label="memory game"></div>
-  <div class="pipeline-node" data-target="cv" style="top:74vh" data-label="cv"></div>
-  <div class="pipeline-node" data-target="specimen" style="top:85.5vh" data-label="style specimen"></div>
-  <div class="pipeline-node" data-target="contact" style="top:97vh" data-label="contact"></div>
+  <div class="pipeline-node" data-target="home" style="top:5vh" data-label="Home"></div>
+  <div class="pipeline-node" data-target="about" style="top:16.5vh" data-label="About me"></div>
+  <div class="pipeline-node" data-target="more" style="top:28vh" data-label="Other Web Pages"></div>
+  <div class="pipeline-node" data-target="certs" style="top:39.5vh" data-label="Certificates"></div>
+  <div class="pipeline-node" data-target="motto" style="top:51vh" data-label="Motto"></div>
+  <div class="pipeline-node" data-target="game" style="top:62.5vh" data-label="Pexeso"></div>
+  <div class="pipeline-node" data-target="cv" style="top:74vh" data-label="CV"></div>
+  <div class="pipeline-node" data-target="specimen" style="top:85.5vh" data-label="Style Specimen"></div>
+  <div class="pipeline-node" data-target="contact" style="top:97vh" data-label="Contact"></div>
 </div>
 
 <!-- ============================================================
@@ -49,10 +51,10 @@
         <li><a href="#about" data-nav="about">About</a></li>
         <li><a href="#more" data-nav="more">Pages</a></li>
         <li><a href="#certs" data-nav="certs">Certificates</a></li>
-        <li><a href="#motto" data-nav="motto">Motto</a></li>
-        <li><a href="#game" data-nav="game">Game</a></li>
+        <li class="nav-mobile-only"><a href="#motto" data-nav="motto">Motto</a></li>
+        <li class="nav-mobile-only"><a href="#game" data-nav="game">Game</a></li>
         <li><a href="#cv" data-nav="cv">CV</a></li>
-        <li><a href="#specimen" data-nav="specimen">Style</a></li>
+        <li class="nav-mobile-only"><a href="#specimen" data-nav="specimen">Style</a></li>
         <li><a href="#contact" data-nav="contact">Contact</a></li>
       </ul>
     </nav>
@@ -73,13 +75,13 @@
   </button>
 
   <!-- ============================================================
-       SEKCIA: HOME
+       SEKCIA: ÚVOD — meno, roly (typewriter, script.js JS 10), tlačidlá
        ============================================================ -->
   <section id="home" class="theme-a">
     <div class="home-copy" data-reveal>
       <p class="eyebrow">hello</p>
       <h1>I'm Bohuslava<br>Rozsypalová</h1>
-      <!-- Typewriter — roly oddelené "|" v data-words (animuje script.js, JS 9) -->
+      <!-- Typewriter — roly oddelené "|" v data-words (script.js JS 10) -->
       <p class="typewriter"><span class="visually-hidden">Technical Consultant, Web Developer, Graphic Designer, Photographer</span><span class="tw-prefix" aria-hidden="true">→</span><span class="tw-text" aria-hidden="true" data-words="Technical Consultant|Web Developer|Graphic Designer|Photographer"></span><span class="tw-caret" aria-hidden="true"></span></p>
       <p><span class="role">Technical Consultant</span> — I help companies connect the web and their data into one working system. I design, integrate and fine-tune platforms so information actually makes sense to each other.</p>
       <div class="btn-row">
@@ -94,39 +96,44 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: ABOUT
+       SEKCIA: O MNE — štatistiky, text, animované zručnosti (script.js JS 10)
        ============================================================ -->
-   <section id="about" class="theme-b">
+  <section id="about" class="theme-b">
     <div class="about-grid">
-      <div class="about-stats" data-reveal>
+      <!-- Štatistiky — script.js (JS 10) ich pri zobrazení raz vypíše písacím efektom -->
+      <div class="about-stats" data-reveal data-type-once>
         <div class="stat">
-          <span class="img-slot stat-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span>
-          <div><strong>5+</strong><span>years in web development</span></div>
+          <strong>6+</strong>
+          <span>years in IT &amp; enterprise technologies</span>
         </div>
         <div class="stat">
-          <span class="img-slot stat-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787831828/ChatGPT_Image_27._8._2026_13_56_57.png" alt=""><span class="img-fallback">IMG</span></span>
-          <div><strong>15+</strong><span>years in photography &amp; design</span></div>
+          <strong>15+</strong>
+          <span>years in photography &amp; design</span>
         </div>
         <div class="stat">
-          <span class="img-slot stat-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt=""><span class="img-fallback">IMG</span></span>
-          <div><strong>2</strong><span>languages, B2 level</span></div>
+          <strong>2</strong>
+          <span>foreign languages — English &amp; German B2</span>
         </div>
+        <!-- Malá galéria certifikátov — mení sa každých 5 s, nie je klikateľná (script.js JS 8) -->
+        <figure class="cert-rotator" data-cert-rotator aria-label="Certificates"></figure>
       </div>
       <div class="about-text" data-reveal>
         <p class="eyebrow">about me</p>
         <h2>Connecting technology to results that make sense</h2>
-        <p>Technical Consultant and <strong>JavaScript developer</strong> delivering enterprise IT solutions across international projects in banking, telecommunications and pharma. I build web layers, integrations and data-driven solutions with <strong>JavaScript, REST APIs and SQL</strong> — and I use <strong>generative AI</strong> every day to design, prototype and automate faster.</p>
-        <p>Alongside my IT career, I continue to pursue photography, web and graphic design, bringing a strong visual and creative perspective to digital products, UI/UX and customer-facing solutions.</p>
-        <div class="chips">
-          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span> JavaScript (ES6+)</span>
-          <span class="chip chip-highlight"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt=""><span class="img-fallback">IMG</span></span> Generative AI &amp; Prompt Engineering</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span> Web Development</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt=""><span class="img-fallback">IMG</span></span> Data Integrations</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt=""><span class="img-fallback">IMG</span></span> REST APIs &amp; JSON</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt=""><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt=""><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
-          <span class="chip"><span class="img-slot chip-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806261/ChatGPT_Image_27._8._2026_06_48_27.png" alt=""><span class="img-fallback">IMG</span></span> SQL &amp; Oracle PL/SQL</span>
-        </div>
+        <p>Business and Technical Solution Consultant with <strong>6+ years</strong> of hands-on experience in IT and enterprise technologies, delivering international projects in banking, telecommunications, pharma and other industries. I connect business needs with technical delivery – from analysis and solution design through to implementation – and I am used to managing several projects in parallel.</p>
+        <p>Alongside my IT career, I also work professionally in graphic and web design, bringing a creative and visual dimension to the UI/UX side of my projects. I continuously develop my skills through certifications on both the business and the technical side. My current focus is <strong>AI</strong> – from <strong>generative AI</strong> and large language models to AI agents, predictive analytics and AI-driven personalisation.</p>
+        <!-- Zručnosti — script.js (JS 10) ich vypisuje animovane jednu po druhej;
+             bez JavaScriptu sa zobrazia ako štítky -->
+        <ul class="chips" data-skill-ticker>
+          <li class="chip chip-highlight">JavaScript (ES6+)</li>
+          <li class="chip chip-highlight">Generative AI &amp; Prompt Engineering</li>
+          <li class="chip">Bloomreach Engagement</li>
+          <li class="chip">Salesforce Marketing Cloud</li>
+          <li class="chip">REST APIs &amp; System Integration</li>
+          <li class="chip">SQL &amp; Oracle PL/SQL</li>
+          <li class="chip">Business &amp; Data Analysis</li>
+          <li class="chip">UI/UX &amp; Graphic Design</li>
+        </ul>
       </div>
     </div>
     <button type="button" class="scroll-cue" data-target="more" aria-label="Go to More pages section">
@@ -136,7 +143,7 @@
   </section>
 
   <!-- ============================================================
-       SECTION: MORE PAGES
+       SEKCIA: ĎALŠIE STRÁNKY — kocky s odkazmi, 3D tilt (script.js JS 11)
        ============================================================ -->
   <section id="more" class="theme-a" data-pipeline-label="more pages">
     <p class="eyebrow">more projects</p>
@@ -153,7 +160,7 @@
         <div class="more-card-body">
           <h3>Graphic Portfolio</h3>
           <p>Logos, visual identities, UI concepts and print work in one place.</p>
-          <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
+          <span class="more-card-cta">Visit</span>
         </div>
       </a>
       <!-- 02 Grandhotel -->
@@ -165,7 +172,7 @@
         <div class="more-card-body">
           <h3>Grandhotel</h3>
           <p>A hotel website — from the design concept to responsive development.</p>
-          <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
+          <span class="more-card-cta">Visit</span>
         </div>
       </a>
       <!-- 03 Photography -->
@@ -177,7 +184,7 @@
         <div class="more-card-body">
           <h3>Photography</h3>
           <p>Portraits, products and shelter photography — full series in higher resolution.</p>
-          <span class="more-card-cta">Visit <span aria-hidden="true">→</span></span>
+          <span class="more-card-cta">Visit</span>
         </div>
       </a>
     </div>
@@ -187,12 +194,14 @@
       <span class="scroll-label">scroll</span>
     </button>
   </section>
+
   <!-- ============================================================
-       SEKCIA: CERTIFICATES — galéria certifikátov (dáta v script.js, JS 7)
+       SEKCIA: CERTIFIKÁTY — kocky aj galériu vytvára script.js (JS 8)
        ============================================================ -->
   <section id="certs" class="theme-d">
     <p class="eyebrow">certificates</p>
     <h2 data-reveal>Certificates</h2>
+    <p class="certs-intro" data-reveal>My certificates cover customer data platforms, marketing automation, data analytics and AI – from Salesforce and Bloomreach to Google, HubSpot and LinkedIn Learning. I keep learning all year round alongside my work in tech; my goal for the near future is <strong>Python</strong> and <strong>React</strong>.</p>
     <p class="lead" data-reveal>Choose a category to see the certificates.</p>
 
     <div class="cat-grid" data-role="cat-grid" data-reveal><!-- kocky kategórií vytvára script.js (JS 8) -->
@@ -223,7 +232,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: MOTTO
+       SEKCIA: MOTTO — scratch efekt na canvase (script.js JS 6)
        ============================================================ -->
   <section id="motto" class="theme-c">
     <div class="motto-wrap" data-reveal>
@@ -231,7 +240,9 @@
       <h2>Wipe the screen clean</h2>
       <p class="motto-hint">Click and drag (or swipe) across the panel below to reveal my motto.</p>
       <div class="scratch-box">
-        <div class="scratch-message">"Great integrations are the ones nobody ever notices."</div>
+        <!-- Citáty oddelené "|", autor za " — " (pomlčka s medzerami). Pri každom "Reset"
+             sa zobrazí ďalší (script.js JS 6). Pridajte si vlastné. -->
+        <div class="scratch-message" data-mottos="“Simplicity is the ultimate sophistication.” — Leonardo da Vinci|“Innovation distinguishes between a leader and a follower.” — Steve Jobs|“Fail often so you can succeed sooner.” — Tom Kelley|“Great things in business are never done by one person; they’re done by a team of people.” — Steve Jobs|“Data is a precious thing and will last longer than the systems themselves.” — Tim Berners-Lee|“Your most unhappy customers are your greatest source of learning.” — Bill Gates|“Creativity is thinking up new things. Innovation is doing new things.” — Theodore Levitt">“Simplicity is the ultimate sophistication.”<span class="motto-author">— Leonardo da Vinci</span></div>
         <canvas class="scratch-canvas" id="scratch-canvas"></canvas>
       </div>
       <button type="button" class="pill-btn" id="scratch-reset">Reset</button>
@@ -242,9 +253,8 @@
     </button>
   </section>
 
-
   <!-- ============================================================
-       SEKCIA: MEMORY GAME (pexeso)
+       SEKCIA: PEXESO — karty vytvára script.js (JS 9); na mobile skryté
        ============================================================ -->
   <section id="game" class="theme-a">
     <div class="game-wrap" data-reveal>
@@ -267,7 +277,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: CV
+       SEKCIA: ŽIVOTOPIS — skúsenosti, certifikáty, zručnosti
        ============================================================ -->
   <section id="cv" class="theme-b">
     <div class="cv-top">
@@ -278,62 +288,94 @@
       <a href="https://bohuslavar.github.io/documents/Bohuslava_Rozsypalova_CV.pdf" target="_blank" rel="noopener" class="btn btn-ghost">Download full CV (PDF)</a>
     </div>
     <div class="cv-layout">
-      <!-- Bočný panel s ikonkami — placeholder pre "čo robím", neskôr nahraditeľné vlastnou grafikou -->
+      <!-- Bočný panel — oblasti práce (2 ikonky vedľa seba, písané popisky) -->
       <aside class="cv-icons" aria-label="Areas of work">
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt="Web Development"><span class="img-fallback">IMG</span></span><span>Web Development</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt="APIs & Integrations"><span class="img-fallback">IMG</span></span><span>APIs &amp; Integrations</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt="Bloomreach Engagement"><span class="img-fallback">IMG</span></span><span>Bloomreach Engagement</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt="Salesforce Marketing Cloud"><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt="Design & Creative"><span class="img-fallback">IMG</span></span><span>Design &amp; Creative</span></div>
-        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt="Languages"><span class="img-fallback">IMG</span></span><span>Languages</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_22.png" alt=""><span class="img-fallback">IMG</span></span><span>Web Development</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_48_34.png" alt=""><span class="img-fallback">IMG</span></span><span>APIs &amp; Integrations</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt=""><span class="img-fallback">IMG</span></span><span>Bloomreach Engagement</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt=""><span class="img-fallback">IMG</span></span><span>Salesforce Marketing Cloud</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787806260/ChatGPT_Image_27._8._2026_06_47_56.png" alt=""><span class="img-fallback">IMG</span></span><span>Data &amp; Analytics</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt=""><span class="img-fallback">IMG</span></span><span>AI &amp; Automation</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807887/ChatGPT_Image_27._8._2026_07_17_53.png" alt=""><span class="img-fallback">IMG</span></span><span>Design &amp; Creative</span></div>
+        <div class="cv-icon-item"><span class="img-slot cv-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787807628/ChatGPT_Image_27._8._2026_07_13_37.png" alt=""><span class="img-fallback">IMG</span></span><span>Languages</span></div>
       </aside>
       <div class="cv-scroll" data-reveal>
+        <!-- Obsah podľa PDF životopisu (Bohuslava_Rozsypalova_CV.pdf) -->
         <div class="timeline">
           <div class="t-item">
             <div class="period">Nov 2024 — Present</div>
             <div>
               <h3>Adastra s.r.o., Bratislava</h3>
-              <span class="role">Business Solution Consultant — Data, Development &amp; Integrations</span>
+              <span class="role">Business Solution Consultant | Customer Data Platform Specialist</span>
+              <p class="t-project">Orange Moldova | Yettel Bulgaria | A1 Croatia | Orange Slovakia</p>
               <ul>
-                <li>Design customer-facing solutions with JavaScript, HTML/CSS, REST APIs, JSON and Jinja, including interactive web layers and dynamic content.</li>
-                <li>Integrate websites and mobile apps with Bloomreach to support data-driven personalization and customer journeys.</li>
-                <li>Conduct as-is / gap analyses and lead technical workshops with client stakeholders.</li>
-                <li>Built omnichannel personalization for Orange Moldova, Yettel Bulgaria and A1 Croatia; SQL/PL-SQL reporting for a Serbian banking project; supported a Real-Time Decisioning rollout for O2 Slovakia.</li>
+                <li>Delivering CDP projects for international telecom clients, from initial analysis and solution design through implementation, primarily in Bloomreach Engagement.</li>
+                <li>Running workshops with business, marketing and IT stakeholders and turning their requirements into target data models, technical specifications and delivery plans.</li>
+                <li>Configuring the Bloomreach Engagement project setup, including customer identifiers and identity resolution, customer attributes, event structure, product catalogs and consent categories, ensuring a consistent data foundation for all use cases.</li>
+                <li>Connecting websites, mobile apps and backend systems to the CDP through REST APIs, webhooks, Mobile SDK and Tag Manager for real-time data collection.</li>
+                <li>Building omnichannel customer journeys across email, web, push and in-app – including segmentation, triggers, content creation, personalised weblayers, push notifications and reusable responsive templates, with a strong focus on UI/UX and customer experience.</li>
+                <li>Analysing customer, campaign and behavioural data – as-is, gap and data-quality analysis, funnels and segment performance – and using the findings to improve targeting and personalisation.</li>
+                <li>Owning requirements, user stories and documentation across parallel projects, and reporting progress and risks at steering committee level.</li>
+                <li>Coordinating marketing, development and data teams on the client side throughout delivery, keeping technical implementation aligned with business goals and timelines.</li>
               </ul>
+              <p class="t-project">O2 Slovakia | Real-Time Decisioning</p>
+              <ul>
+                <li>Implemented an enterprise Real-Time Decisioning platform, translating client business rules into application logic and configuration.</li>
+                <li>Analysed the client's subscriber, customer and product data – entities, relationships and hierarchies – and translated that structure into the platform's decisioning logic.</li>
+                <li>Managed requirements, user stories and technical documentation, keeping business scope and development aligned.</li>
+                <li>Designed and implemented a client-specific GUI customization on top of the standard RTDE interface.</li>
+                <li>Reported delivery progress, risks and dependencies at SteerCo and project governance level.</li>
+              </ul>
+              <p class="t-project">Serbian Banking Project | Oracle PL/SQL &amp; Data</p>
+              <ul>
+                <li>Developed SQL solutions for reporting, data validation and control processes, including complex queries, reporting tables and validation structures.</li>
+                <li>Performed data reconciliation, consistency checks and migration validation across relational datasets, identifying discrepancies, missing records and data-quality issues.</li>
+              </ul>
+              <p class="t-tech"><span class="t-tech-label">Technologies &amp; skills applied:</span> Bloomreach Engagement · Bloomreach Mobile SDK &amp; Tag Manager · Real-Time Decisioning · Oracle PL/SQL · JavaScript · HTML5/CSS3 · Jinja2 · JSON · REST APIs · Custom Webhooks · API Authentication · Postman · Customer &amp; Relational Data Modeling · Data Mapping · Data Quality Controls · As-Is &amp; Gap Analysis · Campaign Analysis · Custom Template Development · Responsive Design · Figma · Adobe Creative Cloud (Photoshop, Illustrator, InDesign) · Agile · Jira · Confluence · Git · Generative AI</p>
             </div>
           </div>
           <div class="t-item">
             <div class="period">Aug 2021 — Oct 2024</div>
             <div>
               <h3>IBM Slovensko s.r.o., Košice</h3>
-              <span class="role">Salesforce Marketing Cloud Developer &amp; Consultant</span>
+              <span class="role">Salesforce Marketing Cloud Technical Consultant &amp; Developer</span>
               <ul>
-                <li>Implemented and automated multichannel campaigns for an international pharmaceutical client using Salesforce Marketing Cloud.</li>
-                <li>Built responsive email templates, landing pages and microsites with HTML5, CSS3 and JavaScript; reusable master templates in Figma.</li>
-                <li>Developed Data Extensions, audience segments and personalization logic with SQL, SOQL and AMPscript.</li>
-                <li>Integrated Google Analytics and OneTrust Cookie Consent across microsites; managed CRM Orbit access.</li>
+                <li>Implemented automated multichannel customer communications and marketing campaigns in Salesforce Marketing Cloud.</li>
+                <li>Designed and developed responsive email templates, landing pages, microsites and dynamic content, including reusable master templates and component-based designs.</li>
+                <li>Built and maintained Data Extensions, audience segments, personalization rules and data-selection logic supporting targeted communications and automated campaign execution.</li>
+                <li>Integrated Salesforce Marketing Cloud with CRM systems and external web services via REST and SOAP APIs, automating data flows and keeping data consistent across platforms.</li>
+                <li>Validated data and resolved incidents using Salesforce Inspector and SOQL; implemented Google Analytics and OneTrust Cookie Consent on delivered pages.</li>
+                <li>Managed users, client accounts, roles, permissions and data-access rights in Orbit CRM.</li>
+                <li>Analyzed campaign performance, customer engagement and behavioral data to identify optimization opportunities and improve targeting, personalization and communication effectiveness.</li>
               </ul>
+              <p class="t-tech"><span class="t-tech-label">Technologies &amp; skills applied:</span> Salesforce Marketing Cloud · Orbit &amp; Veeva CRM · Salesforce Inspector · AMPscript · SQL · SOQL · HTML/CSS · JavaScript · TailwindCSS · REST &amp; SOAP API Integration · Data Extensions &amp; Data Modeling · Audience Segmentation · Personalization &amp; Dynamic Content · Campaign Automation · A/B Testing · Campaign Performance Analysis · Google Analytics · OneTrust / GDPR Consent Management · Responsive Email &amp; Landing Page Development · Figma · Git / GitHub</p>
             </div>
           </div>
           <div class="t-item">
             <div class="period">Jul 2020 — Jul 2021</div>
             <div>
               <h3>M-Victory s.r.o., Košice</h3>
-              <span class="role">Web Designer — Website Design Creator</span>
+              <span class="role">Web Designer | Website Design Creator (one-year project)</span>
               <ul>
-                <li>Designed visual concepts and UI for websites — layouts, icons and graphics in Adobe Illustrator &amp; Photoshop.</li>
-                <li>Created responsive, brand-aligned designs with a focus on UI/UX and usability, collaborating with dev and QA teams.</li>
+                <li>Designed the visual concept and UI of the website, including page layouts, visual elements, icons and graphics, primarily using Adobe Illustrator, InDesign, XD and other Adobe tools.</li>
+                <li>Created responsive and brand-aligned website designs with a strong focus on UI/UX, intuitive navigation, typography, color and usability.</li>
+                <li>Presented design concepts to the client and led the design through review and approval rounds.</li>
+                <li>Collaborated closely with development and QA teams throughout the implementation, testing and refinement of the website.</li>
+                <li>Reviewed implemented components against the original designs and ensured visual consistency, usability and alignment with technical requirements.</li>
               </ul>
+              <p class="t-tech"><span class="t-tech-label">Technologies &amp; skills applied:</span> Web Design · UI/UX Design · Responsive &amp; Mobile-First Design · Logo &amp; Brand Identity Design · Brand Guidelines &amp; Consistency · Information Architecture · Navigation Design · User Flows · Landing Page Design · Typography · Color Theory · Visual Hierarchy · Usability &amp; Accessibility Basics · Image Editing &amp; Web Asset Optimization · Figma · Adobe Illustrator, InDesign, Photoshop, XD, Dreamweaver</p>
             </div>
           </div>
           <div class="t-item">
             <div class="period">Dec 2016 — Jul 2020</div>
             <div>
               <h3>LafargeHolcim EBS s.r.o., Košice</h3>
-              <span class="role">Accounts Payable Coordinator (German &amp; English)</span>
+              <span class="role">Accounts Payable Specialist | Coordinator</span>
               <ul>
-                <li>Processed supplier invoices in SAP and coordinated an Accounts Payable team for the Southern Germany region.</li>
-                <li>Managed vendor communication and supported month-end closing and reporting.</li>
+                <li>Processed and verified supplier invoices in SAP (FI), ensuring accurate accounting data and compliance with internal financial procedures.</li>
+                <li>Coordinated a small Accounts Payable team supporting the Southern Germany region, including workload distribution, issue resolution and monitoring of daily processing activities.</li>
+                <li>Managed vendor communication and resolved invoice-related queries and payment issues in German and English.</li>
+                <li>Held weekly coordination meetings with colleagues in Germany to review operational priorities, open items, workload and process-related topics.</li>
               </ul>
             </div>
           </div>
@@ -341,9 +383,10 @@
             <div class="period">Aug 2014 — Sep 2016</div>
             <div>
               <h3>Otto WorkForce b.v., Netherlands</h3>
-              <span class="role">Warehouse Operator — G-Star RAW Designer Assistant</span>
+              <span class="role">Warehouse Operator | G-Star RAW</span>
               <ul>
-                <li>Monitored stock levels, supported warehouse operations and maintained order records.</li>
+                <li>Monitored stock levels and supported warehouse operations, ensuring accurate inventory tracking and replenishment.</li>
+                <li>Maintained order records and communicated inventory issues or shortages to relevant departments.</li>
               </ul>
             </div>
           </div>
@@ -351,60 +394,96 @@
             <div class="period">2010 — 2014</div>
             <div>
               <h3>School of Arts, Košice</h3>
-              <span class="role">Photography and Graphic Design</span>
+              <span class="role">Graphic Design and Photography</span>
             </div>
           </div>
         </div>
 
         <div class="cv-skills">
           <h3>Certifications</h3>
-          <p class="cv-certs-text">Salesforce Certified Marketing Cloud Consultant, Developer, Administrator &amp; Engagement Specialist · Bloomreach Academy: Discovery &amp; Engagement (Jinja Unlocked, Jinja Jumpstart, Data Hub) · IBM Industry Certifications (Banking, Telecom, Healthcare)</p>
+          <p class="cv-certs-text">All certificates – Salesforce, Bloomreach, Google, HubSpot and LinkedIn Learning – are in the Certificates section above and as a <a href="https://bohuslavar.github.io/documents/Certifications.pdf" target="_blank" rel="noopener">PDF overview</a>.</p>
         </div>
 
         <div class="cv-skills">
           <h3>Technical Skills</h3>
           <div class="skill-cats">
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817290/12073517.png" alt=""><span class="img-fallback">IMG</span></span> Development &amp; Data</span>
-              <div class="skill-tags">
-                <span class="skill-tag">JavaScript</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span>
-                <span class="skill-tag">Tailwind CSS</span><span class="skill-tag">SQL</span><span class="skill-tag">Oracle PL/SQL</span>
-                <span class="skill-tag">SOQL</span><span class="skill-tag">AMPscript</span><span class="skill-tag">Jinja</span>
-              </div>
+              <span class="cat-title">Development &amp; Data</span>
+              <div class="skill-tags"><span class="skill-tag">JavaScript (ES6+)</span><span class="skill-tag">Node.js</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">SQL</span><span class="skill-tag">SOQL</span><span class="skill-tag">Oracle PL/SQL</span><span class="skill-tag">AMPscript</span><span class="skill-tag">Jinja2</span><span class="skill-tag">JSON</span><span class="skill-tag">XML</span><span class="skill-tag">Regex</span><span class="skill-tag">Git / GitHub</span></div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817486/17335208.png" alt=""><span class="img-fallback">IMG</span></span> APIs &amp; Integration</span>
-              <div class="skill-tags">
-                <span class="skill-tag">REST APIs</span><span class="skill-tag">JSON</span><span class="skill-tag">Web Services</span>
-                <span class="skill-tag">System Integration</span><span class="skill-tag">Postman</span>
-              </div>
+              <span class="cat-title">APIs &amp; Integration</span>
+              <div class="skill-tags"><span class="skill-tag">REST APIs</span><span class="skill-tag">SOAP / Web Services</span><span class="skill-tag">Custom Webhooks</span><span class="skill-tag">Postman</span><span class="skill-tag">JSON &amp; Payload Mapping</span><span class="skill-tag">API Authentication (Bearer, API Key, Basic Auth)</span><span class="skill-tag">API Testing &amp; Debugging</span><span class="skill-tag">Real-Time Data Collection</span><span class="skill-tag">System &amp; Data Integration</span><span class="skill-tag">Mobile SDK Integration</span><span class="skill-tag">Error Handling &amp; Retry Logic</span></div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787771329/images-5.png" alt=""><span class="img-fallback">IMG</span></span> Bloomreach Engagement</span>
-              <div class="skill-tags">
-                <span class="skill-tag">Journey Orchestration</span><span class="skill-tag">Weblayers</span><span class="skill-tag">Dynamic Content</span>
-                <span class="skill-tag">Segmentation</span><span class="skill-tag">Funnels &amp; Reporting</span><span class="skill-tag">Metrics &amp; Aggregates</span>
-              </div>
+              <span class="cat-title">AI &amp; Automation</span>
+              <div class="skill-tags"><span class="skill-tag">Generative AI (LLM-Assisted Delivery)</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI-Assisted Development &amp; Debugging</span><span class="skill-tag">AI-Assisted Data Analysis &amp; Validation</span><span class="skill-tag">Workflow Automation</span><span class="skill-tag">AI Tool Evaluation</span><span class="skill-tag">AI-Generated Content &amp; Documentation</span></div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787816315/Salesforce-Logo.png" alt=""><span class="img-fallback">IMG</span></span> Salesforce Marketing Cloud</span>
-              <div class="skill-tags">
-                <span class="skill-tag">Journey Builder</span><span class="skill-tag">Automation Studio</span><span class="skill-tag">Data Extensions</span>
-                <span class="skill-tag">Email &amp; Mobile Studio</span><span class="skill-tag">A/B Testing</span>
-              </div>
+              <span class="cat-title">Business Analysis &amp; Delivery</span>
+              <div class="skill-tags"><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Business Process Analysis</span><span class="skill-tag">As-Is &amp; Gap Analysis</span><span class="skill-tag">Use Case &amp; User Story Definition</span><span class="skill-tag">Acceptance Criteria &amp; UAT Support</span><span class="skill-tag">Impact &amp; Dependency Analysis</span><span class="skill-tag">Process &amp; Solution Documentation</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Development &amp; Enterprise Tools</h3>
+          <div class="skill-cats">
+            <div class="skill-cat">
+              <span class="cat-title">Development</span>
+              <div class="skill-tags"><span class="skill-tag">Visual Studio Code</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">Sublime Text</span><span class="skill-tag">Brackets</span><span class="skill-tag">Postman</span><span class="skill-tag">Webhook.site</span><span class="skill-tag">Chrome DevTools</span></div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817398/adobe-creative-cloud-logo-free-png.webp" alt=""><span class="img-fallback">IMG</span></span> Design &amp; Creative</span>
-              <div class="skill-tags">
-                <span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span>
-                <span class="skill-tag">XD</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span>
-              </div>
+              <span class="cat-title">Data &amp; Analytics</span>
+              <div class="skill-tags"><span class="skill-tag">Power BI</span><span class="skill-tag">Hadoop</span><span class="skill-tag">Qlik Sense</span><span class="skill-tag">Excel (advanced)</span><span class="skill-tag">Salesforce Inspector</span><span class="skill-tag">Google Analytics</span></div>
             </div>
             <div class="skill-cat">
-              <span class="cat-title"><span class="img-slot skill-icon-slot"><img loading="lazy" src="https://res.cloudinary.com/xbffrklb/image/upload/v1787817060/3898082.png" alt=""><span class="img-fallback">IMG</span></span> Languages</span>
-              <div class="skill-tags">
-                <span class="skill-tag">English — B2</span><span class="skill-tag">German — B2</span>
-              </div>
+              <span class="cat-title">AI Tools</span>
+              <div class="skill-tags"><span class="skill-tag">ChatGPT</span><span class="skill-tag">Claude</span><span class="skill-tag">Gemini</span><span class="skill-tag">Perplexity</span><span class="skill-tag">Microsoft Copilot</span><span class="skill-tag">Custom GPTs</span></div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title">APIs &amp; Testing Tools</span>
+              <div class="skill-tags"><span class="skill-tag">Postman</span><span class="skill-tag">Webhook.site</span><span class="skill-tag">cURL</span><span class="skill-tag">Swagger / OpenAPI UI</span><span class="skill-tag">JSON Formatter &amp; Validators</span><span class="skill-tag">Base64 / JWT decoders</span></div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title">Enterprise &amp; CRM</span>
+              <div class="skill-tags"><span class="skill-tag">SAP</span><span class="skill-tag">Orbit</span><span class="skill-tag">Veeva</span><span class="skill-tag">ON24</span><span class="skill-tag">OneTrust Cookie Consent</span></div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title">Delivery &amp; Collaboration</span>
+              <div class="skill-tags"><span class="skill-tag">Jira</span><span class="skill-tag">Confluence</span><span class="skill-tag">Miro</span><span class="skill-tag">Microsoft Visio</span><span class="skill-tag">Microsoft Teams</span><span class="skill-tag">SharePoint</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Design &amp; Creative Tools</h3>
+          <div class="skill-cats">
+            <div class="skill-cat">
+              <span class="cat-title">Adobe Creative Cloud</span>
+              <div class="skill-tags"><span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">InDesign</span><span class="skill-tag">Dreamweaver</span><span class="skill-tag">Lightroom</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">After Effects</span><span class="skill-tag">XD</span><span class="skill-tag">Acrobat</span></div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title">Other tools</span>
+              <div class="skill-tags"><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span><span class="skill-tag">DaVinci Resolve</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-skills">
+          <h3>Languages &amp; Strengths</h3>
+          <div class="skill-cats">
+            <div class="skill-cat">
+              <span class="cat-title">Languages</span>
+              <div class="skill-tags"><span class="skill-tag">English — B2</span><span class="skill-tag">German — B2</span></div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title">Courses</span>
+              <div class="skill-tags"><span class="skill-tag">Empire — German Language course (B2)</span></div>
+            </div>
+            <div class="skill-cat">
+              <span class="cat-title">Core strengths</span>
+              <div class="skill-tags"><span class="skill-tag">Proactive</span><span class="skill-tag">Organizational skills</span><span class="skill-tag">Adaptability</span><span class="skill-tag">Analytical thinking</span><span class="skill-tag">Stakeholder communication</span><span class="skill-tag">Cross-functional collaboration</span><span class="skill-tag">Creativity</span><span class="skill-tag">Attention to detail</span></div>
             </div>
           </div>
         </div>
@@ -418,7 +497,7 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: TYPE & COLOR SPECIMEN
+       SEKCIA: PÍSMO A FARBY — ukážka písiem a palety
        ============================================================ -->
   <section id="specimen" class="theme-f">
     <p class="eyebrow">specimen</p>
@@ -434,15 +513,19 @@
         <div class="spec-light">Aa Bb Cc — Light 300 / captions &amp; notes</div>
       </div>
       <div class="spec-row">
+        <div class="spec-label">Display typeface — Audiowide (animated skills in About)</div>
+        <div class="spec-display">Aa Bb Cc — JavaScript · Generative AI</div>
+      </div>
+      <div class="spec-row">
         <div class="spec-label">Palette — Dusk Horizon</div>
         <div class="swatches">
           <div class="swatch"><div class="swatch-color" style="--swatch:#050511"></div><span>Ink<br>#050511</span></div>
-          <div class="swatch"><div class="swatch-color" style="--swatch:#311B2F"></div><span>Plum<br>#311B2F</span></div>
-          <div class="swatch"><div class="swatch-color" style="--swatch:#6B354C"></div><span>Mauve<br>#6B354C</span></div>
-          <div class="swatch"><div class="swatch-color" style="--swatch:#933A3C"></div><span>Terracotta<br>#933A3C</span></div>
-          <div class="swatch"><div class="swatch-color" style="--swatch:#D26661"></div><span>Coral<br>#D26661</span></div>
-          <div class="swatch"><div class="swatch-color" style="--swatch:#F2D1D0"></div><span>Peach<br>#F2D1D0</span></div>
-          <div class="swatch"><div class="swatch-color" style="--swatch:#F5E3F3"></div><span>Mist<br>#F5E3F3</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#020828"></div><span>Midnight<br>#020828</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#0C1534"></div><span>Navy<br>#0C1534</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#354458"></div><span>Slate<br>#354458</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#BABDDF"></div><span>Sky<br>#BABDDF</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#AC8E80"></div><span>Taupe<br>#AC8E80</span></div>
+          <div class="swatch"><div class="swatch-color" style="--swatch:#E3E4F5"></div><span>Frost<br>#E3E4F5</span></div>
         </div>
       </div>
     </div>
@@ -453,14 +536,14 @@
   </section>
 
   <!-- ============================================================
-       SEKCIA: CONTACT
+       SEKCIA: KONTAKT — formulár cez FormSubmit (script.js JS 5)
        ============================================================ -->
   <section id="contact" class="theme-c">
     <div class="contact-grid">
       <div data-reveal>
         <p class="eyebrow">contact</p>
         <h2>Let's connect your project</h2>
-        <!-- Fotka + meno pri formulári -->
+        <!-- Fotka + meno (desktop: ľavý stĺpec, mobil: nad formulárom) -->
         <div class="contact-person">
           <span class="img-slot contact-photo">
             <img loading="lazy" src="https://res.cloudinary.com/livyisn3/image/upload/v1789982652/BohuslavaR.png" alt="Bohuslava Rozsypalová">
@@ -479,9 +562,9 @@
           <span>Košice / Bratislava, Slovakia</span>
         </div>
       </div>
-      <!-- Formulár posiela dáta cez FormSubmit priamo na b.rozsypalova@gmail.com.
-           Pri prvom odoslaní príde potvrdzujúci e-mail, ktorý treba raz potvrdiť.
-           Polia Name a Message kontroluje script.js (JS 4) na zakázané slová. -->
+      <!-- Formulár posiela dáta cez FormSubmit na b.rozsypalova@gmail.com
+           (pri prvom odoslaní treba raz potvrdiť e-mail od FormSubmit).
+           Polia meno a správa kontroluje script.js (JS 5) na zakázané slová. -->
       <form id="contact-form" data-reveal aria-label="Contact form" action="https://formsubmit.co/b.rozsypalova@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New message from your portfolio site">
         <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
